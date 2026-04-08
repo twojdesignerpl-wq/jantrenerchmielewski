@@ -13,6 +13,7 @@ const VERTEX_SHADER = `
   uniform float u_scroll;
   uniform vec2 u_resolution;
   uniform float u_dpr;
+  uniform float u_maxPointSize;
 
   varying float v_alpha;
   varying float v_brightness;
@@ -34,11 +35,11 @@ const VERTEX_SHADER = `
     pos.y = mod(pos.y + 1.3, 2.6) - 1.3;
 
     gl_Position = vec4(pos, 0.0, 1.0);
-    gl_PointSize = a_size * u_dpr;
+    gl_PointSize = min(a_size * u_dpr, u_maxPointSize);
 
     // Fade at edges
     float edgeFade = smoothstep(-1.3, -0.9, pos.y) * smoothstep(1.3, 0.9, pos.y);
-    float layerAlpha = 0.5 + a_layer * 0.25;
+    float layerAlpha = 0.6 + a_layer * 0.2;
     v_alpha = layerAlpha * edgeFade;
     v_brightness = a_brightness;
   }
@@ -136,7 +137,7 @@ export function createParticleEngine(
     particleCount = 40,
     // Brand cyan: oklch(0.65 0.18 210) ≈ rgb(56, 178, 217)
     color = [0.22, 0.70, 0.85],
-    opacity = 0.25,
+    opacity = 0.6,
     speed = 1.0,
   } = options;
 
@@ -169,6 +170,10 @@ export function createParticleEngine(
   const uDpr = gl.getUniformLocation(program, 'u_dpr');
   const uColor = gl.getUniformLocation(program, 'u_color');
   const uBaseOpacity = gl.getUniformLocation(program, 'u_baseOpacity');
+  const uMaxPointSize = gl.getUniformLocation(program, 'u_maxPointSize');
+
+  // Query GPU max point size and clamp
+  const maxPointSize = gl.getParameter(gl.ALIASED_POINT_SIZE_RANGE)[1] as number;
 
   // Generate particle data
   const rand = seededRandom(42);
@@ -179,7 +184,7 @@ export function createParticleEngine(
     const offset = i * FLOATS_PER_PARTICLE;
     data[offset + 0] = rand() * 2.4 - 1.2; // x: [-1.2, 1.2]
     data[offset + 1] = rand() * 2.6 - 1.3; // y: [-1.3, 1.3]
-    data[offset + 2] = 12 + rand() * 60; // size: [12, 72] px
+    data[offset + 2] = 8 + rand() * 32; // size: [8, 40] px
     data[offset + 3] = 0.2 + rand() * 0.8; // speed multiplier
     data[offset + 4] = rand() * Math.PI * 2; // phase
     data[offset + 5] = Math.floor(rand() * 3); // layer: 0, 1, 2
@@ -261,6 +266,7 @@ export function createParticleEngine(
     gl.uniform1f(uDpr, dpr);
     gl.uniform3f(uColor, color[0], color[1], color[2]);
     gl.uniform1f(uBaseOpacity, opacity);
+    gl.uniform1f(uMaxPointSize, maxPointSize);
 
     gl.drawArrays(gl.POINTS, 0, particleCount);
 

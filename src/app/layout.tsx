@@ -97,16 +97,16 @@ export default function RootLayout({
   return (
     <html
       lang="pl"
-      className={`${syne.variable} ${outfit.variable} ${geistMono.variable} dark`}
+      className={`${syne.variable} ${outfit.variable} ${geistMono.variable} dark bg-background`}
       suppressHydrationWarning
     >
-      <body className="min-h-[100dvh] bg-background text-foreground antialiased" suppressHydrationWarning>
+      <body className="min-h-[100dvh] text-foreground antialiased" suppressHydrationWarning>
+        {/* WebGL animated background — must be first in DOM, below content */}
+        <WebGLBackgroundLoader />
+
         <TooltipProvider>
           {children}
         </TooltipProvider>
-
-        {/* WebGL animated background */}
-        <WebGLBackgroundLoader />
 
         {/* Grain texture overlay */}
         <div
