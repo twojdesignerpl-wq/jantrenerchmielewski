@@ -3,6 +3,8 @@ import { Syne, Outfit, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { CustomCursor } from "@/components/shared/CustomCursor";
+import { WebGLBackgroundLoader } from "@/components/background/WebGLBackgroundLoader";
 import "./globals.css";
 
 const syne = Syne({
@@ -103,12 +105,16 @@ export default function RootLayout({
           {children}
         </TooltipProvider>
 
+        {/* WebGL animated background */}
+        <WebGLBackgroundLoader />
+
         {/* Grain texture overlay */}
         <div
           className="pointer-events-none fixed inset-0 z-50 bg-grain opacity-[0.03]"
           aria-hidden="true"
         />
 
+        <CustomCursor />
         <Analytics />
         <SpeedInsights />
       </body>

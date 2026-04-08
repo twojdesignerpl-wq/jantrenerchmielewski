@@ -231,3 +231,10 @@ body {
     background-image: radial-gradient(ellipse 80% 50% at 50% 100%, oklch(0.65 0.18 210 / 4%) 0%, transparent 70%);
   }
 }
+
+/* ===== GLOW PULSE ANIMATION ===== */
+@keyframes glowPulse {
+  0% { opacity: 0; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1.02); }
+  100% { opacity: 0.4; transform: scale(1); }
+}

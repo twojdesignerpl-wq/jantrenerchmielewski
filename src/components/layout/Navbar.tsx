@@ -103,8 +103,8 @@ function DesktopNav({ pathname }: { pathname: string }) {
               <NavigationMenuItem key="oferta">
                 <NavigationMenuTrigger
                   className={cn(
-                    "relative bg-transparent px-3 py-1.5",
-                    "font-[family-name:var(--font-sans)] text-sm font-medium transition-colors",
+                    "relative bg-transparent px-4 py-2",
+                    "font-[family-name:var(--font-sans)] text-[0.938rem] font-medium transition-colors",
                     "hover:bg-transparent hover:text-foreground",
                     "data-popup-open:bg-transparent data-popup-open:text-foreground",
                     "data-open:bg-transparent",
@@ -162,8 +162,8 @@ function DesktopNav({ pathname }: { pathname: string }) {
                   <Link
                     href={item.href}
                     className={cn(
-                      "relative inline-flex items-center rounded-md px-3 py-1.5",
-                      "font-[family-name:var(--font-sans)] text-sm font-medium transition-colors",
+                      "relative inline-flex items-center rounded-md px-4 py-2",
+                      "font-[family-name:var(--font-sans)] text-[0.938rem] font-medium transition-colors",
                       focusRing,
                       isActive
                         ? "text-foreground"
@@ -268,29 +268,29 @@ export function Navbar() {
       transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
     >
       <Container>
-        <div className="flex h-16 items-center justify-between gap-6 md:h-[4.5rem]">
+        <div className="flex h-18 items-center justify-between gap-6 md:h-20">
 
           {/* Logo */}
           <Link
             href="/"
             className={cn(
-              "group flex shrink-0 items-center gap-2.5 rounded-md",
+              "group flex shrink-0 items-center gap-3 rounded-md",
               focusRing
             )}
             aria-label="Jan Chmielewski — strona główna"
           >
-            <div className="relative size-10 overflow-hidden rounded-full ring-1 ring-[oklch(0.25_0.02_240)] transition-shadow group-hover:ring-[oklch(0.65_0.18_210/50%)]">
+            <div className="relative size-11 overflow-hidden rounded-full ring-1 ring-[oklch(0.25_0.02_240)] transition-all duration-300 group-hover:ring-[oklch(0.65_0.18_210/50%)] group-hover:shadow-[0_0_16px_oklch(0.65_0.18_210/20%)] md:size-12">
               <Image
                 src="/images/logo.png"
                 alt="Logo Jan Chmielewski"
                 fill
-                className="object-cover"
-                sizes="40px"
+                className="object-cover transition-transform duration-300 group-hover:scale-[1.05]"
+                sizes="48px"
                 priority
               />
             </div>
             <span
-              className="font-[family-name:var(--font-heading)] text-lg font-bold tracking-tight text-foreground"
+              className="font-[family-name:var(--font-heading)] text-xl font-bold tracking-tight text-foreground transition-colors duration-300 group-hover:text-[var(--cyan)]"
               aria-hidden="true"
             >
               JC
@@ -310,9 +310,9 @@ export function Navbar() {
             <Link
               href="/kontakt"
               className={cn(
-                "glow-cyan inline-flex items-center justify-center rounded-full px-5 py-2",
-                "bg-[var(--cyan)] font-[family-name:var(--font-sans)] text-sm font-semibold text-[oklch(0.10_0.02_240)]",
-                "transition-all hover:scale-[1.02] hover:bg-[var(--cyan-glow)] hover:shadow-[0_0_28px_oklch(0.65_0.18_210/35%)]",
+                "glow-cyan inline-flex items-center justify-center rounded-full px-7 py-2.5",
+                "bg-[var(--cyan)] font-[family-name:var(--font-sans)] text-[0.938rem] font-semibold text-[oklch(0.10_0.02_240)]",
+                "transition-all duration-300 hover:scale-[1.04] hover:bg-[var(--cyan-glow)] hover:shadow-[0_0_36px_oklch(0.65_0.18_210/40%)]",
                 "active:scale-[0.98]",
                 focusRing
               )}
@@ -333,15 +333,15 @@ export function Navbar() {
                 aria-expanded={mobileOpen}
                 aria-controls="mobile-nav"
                 className={cn(
-                  "inline-flex size-9 items-center justify-center rounded-lg transition-colors",
+                  "inline-flex size-10 items-center justify-center rounded-lg transition-colors",
                   "text-foreground hover:bg-[var(--surface-elevated)]",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 )}
               >
                 {mobileOpen ? (
-                  <X size={22} weight="bold" aria-hidden="true" />
+                  <X size={24} weight="bold" aria-hidden="true" />
                 ) : (
-                  <List size={22} weight="bold" aria-hidden="true" />
+                  <List size={24} weight="bold" aria-hidden="true" />
                 )}
               </SheetTrigger>
 
