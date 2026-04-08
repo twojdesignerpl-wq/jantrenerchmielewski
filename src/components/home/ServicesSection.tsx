@@ -222,8 +222,8 @@ export function ServicesSection() {
           <ServiceRow
             index={0}
             imageLeft={true}
-            imageSrc="https://picsum.photos/seed/diet-food/600/400"
-            imageAlt="Zdrowe posiłki — dieta online"
+            imageSrc="/images/oferta-dieta.png"
+            imageAlt="Plan diety — zdrowy posiłek i tablet z jadłospisem"
             icon={<BowlFood size={24} weight="fill" />}
             title="Dieta 4-tygodniowa"
             description="Spersonalizowany plan żywieniowy oparty na Twoich celach, preferencjach i stylu życia. Wiedza magistra fizjoterapii w służbie Twojego zdrowia."
@@ -241,8 +241,8 @@ export function ServicesSection() {
           <ServiceRow
             index={1}
             imageLeft={false}
-            imageSrc="https://picsum.photos/seed/gym-barbell/600/400"
-            imageAlt="Siłownia — plan treningowy"
+            imageSrc="/images/oferta-plan-treningowy.png"
+            imageAlt="Plan treningowy — mężczyzna z telefonem na siłowni"
             icon={<Barbell size={24} weight="fill" />}
             title="Plan Treningowy 8-tygodniowy"
             description="Ośmiotygodniowy program dopasowany do Twojego poziomu zaawansowania i dostępnego sprzętu. Progresja zapewniająca ciągłe wyniki."
@@ -259,8 +259,8 @@ export function ServicesSection() {
           <ServiceRow
             index={2}
             imageLeft={true}
-            imageSrc="https://picsum.photos/seed/online-coaching/600/400"
-            imageAlt="Prowadzenie online — coaching"
+            imageSrc="/images/oferta-prowadzenie-online.png"
+            imageAlt="Prowadzenie online — kobieta ćwiczy z trenerem przez laptop"
             icon={<ChatsCircle size={24} weight="fill" />}
             title="Prowadzenie Online"
             description="Kompleksowe prowadzenie łączące dietę i trening w jednym abonamencie. Cotygodniowe raporty, korekty i nieograniczony dostęp do trenera."
@@ -280,8 +280,8 @@ export function ServicesSection() {
           <ServiceRow
             index={3}
             imageLeft={false}
-            imageSrc="https://picsum.photos/seed/personal-training-gym/600/400"
-            imageAlt="Trening personalny w Chełmży"
+            imageSrc="/images/oferta-trening-personalny.png"
+            imageAlt="Trening personalny — trener koryguje technikę ćwiczenia"
             icon={<PersonSimpleRun size={24} weight="fill" />}
             title="Trening Personalny"
             description="Sesje jeden na jeden w Chełmży. Elementy fizjoterapii i pracy z ciałem, indywidualne podejście i stała kontrola techniki wykonania."
