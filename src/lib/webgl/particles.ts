@@ -18,6 +18,7 @@ const FRAGMENT_SHADER = `
   uniform float u_time;
   uniform float u_scroll;
   uniform float u_opacity;
+  uniform float u_mobile; // 1.0 on mobile, 0.0 on desktop
 
   // Blob data: up to 18 blobs, each with (x, y, radius, speed, phase, layer, hue_shift)
   #define MAX_BLOBS 18
@@ -41,9 +42,10 @@ const FRAGMENT_SHADER = `
     vec2 uv = gl_FragCoord.xy / u_resolution;
     float aspect = u_resolution.x / u_resolution.y;
 
-    // Scroll-reactive modifiers
-    float pulse = sectionPulse(u_scroll);
-    float scrollPhase = u_scroll * 6.28318; // full cycle over page
+    // Scroll-reactive modifiers — reduced on mobile
+    float pulseRaw = sectionPulse(u_scroll);
+    float pulse = pulseRaw * (1.0 - u_mobile * 0.7); // 30% pulse on mobile
+    float scrollPhase = u_scroll * 6.28318;
 
     float totalGlow = 0.0;
     vec3 totalColor = vec3(0.0);
@@ -112,9 +114,10 @@ const FRAGMENT_SHADER = `
     // Normalize color
     vec3 finalColor = totalGlow > 0.001 ? totalColor / totalGlow : baseColor;
 
-    // Opacity pulses slightly at section transitions for "energy wave" feel
+    // Opacity pulses slightly at section transitions — capped lower on mobile
     float opacityBoost = 1.0 + pulse * 0.25;
-    float alpha = min(totalGlow * u_opacity * opacityBoost, 0.45);
+    float maxAlpha = mix(0.45, 0.2, u_mobile); // 0.45 desktop, 0.2 mobile
+    float alpha = min(totalGlow * u_opacity * opacityBoost, maxAlpha);
 
     gl_FragColor = vec4(finalColor, alpha);
   }
@@ -125,6 +128,7 @@ export interface ParticleEngineOptions {
   blobCount?: number;
   opacity?: number;
   speed?: number;
+  mobile?: boolean;
 }
 
 export interface ParticleEngine {
@@ -188,6 +192,7 @@ export function createParticleEngine(
     blobCount = 14,
     opacity = 0.8,
     speed = 1.0,
+    mobile = false,
   } = options;
 
   const maybeGl = canvas.getContext('webgl', {
@@ -221,6 +226,7 @@ export function createParticleEngine(
   const uScroll = gl.getUniformLocation(program, 'u_scroll');
   const uOpacity = gl.getUniformLocation(program, 'u_opacity');
   const uBlobCount = gl.getUniformLocation(program, 'u_blobCount');
+  const uMobile = gl.getUniformLocation(program, 'u_mobile');
 
   // Generate blob data
   const rand = seededRandom(42);
@@ -233,7 +239,9 @@ export function createParticleEngine(
     const o = i * 4;
     blobsData[o + 0] = rand() * 1.2 - 0.1; // x: [-0.1, 1.1] (UV space)
     blobsData[o + 1] = rand() * 1.4 - 0.2; // y: [-0.2, 1.2]
-    blobsData[o + 2] = 0.08 + rand() * 0.16; // radius: [0.08, 0.24] in UV
+    blobsData[o + 2] = mobile
+      ? 0.04 + rand() * 0.08  // mobile: smaller blobs [0.04, 0.12]
+      : 0.08 + rand() * 0.16; // desktop: [0.08, 0.24]
     blobsData[o + 3] = 0.3 + rand() * 0.7; // speed: [0.3, 1.0]
 
     blobsMetaData[o + 0] = rand() * Math.PI * 2; // phase
@@ -298,6 +306,7 @@ export function createParticleEngine(
     gl.uniform1f(uScroll, scrollProgress);
     gl.uniform1f(uOpacity, opacity);
     gl.uniform1i(uBlobCount, count);
+    gl.uniform1f(uMobile, mobile ? 1.0 : 0.0);
 
     // Set blob data
     for (let i = 0; i < count; i++) {

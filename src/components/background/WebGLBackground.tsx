@@ -49,13 +49,15 @@ export default function WebGLBackground() {
 
       if (destroyed || !canvas) return;
 
-      const blobCount = isMobile() ? 8 : 14;
+      const mobile = isMobile();
+      const blobCount = mobile ? 6 : 14;
 
       const engine = createParticleEngine({
         canvas,
         blobCount,
-        opacity: 0.75,
+        opacity: mobile ? 0.3 : 0.75,
         speed: 1.0,
+        mobile,
       });
 
       if (!engine || destroyed) return;
