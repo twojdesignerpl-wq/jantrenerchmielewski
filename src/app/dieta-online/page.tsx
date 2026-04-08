@@ -221,8 +221,8 @@ export default function DietaOnlinePage() {
                 <div className="relative">
                   <div className="border-glow glow-cyan overflow-hidden rounded-2xl">
                     <Image
-                      src="https://picsum.photos/seed/dieta-jc/800/500"
-                      alt="Zdrowe posiłki — przykład diety Jana Chmielewskiego"
+                      src="/images/oferta-dieta.png"
+                      alt="Plan diety — zdrowy posiłek i tablet z jadłospisem"
                       width={800}
                       height={500}
                       className="w-full object-cover"

@@ -107,10 +107,12 @@
 
 html {
   scroll-behavior: auto; /* Lenis handles smooth scroll */
+  overflow-x: hidden;
 }
 
 body {
   background-attachment: fixed;
+  overflow-x: hidden;
 }
 
 /* ===== SCROLLBAR STYLING ===== */
