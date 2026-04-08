@@ -5,7 +5,12 @@ import { Footer } from "@/components/layout/Footer"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
 import { CTAButton } from "@/components/shared/CTAButton"
 import { PriceCard } from "@/components/shared/PriceCard"
-import { BreadcrumbSchema, ServicePageSchema, FAQSchema } from "@/components/seo/JsonLd"
+import {
+  BreadcrumbSchema,
+  ServicePageSchema,
+  FAQSchema,
+  HowToSchema,
+} from "@/components/seo/JsonLd"
 import {
   Accordion,
   AccordionItem,
@@ -21,7 +26,11 @@ import {
   SmileyWink,
   CheckCircle,
   XCircle,
+  UserFocus,
+  MapPin,
+  ArrowRight,
 } from "@phosphor-icons/react/dist/ssr"
+import { cities } from "@/lib/data/cities"
 
 export const metadata: Metadata = {
   title: "Prowadzenie Online — Kompleksowe wsparcie fitness",
@@ -191,6 +200,179 @@ const faqItems = [
     answer:
       "Życie się zdarza — właśnie dlatego potrzebujesz kogoś obok. Jeśli wyjeżdżasz, dostosujemy plan do dostępnych opcji. Jeśli masz gorszy tydzień — porozmawiamy, co poszło nie tak i jak to naprawić. Nie oczekuję perfekcji, oczekuję szczerości.",
   },
+  {
+    question: "Jak wygląda komunikacja z trenerem?",
+    answer:
+      "Kontaktujemy się przez wybrany przez Ciebie kanał — WhatsApp, Messenger lub e-mail. Piszesz kiedy potrzebujesz i zawsze odpowiem w ciągu 24 godzin. Co tydzień przeprowadzamy ustrukturyzowany check-in: przesyłasz zdjęcia postępów, pomiary i swoje odczucia z minionego tygodnia, a ja odsyłam szczegółowy feedback oraz ewentualne korekty planu.",
+  },
+  {
+    question: "Czy mogę zmienić pakiet w trakcie współpracy?",
+    answer:
+      "Tak, zawsze możemy dopasować zakres współpracy do Twoich aktualnych potrzeb. Jeśli chcesz przejść na dłuższy pakiet — doliczę jedynie różnicę w cenie. Jeśli Twoja sytuacja się zmieni i potrzebujesz przerwy — porozmawiajmy, znajdziemy rozwiązanie.",
+  },
+  {
+    question: "Co jeśli mam kontuzję lub ograniczenia zdrowotne?",
+    answer:
+      "Jako Magister Fizjoterapii podchodzę do tego z pełnym zrozumieniem. Kontuzja nie musi oznaczać przerwy w postępach — dostosowuję plan treningowy tak, żebyś mógł pracować nad resztą ciała i utrzymać formę podczas rekonwalescencji. Zawsze proszę o dokumentację medyczną lub zalecenia lekarskie, jeśli kontuzja jest poważna.",
+  },
+  {
+    question: "Czy prowadzenie online działa tak samo jak trening personalny?",
+    answer:
+      "To dwa różne formaty z różnymi zaletami. Trening personalny daje bezpośrednią korektę techniki w czasie rzeczywistym. Prowadzenie online zapewnia ciągłość — jestem z Tobą przez cały tydzień, analizuję dane, modyfikuję plan i motywuję. Dla wielu klientów prowadzenie online okazuje się skuteczniejsze, bo obejmuje pełny kontekst życia: sen, stres, dietę i trening razem.",
+  },
+  {
+    question: "Jak szybko zobaczę pierwsze efekty?",
+    answer:
+      "Pierwsze zauważalne zmiany — więcej energii, lepszy sen, poprawa samopoczucia — klienci obserwują już po 2-3 tygodniach. Widoczne zmiany sylwetkowe pojawiają się zazwyczaj między 4. a 8. tygodniem, w zależności od celu i punktu startowego. Całkowita transformacja wymaga minimum 3 miesięcy regularnej pracy — dlatego pakiety trzymiesięczne i dłuższe przynoszą najlepsze rezultaty.",
+  },
+  {
+    question: "Czy mogę zawiesić współpracę na czas urlopu?",
+    answer:
+      "Oczywiście. Urlop to nie powód do przerwy w postępach — zwykle przygotowuję specjalny plan na okres wyjazdu, dopasowany do dostępnych opcji żywieniowych i treningowych. Jeśli jednak chcesz formalnie zawiesić pakiet, możemy to omówić indywidualnie. Nie chcę, żebyś płacił za czas, gdy nie możesz w pełni korzystać ze współpracy.",
+  },
+]
+
+const weekDays = [
+  {
+    day: "Poniedziałek",
+    shortDay: "Pon",
+    title: "Analiza weekendu",
+    description:
+      "Przeglądam Twój raport z weekendu — wagę, zdjęcia, samopoczucie. Jeśli dieta wymagała korekt (impreza, wyjazd, gorszy dzień), wprowadzam odpowiednie zmiany na nadchodzące dni. Zaczynamy tydzień z aktualnym planem.",
+  },
+  {
+    day: "Wtorek–Czwartek",
+    shortDay: "Wt–Cz",
+    title: "Realizacja planu",
+    description:
+      "Pracujesz według planu treningowego i żywieniowego. Masz pytanie o zamianę posiłku, wątpliwości co do ćwiczenia lub złe samopoczucie? Piszesz — odpowiadam w ciągu 24 godzin, przez cały czas trwania współpracy.",
+  },
+  {
+    day: "Piątek",
+    shortDay: "Pt",
+    title: "Przegląd tygodnia",
+    description:
+      "Przesyłasz mi krótki feedback: jak przebiegły treningi, czy dieta była do utrzymania, jak śpisz i czujesz się energetycznie. Analizuję dane i przygotowuję swoje spostrzeżenia. To klucz do ciągłego doskonalenia planu.",
+  },
+  {
+    day: "Weekend",
+    shortDay: "Sob–Nd",
+    title: "Raport i nowe wytyczne",
+    description:
+      "Otrzymujesz ode mnie cotygodniowy raport z postępów — analizę wagi, zmian składu ciała, realizacji treningów i diety. Dołączam aktualizacje planu na kolejny tydzień oraz motywacyjny komentarz. Weekend to czas odpoczynku i przygotowania do kolejnego cyklu.",
+  },
+]
+
+const targetAudience = [
+  {
+    title: "Osoby, które próbowały samodzielnie",
+    description:
+      "Masz za sobą kilka podejść do diety i treningów, które kończyły się po 2-3 tygodniach. Wiesz, że potrzebujesz kogoś, kto nada kierunek, rozliczy Cię z postępów i nie pozwoli odpuścić przy pierwszej przeszkodzie. Prowadzenie online to właśnie ten brakujący element — accountability i strategia w jednym.",
+  },
+  {
+    title: "Przygotowujący się do wydarzeń",
+    description:
+      "Ślub za 4 miesiące. Wyjazd na wakacje za 10 tygodni. Zawody sportowe na horyzoncie. Masz konkretny cel i konkretną datę — dlatego potrzebujesz planu skrojone pod ten termin, nie generycznego podejścia. Razem ustawimy tempo zmian, które dadzą efekt dokładnie wtedy, kiedy potrzebujesz.",
+  },
+  {
+    title: "Długoterminowa rekompozycja ciała",
+    description:
+      "Nie chcesz drastycznej diety — chcesz trwałej zmiany. Jednoczesna utrata tkanki tłuszczowej i budowa mięśni to proces, który wymaga precyzyjnej periodyzacji diety i treningu przez wiele miesięcy. Sześcio- i dwunastomiesięczne pakiety prowadzenia online są stworzone właśnie z myślą o tej grupie.",
+  },
+  {
+    title: "Sportowcy amatorzy",
+    description:
+      "Biegasz, jeździsz na rowerze, grasz w squasha albo chodzisz na crossfit. Chcesz poprawić wyniki, a nie tylko sylwetkę. Doświadczenie w fizjoterapii i pracy z zawodnikami pozwala mi budować plany, które realnie przekładają się na wydolność, siłę i regenerację — bez przeciążeń i kontuzji.",
+  },
+]
+
+const resultStats = [
+  {
+    value: "8–12 kg",
+    label: "Średnia utrata tkanki tłuszczowej",
+    sublabel: "w 3 miesiące",
+  },
+  {
+    value: "3–5 kg",
+    label: "Średni przyrost masy mięśniowej",
+    sublabel: "w 6 miesięcy",
+  },
+  {
+    value: "95%",
+    label: "Klientów kontynuuje",
+    sublabel: "po pierwszym miesiącu",
+  },
+  {
+    value: "200+",
+    label: "Zadowolonych klientów",
+    sublabel: "z całej Polski",
+  },
+]
+
+const howToSteps = [
+  {
+    name: "Wypełnij formularz kontaktowy",
+    text: "Opisz swoje cele, aktualne nawyki i oczekiwania. Wybierz interesujący Cię pakiet czasowy prowadzenia online.",
+  },
+  {
+    name: "Uzupełnij szczegółowy kwestionariusz",
+    text: "Po pierwszym kontakcie otrzymasz rozbudowany kwestionariusz dotyczący zdrowia, preferencji żywieniowych, dostępności sprzętu i trybu życia.",
+  },
+  {
+    name: "Otrzymaj spersonalizowaną dietę i plan treningowy",
+    text: "W ciągu 3-5 dni roboczych przygotowuję kompletny plan diety i treningu dopasowany do Twoich celów i możliwości.",
+  },
+  {
+    name: "Realizuj plan i korzystaj z kontaktu 24/7",
+    text: "Wdrażasz plan w życie. Masz pytania lub napotykasz trudności — piszesz, a ja odpowiadam w ciągu 24 godzin przez cały czas trwania współpracy.",
+  },
+  {
+    name: "Cotygodniowy check-in i korekty",
+    text: "Co tydzień przesyłasz raport postępów (waga, zdjęcia, samopoczucie). Analizuję wyniki i wprowadzam bieżące korekty diety lub treningu.",
+  },
+  {
+    name: "Osiągaj cele i przedłuż współpracę",
+    text: "Po zakończeniu pakietu oceniamy postępy. Większość klientów decyduje się na kontynuację — do kolejnego celu lub w celu utrzymania wypracowanych wyników.",
+  },
+]
+
+// Top 10 cities for city links (by population / importance)
+const topCitySlugs = [
+  "warszawa",
+  "krakow",
+  "wroclaw",
+  "poznan",
+  "gdansk",
+  "katowice",
+  "lodz",
+  "bydgoszcz",
+  "lublin",
+  "torun",
+]
+const topCities = cities.filter((c) => topCitySlugs.includes(c.slug))
+
+const relatedServices = [
+  {
+    href: "/dieta-online",
+    title: "Dieta Online",
+    description:
+      "Jednorazowy plan żywieniowy — idealne rozwiązanie, gdy budżet jest ograniczony lub chcesz zacząć od samej diety.",
+    badge: "od 199 zł",
+  },
+  {
+    href: "/plan-treningowy",
+    title: "Plan Treningowy",
+    description:
+      "Spersonalizowany program treningowy bez abonamentu — kup raz, ćwicz przez wiele tygodni według sprawdzonego planu.",
+    badge: "od 149 zł",
+  },
+  {
+    href: "/trening-personalny-chelmza",
+    title: "Trening Personalny — Chełmża",
+    description:
+      "Wolisz trenować stacjonarnie pod okiem trenera? Oferuję sesje personalne w Chełmży i okolicach.",
+    badge: "od 149 zł / sesja",
+  },
 ]
 
 export default function ProwadzenieOnlinePage() {
@@ -209,6 +391,11 @@ export default function ProwadzenieOnlinePage() {
         url="/prowadzenie-online"
       />
       <FAQSchema questions={faqItems} />
+      <HowToSchema
+        name="Jak rozpocząć prowadzenie online z Janem Chmielewskim"
+        description="Krok po kroku — od pierwszego kontaktu do osiągnięcia celu z pomocą prowadzenia online."
+        steps={howToSteps}
+      />
 
       <Navbar />
 
@@ -318,8 +505,163 @@ export default function ProwadzenieOnlinePage() {
           </div>
         </section>
 
-        {/* ===== COMPARISON TABLE ===== */}
+        {/* ===== TYPICAL WEEK ===== */}
         <section className="py-20">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <ScrollReveal>
+              <div className="mb-12 text-center">
+                <p className="text-label mb-3" style={{ color: "var(--cyan)" }}>
+                  Rytm współpracy
+                </p>
+                <h2 className="text-display-sm text-3xl md:text-5xl">
+                  Jak wygląda typowy tydzień
+                </h2>
+                <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
+                  Prowadzenie online to nie plik PDF wysłany raz. To ustrukturyzowany proces
+                  — każdy dzień tygodnia ma swoje miejsce w naszej współpracy.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {weekDays.map((day, i) => (
+                <ScrollReveal key={day.day} delay={i * 0.08}>
+                  <article
+                    className="relative h-full flex flex-col border-glow rounded-xl p-6 overflow-hidden"
+                    style={{ background: "var(--card)" }}
+                  >
+                    <div
+                      className="mb-4 inline-flex items-center rounded-lg px-3 py-1 text-xs font-bold tracking-widest uppercase self-start"
+                      style={{
+                        background: "color-mix(in srgb, var(--cyan) 12%, transparent)",
+                        color: "var(--cyan)",
+                        border: "1px solid color-mix(in srgb, var(--cyan) 25%, transparent)",
+                      }}
+                    >
+                      {day.shortDay}
+                    </div>
+                    <h3
+                      className="mb-3 text-base font-semibold"
+                      style={{ fontFamily: "var(--font-heading)" }}
+                    >
+                      {day.title}
+                    </h3>
+                    <p className="text-sm leading-relaxed text-muted-foreground flex-1">
+                      {day.description}
+                    </p>
+                    <div
+                      className="pointer-events-none absolute -bottom-8 -right-8 h-24 w-24 rounded-full blur-2xl opacity-10"
+                      style={{ background: "var(--cyan)" }}
+                      aria-hidden="true"
+                    />
+                  </article>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ===== TARGET AUDIENCE ===== */}
+        <section className="py-20 section-glow" style={{ background: "var(--card)" }}>
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <ScrollReveal>
+              <div className="mb-12 text-center">
+                <p className="text-label mb-3" style={{ color: "var(--cyan)" }}>
+                  Dla kogo
+                </p>
+                <h2 className="text-display-sm text-3xl md:text-5xl">
+                  Dla kogo jest prowadzenie online?
+                </h2>
+                <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
+                  Prowadzenie online sprawdza się w różnych sytuacjach życiowych. Sprawdź, czy
+                  rozpoznajesz się w którymś z poniższych przypadków.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <div className="grid gap-6 sm:grid-cols-2">
+              {targetAudience.map((group, i) => (
+                <ScrollReveal key={group.title} delay={i * 0.08}>
+                  <article
+                    className="flex gap-5 border-glow rounded-xl p-6 h-full"
+                    style={{ background: "var(--background)" }}
+                  >
+                    <div className="shrink-0 mt-1">
+                      <UserFocus
+                        className="size-7"
+                        style={{ color: "var(--cyan)" }}
+                        weight="duotone"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <div>
+                      <h3
+                        className="mb-2 text-base font-semibold"
+                        style={{ fontFamily: "var(--font-heading)" }}
+                      >
+                        {group.title}
+                      </h3>
+                      <p className="text-sm leading-relaxed text-muted-foreground">
+                        {group.description}
+                      </p>
+                    </div>
+                  </article>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ===== RESULTS STATS ===== */}
+        <section className="py-20">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <ScrollReveal>
+              <div className="mb-12 text-center">
+                <p className="text-label mb-3" style={{ color: "var(--cyan)" }}>
+                  Efekty
+                </p>
+                <h2 className="text-display-sm text-3xl md:text-5xl">
+                  Wyniki moich klientów
+                </h2>
+                <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
+                  Liczby zagregowane na podstawie wyników klientów prowadzonych
+                  w ramach długoterminowych pakietów.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {resultStats.map((stat, i) => (
+                <ScrollReveal key={stat.label} delay={i * 0.08}>
+                  <div
+                    className="flex flex-col items-center text-center border-glow rounded-xl p-8"
+                    style={{ background: "var(--card)" }}
+                  >
+                    <p
+                      className="text-4xl font-bold mb-2 text-gradient-cyan"
+                      style={{ fontFamily: "var(--font-heading)" }}
+                    >
+                      {stat.value}
+                    </p>
+                    <p className="text-sm font-medium mb-1">{stat.label}</p>
+                    <p className="text-xs text-muted-foreground">{stat.sublabel}</p>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+
+            <ScrollReveal delay={0.2}>
+              <p className="mt-8 text-center text-xs text-muted-foreground max-w-lg mx-auto">
+                Wyniki indywidualne mogą się różnić w zależności od punktu startowego, celu,
+                zaangażowania i przestrzegania planu. Podane wartości to zakresy obserwowane
+                przy regularnej współpracy przez minimum 3-6 miesięcy.
+              </p>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* ===== COMPARISON TABLE ===== */}
+        <section className="py-20 section-glow" style={{ background: "var(--card)" }}>
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <ScrollReveal>
               <div className="mb-12 text-center">
@@ -393,7 +735,7 @@ export default function ProwadzenieOnlinePage() {
         </section>
 
         {/* ===== PRICING ===== */}
-        <section id="cennik" className="py-20 section-glow" style={{ background: "var(--card)" }}>
+        <section id="cennik" className="py-20">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <ScrollReveal>
               <div className="mb-12 text-center">
@@ -443,7 +785,7 @@ export default function ProwadzenieOnlinePage() {
         </section>
 
         {/* ===== FAQ ===== */}
-        <section className="py-20">
+        <section className="py-20 section-glow" style={{ background: "var(--card)" }}>
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <ScrollReveal>
               <div className="mb-12 text-center">
@@ -469,6 +811,124 @@ export default function ProwadzenieOnlinePage() {
                   </AccordionItem>
                 ))}
               </Accordion>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== CITY LINKS ===== */}
+        <section className="py-20">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <ScrollReveal>
+              <div className="mb-12 text-center">
+                <p className="text-label mb-3" style={{ color: "var(--cyan)" }}>
+                  Zasięg
+                </p>
+                <h2 className="text-display-sm text-3xl md:text-5xl">
+                  Dostępne w całej Polsce
+                </h2>
+                <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
+                  Prowadzenie online nie zna granic geograficznych. Pracuję z klientami
+                  z każdego zakątka Polski — od Szczecina po Rzeszów.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.1}>
+              <nav aria-label="Prowadzenie online w miastach Polski">
+                <ul className="flex flex-wrap justify-center gap-3">
+                  {topCities.map((city) => (
+                    <li key={city.slug}>
+                      <a
+                        href={`/dietetyk-online-${city.slug}`}
+                        className="inline-flex items-center gap-2 rounded-full border-glow px-4 py-2 text-sm font-medium transition-all hover:glow-cyan"
+                        style={{ background: "var(--card)" }}
+                      >
+                        <MapPin
+                          className="size-3.5"
+                          style={{ color: "var(--cyan)" }}
+                          weight="fill"
+                          aria-hidden="true"
+                        />
+                        {city.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.15}>
+              <p className="mt-8 text-center text-sm text-muted-foreground">
+                Nie widzisz swojego miasta?{" "}
+                <a
+                  href="/kontakt?service=prowadzenie"
+                  className="underline hover:text-foreground transition-colors"
+                >
+                  Napisz do mnie
+                </a>{" "}
+                — prowadzę klientów z całego kraju.
+              </p>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* ===== RELATED SERVICES ===== */}
+        <section className="py-20 section-glow" style={{ background: "var(--card)" }}>
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <ScrollReveal>
+              <div className="mb-12 text-center">
+                <p className="text-label mb-3" style={{ color: "var(--cyan)" }}>
+                  Inne opcje
+                </p>
+                <h2 className="text-display-sm text-3xl md:text-5xl">
+                  Powiązane usługi
+                </h2>
+                <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
+                  Prowadzenie online to moja flagowa usługa, ale oferuję też inne formy
+                  wsparcia — dopasowane do różnych potrzeb i budżetów.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <div className="grid gap-6 sm:grid-cols-3">
+              {relatedServices.map((service, i) => (
+                <ScrollReveal key={service.href} delay={i * 0.08}>
+                  <a
+                    href={service.href}
+                    className="group flex flex-col h-full border-glow rounded-xl p-6 transition-all hover:glow-cyan"
+                    style={{ background: "var(--background)" }}
+                  >
+                    <div className="flex items-start justify-between mb-3 gap-3">
+                      <h3
+                        className="text-base font-semibold group-hover:text-gradient-cyan transition-colors"
+                        style={{ fontFamily: "var(--font-heading)" }}
+                      >
+                        {service.title}
+                      </h3>
+                      <span
+                        className="shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold whitespace-nowrap"
+                        style={{
+                          background: "color-mix(in srgb, var(--cyan) 12%, transparent)",
+                          color: "var(--cyan)",
+                          border: "1px solid color-mix(in srgb, var(--cyan) 25%, transparent)",
+                        }}
+                      >
+                        {service.badge}
+                      </span>
+                    </div>
+                    <p className="text-sm leading-relaxed text-muted-foreground flex-1 mb-4">
+                      {service.description}
+                    </p>
+                    <span
+                      className="inline-flex items-center gap-1 text-sm font-medium"
+                      style={{ color: "var(--cyan)" }}
+                    >
+                      Dowiedz się więcej
+                      <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                    </span>
+                  </a>
+                </ScrollReveal>
+              ))}
             </div>
           </div>
         </section>

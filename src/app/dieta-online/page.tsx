@@ -1,11 +1,12 @@
 import type { Metadata } from "next"
 import Image from "next/image"
+import Link from "next/link"
 import { LenisProvider } from "@/components/providers/LenisProvider"
 import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
 import { CTAButton } from "@/components/shared/CTAButton"
-import { BreadcrumbSchema, ServicePageSchema, FAQSchema } from "@/components/seo/JsonLd"
+import { BreadcrumbSchema, ServicePageSchema, FAQSchema, HowToSchema } from "@/components/seo/JsonLd"
 import {
   Accordion,
   AccordionItem,
@@ -19,7 +20,15 @@ import {
   ShoppingCart,
   UserFocus,
   ChatCircleDots,
+  Lightning,
+  Barbell,
+  Heartbeat,
+  Leaf,
+  CheckCircle,
+  XCircle,
+  ArrowRight,
 } from "@phosphor-icons/react/dist/ssr"
+import { cities } from "@/lib/data/cities"
 
 export const metadata: Metadata = {
   title: "Dieta 4-tygodniowa Online — 199 zł",
@@ -130,7 +139,67 @@ const faqItems = [
     answer:
       "Po zamówieniu kontaktujesz się ze mną przez formularz lub telefonicznie pod numer +48 534 214 398. Płatność przelewem lub Blikiem. Plan trafia do Ciebie mailowo w ciągu 48–72 godzin od zaksięgowania wpłaty.",
   },
+  {
+    question: "Czy dieta jest odpowiednia dla wegetarian i wegan?",
+    answer:
+      "Tak, bez żadnego problemu. W kwestionariuszu zaznaczasz swój styl żywienia, a ja dopasowuję całe menu do diety roślinnej lub wegetariańskiej — z pełnym pokryciem zapotrzebowania na białko, żelazo, witaminę B12 i pozostałe kluczowe składniki odżywcze.",
+  },
+  {
+    question: "Ile kosztuje przedłużenie diety po 4 tygodniach?",
+    answer:
+      "Przedłużenie kolejnego miesiąca to koszt 149 zł — preferencyjnie dla stałych klientów. Kolejny plan uwzględnia Twoje postępy, zmiany wagi i feedback z poprzedniego miesiąca, więc jest jeszcze bardziej celny niż pierwsze zlecenie.",
+  },
+  {
+    question: "Czy mogę zamówić dietę dla pary lub rodziny?",
+    answer:
+      "Tak, oferuję pakiety dla par i rodzin w obniżonej cenie. Każda osoba otrzymuje własny, indywidualnie przygotowany plan uwzględniający jej cel, wiek i zapotrzebowanie. Skontaktuj się ze mną przed zakupem, żebym mógł wycenić pakiet.",
+  },
+  {
+    question: "Jak wygląda kwestionariusz przed ułożeniem diety?",
+    answer:
+      "Kwestionariusz obejmuje: dane biometryczne (waga, wzrost, wiek, płeć), poziom aktywności fizycznej, cel główny (redukcja, masa, zdrowie), preferencje kulinarne i potrawy których nie lubisz, alergie i nietolerancje, liczbę posiłków dziennie oraz godziny ich spożycia. Wypełnienie zajmuje ok. 10–15 minut i możesz to zrobić przez formularz online lub w wiadomości.",
+  },
+  {
+    question: "Czy dieta uwzględnia suplementację?",
+    answer:
+      "Na życzenie dołączam rekomendacje suplementacyjne dostosowane do Twojego celu — np. kreatyna przy budowie masy, witamina D i kwasy omega-3 przy redukcji, kolagen i magnez przy intensywnym treningu. Suplementy traktuję jako dodatek, nie substytut diety.",
+  },
+  {
+    question: "Czy mogę jeść słodycze na diecie?",
+    answer:
+      "Tak — i to jest jeden z filarów mojej filozofii żywieniowej. Stosuję podejście Flexible Dieting: żaden produkt nie jest całkowicie zakazany. Słodycze, fast food czy ulubione przekąski mogą mieć swoje miejsce w diecie — o ile mieszczą się w dziennym bilansie kalorycznym i makroskładników. To sprawia, że dieta jest realistyczna i możliwa do utrzymania długoterminowo.",
+  },
 ]
+
+const targetGroups = [
+  {
+    icon: Lightning,
+    title: "Osoby chcące schudnąć",
+    description:
+      "Stosuję podejście oparte na umiarkowanym deficycie kalorycznym — nie drastycznym głodzeniu. Schudniesz w tempie 0,5–1 kg tygodniowo, zachowując mięśnie, energię i dobre samopoczucie. Bez efektu jo-jo.",
+  },
+  {
+    icon: Barbell,
+    title: "Sportowcy budujący masę",
+    description:
+      "Budowa masy to sztuka precyzyjnego nadwyżki kalorycznej i odpowiedniej podaży białka. Obliczam Twoje zapotrzebowanie co do kilokaloriii i gramu białka, żebyś rósł w mięśnie — nie w tłuszcz.",
+  },
+  {
+    icon: Heartbeat,
+    title: "Osoby z nietolerancjami",
+    description:
+      "Nietolerancja laktozy, glutenu, histaminy czy alergia pokarmowa nie jest przeszkodą. Każde menu układam z uwzględnieniem Twoich ograniczeń — pełnowartościowo, smacznie i bez produktów, które Ci szkodzą.",
+  },
+  {
+    icon: Leaf,
+    title: "Osoby szukające zdrowych nawyków",
+    description:
+      "Jeśli nie chodzi Ci o drastyczne zmiany, ale o nauczenie się jeść lepiej na co dzień — to też jest dla Ciebie. Pomagam budować nawyki żywieniowe, które zostają na lata, a nie tylko na czas diety.",
+  },
+]
+
+const topCitySlugs = ["warszawa", "krakow", "gdansk", "wroclaw", "poznan", "lodz", "katowice", "torun", "bydgoszcz", "szczecin"]
+const topCities = cities.filter((c) => topCitySlugs.includes(c.slug))
 
 export default function DietaOnlinePage() {
   return (
@@ -148,6 +217,11 @@ export default function DietaOnlinePage() {
         url="/dieta-online"
       />
       <FAQSchema questions={faqItems} />
+      <HowToSchema
+        name="Jak zamówić indywidualną dietę online"
+        description="Trzy kroki do spersonalizowanego planu żywieniowego od Jana Chmielewskiego — Magistra Fizjoterapii i trenera z 8-letnim doświadczeniem."
+        steps={steps.map((s) => ({ name: s.title, text: s.description }))}
+      />
 
       <Navbar />
 
@@ -330,6 +404,280 @@ export default function DietaOnlinePage() {
           </div>
         </section>
 
+        {/* ===== METODOLOGIA ===== */}
+        <section className="py-20" style={{ background: "var(--card)" }}>
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <ScrollReveal>
+              <div className="mb-12 text-center">
+                <p className="text-label mb-3" style={{ color: "var(--cyan)" }}>
+                  Moja metodologia
+                </p>
+                <h2 className="text-display-sm text-3xl md:text-5xl">
+                  Moja metodologia żywieniowa
+                </h2>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.1}>
+              <div
+                className="mx-auto max-w-4xl rounded-2xl border border-border p-8 md:p-12 space-y-6"
+                style={{ background: "var(--card)" }}
+              >
+                <div>
+                  <h3
+                    className="mb-3 text-xl font-bold"
+                    style={{ fontFamily: "var(--font-heading)", color: "var(--cyan)" }}
+                  >
+                    Kalkulacja oparta na dowodach naukowych
+                  </h3>
+                  <p className="text-base leading-relaxed text-muted-foreground">
+                    Zapomnij o dietach liczonych „na oko" albo opartych wyłącznie na intuicji. Każdy
+                    plan żywieniowy zaczynam od precyzyjnego obliczenia Twojego całkowitego
+                    dobowego zapotrzebowania energetycznego — z uwzględnieniem podstawowej przemiany
+                    materii (PPM według wzorów Mifflin-St Jeor lub Cunninghama dla osób aktywnych),
+                    współczynnika aktywności fizycznej (PAL) oraz termicznego efektu pożywienia
+                    (TEF). Dopiero na tej bazie buduję deficyt lub nadwyżkę kaloryczną dostosowaną
+                    do Twojego celu — bez zgadywania, bez szablonów.
+                  </p>
+                </div>
+
+                <div>
+                  <h3
+                    className="mb-3 text-xl font-bold"
+                    style={{ fontFamily: "var(--font-heading)", color: "var(--cyan)" }}
+                  >
+                    Flexible Dieting — żaden produkt nie jest zakazany
+                  </h3>
+                  <p className="text-base leading-relaxed text-muted-foreground">
+                    Stosuję filozofię Flexible Dieting (IIFYM — If It Fits Your Macros): żaden
+                    produkt nie jest z góry wykluczony. Pizza, słodycze, ulubiony deser — mogą mieć
+                    swoje miejsce w diecie, o ile mieszczą się w dobowym bilansie makroskładników.
+                    Takie podejście sprawia, że dieta przestaje być karą, a staje się stylem życia.
+                    Badania konsekwentnie pokazują, że diety bez skrajnych restrykcji są znacznie
+                    lepiej przestrzegane w długim terminie i przynoszą trwalsze efekty niż modne
+                    diety eliminacyjne.
+                  </p>
+                </div>
+
+                <div>
+                  <h3
+                    className="mb-3 text-xl font-bold"
+                    style={{ fontFamily: "var(--font-heading)", color: "var(--cyan)" }}
+                  >
+                    Wiedza fizjoterapeutyczna w służbie odżywiania
+                  </h3>
+                  <p className="text-base leading-relaxed text-muted-foreground">
+                    Jako Magister Fizjoterapii patrzę na odżywianie szerzej niż przeciętny
+                    dietetyk. Uwzględniam właściwości przeciwzapalne i prozapalne produktów
+                    spożywczych, rolę kwasów omega-3 w regeneracji tkanek, znaczenie kolagenu i
+                    witaminy C dla stawów oraz wpływ magnezu na skurcz mięśniowy. Dla klientów z
+                    urazami, przewlekłymi dolegliwościami stawowymi lub po operacjach opracowuję
+                    dietę wspierającą procesy naprawcze — nie tylko sylwetkę. To unikalna
+                    perspektywa, której nie znajdziesz u standardowych dietetyków online.
+                  </p>
+                </div>
+
+                <div>
+                  <h3
+                    className="mb-3 text-xl font-bold"
+                    style={{ fontFamily: "var(--font-heading)", color: "var(--cyan)" }}
+                  >
+                    Periodyzacja żywienia wokół cykli treningowych
+                  </h3>
+                  <p className="text-base leading-relaxed text-muted-foreground">
+                    Odżywianie i trening są nierozłączne. W planach dla osób aktywnych stosuję
+                    periodyzację żywienia — większe spożycie węglowodanów w dni treningowe
+                    (carb-timing), odpowiednia podaż białka w oknie anabolicznym po treningu oraz
+                    zredukowana kaloryczność w dni regeneracji. Taki cykl sprawia, że organizm
+                    maksymalnie wykorzystuje każdą sesję na siłowni, szybciej się regeneruje i
+                    buduje lub ochrania tkankę mięśniową nawet w trakcie redukcji.
+                  </p>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* ===== DLA KOGO ===== */}
+        <section className="py-20">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <ScrollReveal>
+              <div className="mb-12 text-center">
+                <p className="text-label mb-3" style={{ color: "var(--cyan)" }}>
+                  Dopasowanie
+                </p>
+                <h2 className="text-display-sm text-3xl md:text-5xl">
+                  Dla kogo jest dieta online?
+                </h2>
+                <p className="mt-4 text-base text-muted-foreground max-w-2xl mx-auto">
+                  Nie ma jednej diety dla wszystkich. Dlatego każdy plan tworzę od zera — niezależnie
+                  od tego, jaki jest Twój cel i punkt startowy.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <div className="grid gap-6 sm:grid-cols-2">
+              {targetGroups.map((group, i) => (
+                <ScrollReveal key={group.title} delay={i * 0.08}>
+                  <article className="rounded-xl border border-border bg-card p-6">
+                    <group.icon
+                      className="mb-4 size-8"
+                      style={{ color: "var(--cyan)" }}
+                      weight="duotone"
+                      aria-hidden="true"
+                    />
+                    <h3
+                      className="mb-3 text-lg font-bold"
+                      style={{ fontFamily: "var(--font-heading)" }}
+                    >
+                      {group.title}
+                    </h3>
+                    <p className="text-base leading-relaxed text-muted-foreground">
+                      {group.description}
+                    </p>
+                  </article>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ===== CZEGO SIE SPODZIEWAC ===== */}
+        <section className="py-20" style={{ background: "var(--card)" }}>
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <ScrollReveal>
+              <div className="mb-12 text-center">
+                <p className="text-label mb-3" style={{ color: "var(--cyan)" }}>
+                  Realistyczne oczekiwania
+                </p>
+                <h2 className="text-display-sm text-3xl md:text-5xl">
+                  Czego możesz się spodziewać?
+                </h2>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.1}>
+              <div className="mx-auto max-w-3xl space-y-6 text-base leading-relaxed text-muted-foreground">
+                <p>
+                  Pierwsze dwa tygodnie to zazwyczaj faza adaptacji. Twój organizm przyzwyczaja się
+                  do nowego rytmu posiłków, kaloryczności i składu makroskładników. Możesz odczuć
+                  lekkie zmiany energii — to naturalny proces przestrajania metabolizmu. W tym
+                  czasie najważniejsza jest konsekwencja i trzymanie się planu bez improwizowania.
+                </p>
+                <p>
+                  W tygodniach trzecim i czwartym pierwsze wymierne efekty stają się widoczne:
+                  redukcja tkanki tłuszczowej, lepsza kompozycja ciała, więcej energii w ciągu
+                  dnia, lepszy sen i poprawa wyników treningowych. Przy redukcji realistyczny wynik
+                  to 0,5–1 kg utraconej tłuszczowej masy ciała tygodniowo. Przy budowie masy —
+                  wzrost siły i stopniowy przyrost beztłuszczowej masy mięśniowej.
+                </p>
+                <p>
+                  Kluczem do sukcesu jest konsekwencja — nie perfekcja. Jeśli jeden dzień nie
+                  wyjdzie idealnie, to nie katastrofa. Ważne, żeby wracać do planu następnego dnia.
+                  Jestem dostępny przez cały miesiąc właśnie po to, żebyś miał wsparcie w trudnych
+                  momentach i nie musiał zaczynać wszystkiego od nowa po każdej potknięciu.
+                </p>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* ===== POROWNANIE ===== */}
+        <section className="py-20">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <ScrollReveal>
+              <div className="mb-12 text-center">
+                <p className="text-label mb-3" style={{ color: "var(--cyan)" }}>
+                  Różnica
+                </p>
+                <h2 className="text-display-sm text-3xl md:text-5xl">
+                  Dieta online vs diety z internetu
+                </h2>
+              </div>
+            </ScrollReveal>
+
+            <div className="grid gap-6 md:grid-cols-2 max-w-4xl mx-auto">
+              {/* Diety z internetu */}
+              <ScrollReveal delay={0}>
+                <div className="rounded-xl border border-border bg-card/50 p-8 h-full">
+                  <div className="flex items-center gap-3 mb-6">
+                    <XCircle
+                      className="size-7 shrink-0"
+                      style={{ color: "var(--muted-foreground)" }}
+                      weight="duotone"
+                      aria-hidden="true"
+                    />
+                    <h3
+                      className="text-lg font-bold text-muted-foreground"
+                      style={{ fontFamily: "var(--font-heading)" }}
+                    >
+                      Diety z internetu
+                    </h3>
+                  </div>
+                  <ul className="space-y-3 text-sm text-muted-foreground">
+                    {[
+                      "Generyczny szablon dla wszystkich",
+                      "Brak kalkulacji Twojego metabolizmu",
+                      "Zero wsparcia i możliwości korekt",
+                      "Jedno menu pasujące do nikogo",
+                      "Brak wiedzy o Twoich nietolerancjach",
+                      "Nikt nie pyta o Twój tryb życia",
+                      "Efekty, jeśli w ogóle, krótkotrwałe",
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-2">
+                        <span className="mt-1 shrink-0 size-1.5 rounded-full bg-muted-foreground/40" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </ScrollReveal>
+
+              {/* Dieta od Jana */}
+              <ScrollReveal delay={0.1}>
+                <div
+                  className="rounded-xl border-2 p-8 h-full"
+                  style={{ borderColor: "var(--cyan)", background: "var(--card)" }}
+                >
+                  <div className="flex items-center gap-3 mb-6">
+                    <CheckCircle
+                      className="size-7 shrink-0"
+                      style={{ color: "var(--cyan)" }}
+                      weight="duotone"
+                      aria-hidden="true"
+                    />
+                    <h3
+                      className="text-lg font-bold"
+                      style={{ fontFamily: "var(--font-heading)", color: "var(--cyan)" }}
+                    >
+                      Dieta od Jana
+                    </h3>
+                  </div>
+                  <ul className="space-y-3 text-sm">
+                    {[
+                      "Spersonalizowana kalkulacja makroskładników",
+                      "Analiza metabolizmu na podstawie Twoich danych",
+                      "Wsparcie i korekty przez 30 dni",
+                      "Menu dostosowane do Twoich preferencji",
+                      "Uwzględnienie alergii i nietolerancji",
+                      "Dostosowanie do Twojego harmonogramu dnia",
+                      "Trwałe efekty i wypracowane nawyki",
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-2">
+                        <span
+                          className="mt-1 shrink-0 size-1.5 rounded-full"
+                          style={{ background: "var(--cyan)" }}
+                        />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </ScrollReveal>
+            </div>
+          </div>
+        </section>
+
         {/* ===== FAQ ===== */}
         <section className="py-20" style={{ background: "var(--card)" }}>
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -357,6 +705,115 @@ export default function DietaOnlinePage() {
                   </AccordionItem>
                 ))}
               </Accordion>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== ZASIEG — MIASTA ===== */}
+        <section className="py-20">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <ScrollReveal>
+              <div className="mb-10 text-center">
+                <p className="text-label mb-3" style={{ color: "var(--cyan)" }}>
+                  Zasięg ogólnopolski
+                </p>
+                <h2 className="text-display-sm text-3xl md:text-5xl">
+                  Dieta online dostępna w całej Polsce
+                </h2>
+                <p className="mt-4 text-base text-muted-foreground max-w-2xl mx-auto">
+                  Prowadzę klientów z całego kraju — wystarczy internet i chęć zmiany. Poniżej
+                  znajdziesz strony z informacjami dla klientów z największych miast Polski.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.1}>
+              <div className="flex flex-wrap justify-center gap-3">
+                {topCities.map((city) => (
+                  <Link
+                    key={city.slug}
+                    href={`/dieta-online-${city.slug}`}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:border-[var(--cyan)] hover:text-foreground"
+                  >
+                    Dieta online {city.name}
+                    <ArrowRight className="size-3.5" aria-hidden="true" />
+                  </Link>
+                ))}
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* ===== POWIAZANE USLUGI ===== */}
+        <section className="py-20" style={{ background: "var(--card)" }}>
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <ScrollReveal>
+              <div className="mb-10 text-center">
+                <p className="text-label mb-3" style={{ color: "var(--cyan)" }}>
+                  Powiązane usługi
+                </p>
+                <h2 className="text-display-sm text-3xl md:text-5xl">
+                  Dieta to dopiero początek
+                </h2>
+                <p className="mt-4 text-base text-muted-foreground max-w-xl mx-auto">
+                  Połącz dietę z planem treningowym lub kompleksowym prowadzeniem online — i osiągnij
+                  wyniki szybciej niż myślisz.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <div className="grid gap-6 sm:grid-cols-3 max-w-4xl mx-auto">
+              {[
+                {
+                  href: "/plan-treningowy",
+                  label: "Uzupełnij dietę treningiem",
+                  title: "Plan Treningowy",
+                  description:
+                    "8-tygodniowy program ćwiczeń dopasowany do Twojego poziomu, celu i dostępnego sprzętu. Idealnie współpracuje z planem żywieniowym.",
+                  price: "149 zł",
+                },
+                {
+                  href: "/prowadzenie-online",
+                  label: "Kompleksowe prowadzenie",
+                  title: "Prowadzenie Online",
+                  description:
+                    "Dieta + trening + stały kontakt i cotygodniowe korekty. Najbardziej efektywna opcja dla osób stawiających na szybkie i trwałe efekty.",
+                  price: "399 zł / mies.",
+                },
+                {
+                  href: "/trening-personalny-chelmza",
+                  label: "Trening stacjonarny",
+                  title: "Trening Personalny",
+                  description:
+                    "Dla klientów z Chełmży i okolic — treningi stacjonarne z Janem. Idealne uzupełnienie diety dla osób, które wolą pracować pod bezpośrednim okiem trenera.",
+                  price: "od 149 zł",
+                },
+              ].map((service, i) => (
+                <ScrollReveal key={service.href} delay={i * 0.08}>
+                  <Link href={service.href} className="group block h-full">
+                    <article className="h-full rounded-xl border border-border bg-card/50 p-6 transition-all group-hover:border-[var(--cyan)] group-hover:bg-card">
+                      <p className="text-label mb-2" style={{ color: "var(--cyan)" }}>
+                        {service.label}
+                      </p>
+                      <h3
+                        className="mb-3 text-lg font-bold"
+                        style={{ fontFamily: "var(--font-heading)" }}
+                      >
+                        {service.title}
+                      </h3>
+                      <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
+                        {service.description}
+                      </p>
+                      <p
+                        className="text-sm font-bold"
+                        style={{ color: "var(--cyan)" }}
+                      >
+                        {service.price}
+                      </p>
+                    </article>
+                  </Link>
+                </ScrollReveal>
+              ))}
             </div>
           </div>
         </section>

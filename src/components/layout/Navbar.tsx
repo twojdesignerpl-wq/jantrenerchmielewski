@@ -65,6 +65,7 @@ const navItems: NavItem[] = [
   { label: "O Mnie", href: "/o-mnie" },
   { label: "Oferta", dropdown: ofertaItems },
   { label: "Metamorfoza", href: "/metamorfoza" },
+  { label: "Opinie", href: "/opinie" },
   { label: "Cennik", href: "/cennik" },
   { label: "Kontakt", href: "/kontakt" },
 ]

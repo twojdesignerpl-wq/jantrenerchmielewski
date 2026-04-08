@@ -26,6 +26,7 @@ const ofertaLinks = [
 const infoLinks = [
   { label: "O Mnie", href: "/o-mnie" },
   { label: "Metamorfoza", href: "/metamorfoza" },
+  { label: "Opinie", href: "/opinie" },
   { label: "Cennik", href: "/cennik" },
   { label: "Blog", href: "/blog" },
   { label: "Polityka Prywatności", href: "/polityka-prywatnosci" },
