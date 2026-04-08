@@ -21,10 +21,10 @@ const VERTEX_SHADER = `
     float layerParallax = 0.05 + a_layer * 0.12;
     float scrollOffset = u_scroll * layerParallax;
 
-    float driftX = sin(u_time * a_speed * 0.4 + a_phase) * 0.02;
-    float driftY = cos(u_time * a_speed * 0.3 + a_phase * 1.7) * 0.015;
+    float driftX = sin(u_time * a_speed * 0.4 + a_phase) * 0.03;
+    float driftY = cos(u_time * a_speed * 0.3 + a_phase * 1.7) * 0.025;
 
-    float floatY = sin(u_time * 0.15 + a_phase * 2.0) * 0.008;
+    float floatY = sin(u_time * 0.15 + a_phase * 2.0) * 0.012;
 
     vec2 pos = a_position;
     pos.x += driftX;
@@ -37,8 +37,8 @@ const VERTEX_SHADER = `
     gl_PointSize = a_size * u_dpr;
 
     // Fade at edges
-    float edgeFade = smoothstep(-1.2, -0.8, pos.y) * smoothstep(1.2, 0.8, pos.y);
-    float layerAlpha = 0.3 + a_layer * 0.35;
+    float edgeFade = smoothstep(-1.3, -0.9, pos.y) * smoothstep(1.3, 0.9, pos.y);
+    float layerAlpha = 0.5 + a_layer * 0.25;
     v_alpha = layerAlpha * edgeFade;
     v_brightness = a_brightness;
   }
@@ -57,12 +57,10 @@ const FRAGMENT_SHADER = `
     vec2 center = gl_PointCoord - 0.5;
     float dist = length(center);
 
-    // Soft radial gradient with smooth falloff
-    float alpha = smoothstep(0.5, 0.0, dist);
-    // Extra softness in the outer ring
-    alpha *= smoothstep(0.5, 0.15, dist);
+    // Soft radial gradient — single smooth falloff
+    float alpha = smoothstep(0.5, 0.05, dist);
 
-    vec3 color = u_color * (0.8 + v_brightness * 0.4);
+    vec3 color = u_color * (0.85 + v_brightness * 0.3);
     float finalAlpha = alpha * v_alpha * u_baseOpacity;
 
     gl_FragColor = vec4(color, finalAlpha);
@@ -138,7 +136,7 @@ export function createParticleEngine(
     particleCount = 40,
     // Brand cyan: oklch(0.65 0.18 210) ≈ rgb(56, 178, 217)
     color = [0.22, 0.70, 0.85],
-    opacity = 0.07,
+    opacity = 0.25,
     speed = 1.0,
   } = options;
 
@@ -181,7 +179,7 @@ export function createParticleEngine(
     const offset = i * FLOATS_PER_PARTICLE;
     data[offset + 0] = rand() * 2.4 - 1.2; // x: [-1.2, 1.2]
     data[offset + 1] = rand() * 2.6 - 1.3; // y: [-1.3, 1.3]
-    data[offset + 2] = 4 + rand() * 28; // size: [4, 32] px
+    data[offset + 2] = 12 + rand() * 60; // size: [12, 72] px
     data[offset + 3] = 0.2 + rand() * 0.8; // speed multiplier
     data[offset + 4] = rand() * Math.PI * 2; // phase
     data[offset + 5] = Math.floor(rand() * 3); // layer: 0, 1, 2

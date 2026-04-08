@@ -54,7 +54,7 @@ export default function WebGLBackground() {
       const engine = createParticleEngine({
         canvas,
         particleCount,
-        opacity: 0.07,
+        opacity: 0.25,
         speed: 1.0,
       });
 
