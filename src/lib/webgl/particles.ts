@@ -1,77 +1,103 @@
-// Pure WebGL particle engine — floating soft orbs with scroll parallax
-// Zero React/framework dependencies, ~3-4KB gzipped
+// WebGL ambient background — floating gradient blobs with scroll parallax
+// Fullscreen quad approach — no gl_PointSize limits, smooth large blobs
+// Zero React dependencies, ~4KB gzipped
 
 const VERTEX_SHADER = `
   attribute vec2 a_position;
-  attribute float a_size;
-  attribute float a_speed;
-  attribute float a_phase;
-  attribute float a_layer;
-  attribute float a_brightness;
-
-  uniform float u_time;
-  uniform float u_scroll;
-  uniform vec2 u_resolution;
-  uniform float u_dpr;
-  uniform float u_maxPointSize;
-
-  varying float v_alpha;
-  varying float v_brightness;
-
   void main() {
-    float layerParallax = 0.05 + a_layer * 0.12;
-    float scrollOffset = u_scroll * layerParallax;
-
-    float driftX = sin(u_time * a_speed * 0.4 + a_phase) * 0.03;
-    float driftY = cos(u_time * a_speed * 0.3 + a_phase * 1.7) * 0.025;
-
-    float floatY = sin(u_time * 0.15 + a_phase * 2.0) * 0.012;
-
-    vec2 pos = a_position;
-    pos.x += driftX;
-    pos.y += driftY + floatY - scrollOffset;
-
-    // Wrap vertically with padding
-    pos.y = mod(pos.y + 1.3, 2.6) - 1.3;
-
-    gl_Position = vec4(pos, 0.0, 1.0);
-    gl_PointSize = min(a_size * u_dpr, u_maxPointSize);
-
-    // Fade at edges
-    float edgeFade = smoothstep(-1.3, -0.9, pos.y) * smoothstep(1.3, 0.9, pos.y);
-    float layerAlpha = 0.6 + a_layer * 0.2;
-    v_alpha = layerAlpha * edgeFade;
-    v_brightness = a_brightness;
+    gl_Position = vec4(a_position, 0.0, 1.0);
   }
 `;
 
+// Fragment shader renders all blobs in a single pass on a fullscreen quad
+// Each blob is a soft radial gradient — position, size, color computed per-blob
 const FRAGMENT_SHADER = `
   precision mediump float;
 
-  uniform vec3 u_color;
-  uniform float u_baseOpacity;
+  uniform vec2 u_resolution;
+  uniform float u_time;
+  uniform float u_scroll;
+  uniform float u_opacity;
 
-  varying float v_alpha;
-  varying float v_brightness;
+  // Blob data: up to 18 blobs, each with (x, y, radius, speed, phase, layer, hue_shift)
+  #define MAX_BLOBS 18
+  uniform vec4 u_blobs[MAX_BLOBS];       // xy = position, z = radius, w = speed
+  uniform vec4 u_blobsMeta[MAX_BLOBS];   // x = phase, y = layer, z = hue_shift, w = brightness
+  uniform int u_blobCount;
+
+  // Brand cyan: oklch(0.65 0.18 210) ≈ rgb(56, 178, 217) / 255
+  vec3 baseColor = vec3(0.22, 0.70, 0.85);
 
   void main() {
-    vec2 center = gl_PointCoord - 0.5;
-    float dist = length(center);
+    vec2 uv = gl_FragCoord.xy / u_resolution;
+    float aspect = u_resolution.x / u_resolution.y;
 
-    // Soft radial gradient — single smooth falloff
-    float alpha = smoothstep(0.5, 0.05, dist);
+    float totalGlow = 0.0;
+    vec3 totalColor = vec3(0.0);
 
-    vec3 color = u_color * (0.85 + v_brightness * 0.3);
-    float finalAlpha = alpha * v_alpha * u_baseOpacity;
+    for (int i = 0; i < MAX_BLOBS; i++) {
+      if (i >= u_blobCount) break;
 
-    gl_FragColor = vec4(color, finalAlpha);
+      vec4 blob = u_blobs[i];
+      vec4 meta = u_blobsMeta[i];
+
+      float phase = meta.x;
+      float layer = meta.y;
+      float hueShift = meta.z;
+      float brightness = meta.w;
+
+      // Parallax scroll offset per layer
+      float scrollOffset = u_scroll * (0.03 + layer * 0.08);
+
+      // Gentle drift animation
+      float driftX = sin(u_time * blob.w * 0.3 + phase) * 0.04;
+      float driftY = cos(u_time * blob.w * 0.25 + phase * 1.4) * 0.03;
+      float breathe = sin(u_time * 0.2 + phase * 2.0) * 0.008;
+
+      // Blob center in UV space
+      vec2 center = blob.xy;
+      center.x += driftX;
+      center.y += driftY + breathe - scrollOffset;
+
+      // Wrap vertically
+      center.y = mod(center.y + 0.3, 1.6) - 0.3;
+
+      // Distance with aspect ratio correction
+      vec2 diff = uv - center;
+      diff.x *= aspect;
+      float dist = length(diff);
+
+      // Blob radius with breathing
+      float radius = blob.z * (1.0 + sin(u_time * 0.15 + phase) * 0.1);
+
+      // Soft gaussian falloff
+      float glow = exp(-dist * dist / (3.0 * radius * radius));
+
+      // Color variation per blob — subtle hue shifts within cyan/blue range
+      vec3 blobColor = baseColor;
+      blobColor.r += hueShift * 0.08;
+      blobColor.g += hueShift * 0.05;
+      blobColor.b += (1.0 - hueShift) * 0.1;
+      blobColor *= brightness;
+
+      float layerWeight = 0.6 + layer * 0.25;
+      totalGlow += glow * layerWeight;
+      totalColor += blobColor * glow * layerWeight;
+    }
+
+    // Normalize color
+    vec3 finalColor = totalGlow > 0.001 ? totalColor / totalGlow : baseColor;
+
+    // Apply opacity — balanced: visible glow, dark theme preserved
+    float alpha = min(totalGlow * u_opacity, 0.42);
+
+    gl_FragColor = vec4(finalColor, alpha);
   }
 `;
 
 export interface ParticleEngineOptions {
   canvas: HTMLCanvasElement;
-  particleCount?: number;
-  color?: [number, number, number];
+  blobCount?: number;
   opacity?: number;
   speed?: number;
 }
@@ -99,7 +125,7 @@ function compileShader(
   return shader;
 }
 
-function createProgram(
+function createGLProgram(
   gl: WebGLRenderingContext,
   vertSrc: string,
   fragSrc: string,
@@ -134,10 +160,8 @@ export function createParticleEngine(
 ): ParticleEngine | null {
   const {
     canvas,
-    particleCount = 40,
-    // Brand cyan: oklch(0.65 0.18 210) ≈ rgb(56, 178, 217)
-    color = [0.22, 0.70, 0.85],
-    opacity = 0.6,
+    blobCount = 14,
+    opacity = 0.8,
     speed = 1.0,
   } = options;
 
@@ -152,51 +176,54 @@ export function createParticleEngine(
   if (!maybeGl) return null;
   const gl: WebGLRenderingContext = maybeGl;
 
-  const program = createProgram(gl, VERTEX_SHADER, FRAGMENT_SHADER);
+  const program = createGLProgram(gl, VERTEX_SHADER, FRAGMENT_SHADER);
   if (!program) return null;
 
-  // Attribute locations
-  const aPosition = gl.getAttribLocation(program, 'a_position');
-  const aSize = gl.getAttribLocation(program, 'a_size');
-  const aSpeed = gl.getAttribLocation(program, 'a_speed');
-  const aPhase = gl.getAttribLocation(program, 'a_phase');
-  const aLayer = gl.getAttribLocation(program, 'a_layer');
-  const aBrightness = gl.getAttribLocation(program, 'a_brightness');
+  // Fullscreen quad
+  const quadBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, quadBuffer);
+  gl.bufferData(
+    gl.ARRAY_BUFFER,
+    new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]),
+    gl.STATIC_DRAW,
+  );
 
-  // Uniform locations
+  const aPosition = gl.getAttribLocation(program, 'a_position');
+
+  // Uniforms
+  const uResolution = gl.getUniformLocation(program, 'u_resolution');
   const uTime = gl.getUniformLocation(program, 'u_time');
   const uScroll = gl.getUniformLocation(program, 'u_scroll');
-  const uResolution = gl.getUniformLocation(program, 'u_resolution');
-  const uDpr = gl.getUniformLocation(program, 'u_dpr');
-  const uColor = gl.getUniformLocation(program, 'u_color');
-  const uBaseOpacity = gl.getUniformLocation(program, 'u_baseOpacity');
-  const uMaxPointSize = gl.getUniformLocation(program, 'u_maxPointSize');
+  const uOpacity = gl.getUniformLocation(program, 'u_opacity');
+  const uBlobCount = gl.getUniformLocation(program, 'u_blobCount');
 
-  // Query GPU max point size and clamp
-  const maxPointSize = gl.getParameter(gl.ALIASED_POINT_SIZE_RANGE)[1] as number;
-
-  // Generate particle data
+  // Generate blob data
   const rand = seededRandom(42);
-  const FLOATS_PER_PARTICLE = 7; // x, y, size, speed, phase, layer, brightness
-  const data = new Float32Array(particleCount * FLOATS_PER_PARTICLE);
+  const count = Math.min(blobCount, 18);
 
-  for (let i = 0; i < particleCount; i++) {
-    const offset = i * FLOATS_PER_PARTICLE;
-    data[offset + 0] = rand() * 2.4 - 1.2; // x: [-1.2, 1.2]
-    data[offset + 1] = rand() * 2.6 - 1.3; // y: [-1.3, 1.3]
-    data[offset + 2] = 8 + rand() * 32; // size: [8, 40] px
-    data[offset + 3] = 0.2 + rand() * 0.8; // speed multiplier
-    data[offset + 4] = rand() * Math.PI * 2; // phase
-    data[offset + 5] = Math.floor(rand() * 3); // layer: 0, 1, 2
-    data[offset + 6] = 0.4 + rand() * 0.6; // brightness: [0.4, 1.0]
+  const blobsData = new Float32Array(count * 4);
+  const blobsMetaData = new Float32Array(count * 4);
+
+  for (let i = 0; i < count; i++) {
+    const o = i * 4;
+    blobsData[o + 0] = rand() * 1.2 - 0.1; // x: [-0.1, 1.1] (UV space)
+    blobsData[o + 1] = rand() * 1.4 - 0.2; // y: [-0.2, 1.2]
+    blobsData[o + 2] = 0.08 + rand() * 0.16; // radius: [0.08, 0.24] in UV
+    blobsData[o + 3] = 0.3 + rand() * 0.7; // speed: [0.3, 1.0]
+
+    blobsMetaData[o + 0] = rand() * Math.PI * 2; // phase
+    blobsMetaData[o + 1] = Math.floor(rand() * 3); // layer: 0, 1, 2
+    blobsMetaData[o + 2] = rand(); // hue_shift: [0, 1]
+    blobsMetaData[o + 3] = 0.6 + rand() * 0.4; // brightness: [0.6, 1.0]
   }
 
-  // Create buffer
-  const buffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-  gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
-
-  const stride = FLOATS_PER_PARTICLE * 4;
+  // Get uniform locations for arrays
+  const uBlobs: (WebGLUniformLocation | null)[] = [];
+  const uBlobsMeta: (WebGLUniformLocation | null)[] = [];
+  for (let i = 0; i < count; i++) {
+    uBlobs.push(gl.getUniformLocation(program, `u_blobs[${i}]`));
+    uBlobsMeta.push(gl.getUniformLocation(program, `u_blobsMeta[${i}]`));
+  }
 
   // State
   let scrollProgress = 0;
@@ -204,33 +231,10 @@ export function createParticleEngine(
   let startTime = 0;
   let destroyed = false;
   let contextLost = false;
-  let dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-  function setupAttributes() {
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-
-    gl.enableVertexAttribArray(aPosition);
-    gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, stride, 0);
-
-    gl.enableVertexAttribArray(aSize);
-    gl.vertexAttribPointer(aSize, 1, gl.FLOAT, false, stride, 8);
-
-    gl.enableVertexAttribArray(aSpeed);
-    gl.vertexAttribPointer(aSpeed, 1, gl.FLOAT, false, stride, 12);
-
-    gl.enableVertexAttribArray(aPhase);
-    gl.vertexAttribPointer(aPhase, 1, gl.FLOAT, false, stride, 16);
-
-    gl.enableVertexAttribArray(aLayer);
-    gl.vertexAttribPointer(aLayer, 1, gl.FLOAT, false, stride, 20);
-
-    gl.enableVertexAttribArray(aBrightness);
-    gl.vertexAttribPointer(aBrightness, 1, gl.FLOAT, false, stride, 24);
-  }
 
   function resize() {
     if (destroyed || contextLost) return;
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
     canvas.width = width * dpr;
@@ -241,7 +245,6 @@ export function createParticleEngine(
   function render(now: number) {
     if (destroyed || contextLost) return;
 
-    // Pause when tab is hidden
     if (document.hidden) {
       rafId = requestAnimationFrame(render);
       return;
@@ -254,26 +257,49 @@ export function createParticleEngine(
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     gl.useProgram(program);
-    setupAttributes();
 
-    // Additive blending for soft glow
+    // Fullscreen quad attributes
+    gl.bindBuffer(gl.ARRAY_BUFFER, quadBuffer);
+    gl.enableVertexAttribArray(aPosition);
+    gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+
+    // Alpha blending (not additive — proper compositing over dark bg)
     gl.enable(gl.BLEND);
-    gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
+    // Set uniforms
+    gl.uniform2f(uResolution, canvas.width, canvas.height);
     gl.uniform1f(uTime, elapsed);
     gl.uniform1f(uScroll, scrollProgress);
-    gl.uniform2f(uResolution, canvas.width, canvas.height);
-    gl.uniform1f(uDpr, dpr);
-    gl.uniform3f(uColor, color[0], color[1], color[2]);
-    gl.uniform1f(uBaseOpacity, opacity);
-    gl.uniform1f(uMaxPointSize, maxPointSize);
+    gl.uniform1f(uOpacity, opacity);
+    gl.uniform1i(uBlobCount, count);
 
-    gl.drawArrays(gl.POINTS, 0, particleCount);
+    // Set blob data
+    for (let i = 0; i < count; i++) {
+      const o = i * 4;
+      if (uBlobs[i])
+        gl.uniform4f(
+          uBlobs[i],
+          blobsData[o],
+          blobsData[o + 1],
+          blobsData[o + 2],
+          blobsData[o + 3],
+        );
+      if (uBlobsMeta[i])
+        gl.uniform4f(
+          uBlobsMeta[i],
+          blobsMetaData[o],
+          blobsMetaData[o + 1],
+          blobsMetaData[o + 2],
+          blobsMetaData[o + 3],
+        );
+    }
+
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
 
     rafId = requestAnimationFrame(render);
   }
 
-  // Context loss handling
   function onContextLost(e: Event) {
     e.preventDefault();
     contextLost = true;
@@ -282,10 +308,6 @@ export function createParticleEngine(
 
   function onContextRestored() {
     contextLost = false;
-    const newProgram = createProgram(gl, VERTEX_SHADER, FRAGMENT_SHADER);
-    if (!newProgram) return;
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-    gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
     resize();
     startTime = 0;
     rafId = requestAnimationFrame(render);
@@ -314,7 +336,7 @@ export function createParticleEngine(
       canvas.removeEventListener('webglcontextlost', onContextLost);
       canvas.removeEventListener('webglcontextrestored', onContextRestored);
 
-      gl.deleteBuffer(buffer);
+      gl.deleteBuffer(quadBuffer);
       gl.deleteProgram(program);
 
       const ext = gl.getExtension('WEBGL_lose_context');

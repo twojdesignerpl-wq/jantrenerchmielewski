@@ -11,6 +11,9 @@ import {
 const CURSOR_SIZE = 16
 const CURSOR_RING_SIZE = 40
 
+const INTERACTIVE_SELECTOR =
+  "a, button, [role='button'], input, textarea, select, [tabindex]:not([tabindex='-1'])"
+
 export function CustomCursor() {
   const prefersReducedMotion = useReducedMotion()
 
@@ -24,6 +27,7 @@ export function CustomCursor() {
   const isHovering = useRef(false)
   const dotRef = useRef<HTMLDivElement>(null)
   const ringRef = useRef<HTMLDivElement>(null)
+  const styleRef = useRef<HTMLStyleElement | null>(null)
 
   const onMouseMove = useCallback(
     (e: MouseEvent) => {
@@ -63,51 +67,51 @@ export function CustomCursor() {
   useEffect(() => {
     if (prefersReducedMotion) return
 
-    // Only show on desktop (coarse pointer = touch, fine = mouse)
     const mql = window.matchMedia("(pointer: fine)")
     if (!mql.matches) return
 
-    document.documentElement.style.cursor = "none"
+    // Inject global cursor:none via <style> — no DOM attribute mutations
+    const style = document.createElement("style")
+    style.textContent = `
+      @media (pointer: fine) {
+        *, *::before, *::after { cursor: none !important; }
+      }
+    `
+    document.head.appendChild(style)
+    styleRef.current = style
 
     window.addEventListener("mousemove", onMouseMove)
 
-    const interactiveSelector =
-      'a, button, [role="button"], input, textarea, select, [tabindex]:not([tabindex="-1"])'
+    // Event delegation — no per-element binding, no DOM mutations
+    function onMouseOver(e: MouseEvent) {
+      const target = e.target as HTMLElement
+      if (target.closest(INTERACTIVE_SELECTOR)) {
+        onHoverStart()
+      }
+    }
 
-    const observer = new MutationObserver(() => {
-      document.querySelectorAll(interactiveSelector).forEach((el) => {
-        const htmlEl = el as HTMLElement
-        if (!htmlEl.dataset.cursorBound) {
-          htmlEl.dataset.cursorBound = "1"
-          htmlEl.style.cursor = "none"
-          htmlEl.addEventListener("mouseenter", onHoverStart)
-          htmlEl.addEventListener("mouseleave", onHoverEnd)
-        }
-      })
-    })
+    function onMouseOut(e: MouseEvent) {
+      const target = e.target as HTMLElement
+      const related = e.relatedTarget as HTMLElement | null
+      if (
+        target.closest(INTERACTIVE_SELECTOR) &&
+        (!related || !target.closest(INTERACTIVE_SELECTOR)?.contains(related))
+      ) {
+        onHoverEnd()
+      }
+    }
 
-    observer.observe(document.body, { childList: true, subtree: true })
-
-    // Initial bind
-    document.querySelectorAll(interactiveSelector).forEach((el) => {
-      const htmlEl = el as HTMLElement
-      htmlEl.dataset.cursorBound = "1"
-      htmlEl.style.cursor = "none"
-      htmlEl.addEventListener("mouseenter", onHoverStart)
-      htmlEl.addEventListener("mouseleave", onHoverEnd)
-    })
+    document.addEventListener("mouseover", onMouseOver)
+    document.addEventListener("mouseout", onMouseOut)
 
     return () => {
-      document.documentElement.style.cursor = ""
       window.removeEventListener("mousemove", onMouseMove)
-      observer.disconnect()
-      document.querySelectorAll("[data-cursor-bound]").forEach((el) => {
-        const htmlEl = el as HTMLElement
-        htmlEl.style.cursor = ""
-        htmlEl.removeEventListener("mouseenter", onHoverStart)
-        htmlEl.removeEventListener("mouseleave", onHoverEnd)
-        delete htmlEl.dataset.cursorBound
-      })
+      document.removeEventListener("mouseover", onMouseOver)
+      document.removeEventListener("mouseout", onMouseOut)
+      if (styleRef.current) {
+        styleRef.current.remove()
+        styleRef.current = null
+      }
     }
   }, [prefersReducedMotion, onMouseMove, onHoverStart, onHoverEnd])
 

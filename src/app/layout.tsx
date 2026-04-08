@@ -101,11 +101,13 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-[100dvh] text-foreground antialiased" suppressHydrationWarning>
-        {/* WebGL animated background — must be first in DOM, below content */}
+        {/* WebGL animated background — fixed behind all content */}
         <WebGLBackgroundLoader />
 
         <TooltipProvider>
-          {children}
+          <div className="relative z-10">
+            {children}
+          </div>
         </TooltipProvider>
 
         {/* Grain texture overlay */}

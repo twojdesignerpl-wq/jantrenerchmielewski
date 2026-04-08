@@ -49,12 +49,12 @@ export default function WebGLBackground() {
 
       if (destroyed || !canvas) return;
 
-      const particleCount = isMobile() ? 16 : 40;
+      const blobCount = isMobile() ? 8 : 14;
 
       const engine = createParticleEngine({
         canvas,
-        particleCount,
-        opacity: 0.6,
+        blobCount,
+        opacity: 0.75,
         speed: 1.0,
       });
 
@@ -66,13 +66,11 @@ export default function WebGLBackground() {
 
     init();
 
-    // Scroll listener — store value in ref, engine reads in rAF
     function onScroll() {
       scrollRef.current = getScrollProgress();
       engineRef.current?.updateScroll(scrollRef.current);
     }
 
-    // Resize handler
     function onResize() {
       engineRef.current?.resize();
     }
@@ -80,7 +78,6 @@ export default function WebGLBackground() {
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onResize, { passive: true });
 
-    // Set initial scroll
     onScroll();
 
     return () => {
@@ -99,7 +96,7 @@ export default function WebGLBackground() {
       ref={canvasRef}
       aria-hidden="true"
       className="pointer-events-none fixed inset-0 z-[1]"
-      style={{ width: '100%', height: '100%' }}
+      style={{ width: '100vw', height: '100vh' }}
     />
   );
 }
