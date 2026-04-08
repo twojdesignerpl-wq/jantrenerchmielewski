@@ -5,7 +5,7 @@ import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
 import { CTAButton } from "@/components/shared/CTAButton"
-import { BreadcrumbSchema } from "@/components/seo/JsonLd"
+import { BreadcrumbSchema, PersonSchema } from "@/components/seo/JsonLd"
 import { GraduationCap, Trophy, Users, Calendar, Barbell, Heart } from "@phosphor-icons/react/dist/ssr"
 
 export const metadata: Metadata = {
@@ -84,6 +84,7 @@ export default function OMniePage() {
           { name: "O Mnie", url: "/o-mnie" },
         ]}
       />
+      <PersonSchema />
 
       <Navbar />
 

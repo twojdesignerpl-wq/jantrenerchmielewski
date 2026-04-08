@@ -241,3 +241,161 @@ export function BreadcrumbSchema({
     />
   );
 }
+
+interface HowToSchemaProps {
+  name: string;
+  description: string;
+  steps: { name: string; text: string }[];
+}
+
+export function HowToSchema({ name, description, steps }: HowToSchemaProps) {
+  return (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name,
+        description,
+        step: steps.map((step, index) => ({
+          "@type": "HowToStep",
+          position: index + 1,
+          name: step.name,
+          text: step.text,
+        })),
+      }}
+    />
+  );
+}
+
+interface ArticleSchemaProps {
+  headline: string;
+  description: string;
+  datePublished: string;
+  dateModified?: string;
+  image?: string;
+  authorName?: string;
+}
+
+export function ArticleSchema({
+  headline,
+  description,
+  datePublished,
+  dateModified,
+  image,
+  authorName = "Jan Chmielewski",
+}: ArticleSchemaProps) {
+  return (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline,
+        description,
+        datePublished,
+        ...(dateModified !== undefined && { dateModified }),
+        ...(image !== undefined && { image }),
+        author: {
+          "@type": "Person",
+          name: authorName,
+          url: "https://jantrenerchmielewski.pl",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Jan Chmielewski — Trener Personalny",
+          url: "https://jantrenerchmielewski.pl",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://jantrenerchmielewski.pl/images/jan-hero.png",
+          },
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://jantrenerchmielewski.pl",
+        },
+      }}
+    />
+  );
+}
+
+export function WebSiteSchema() {
+  return (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "Jan Chmielewski — Trener Personalny",
+        url: "https://jantrenerchmielewski.pl",
+        potentialAction: {
+          "@type": "SearchAction",
+          target: "https://jantrenerchmielewski.pl/?q={search_term_string}",
+          "query-input": "required name=search_term_string",
+        },
+      }}
+    />
+  );
+}
+
+interface AggregateRatingSchemaProps {
+  ratingValue: string;
+  reviewCount: string;
+  bestRating?: string;
+}
+
+export function AggregateRatingSchema({
+  ratingValue,
+  reviewCount,
+  bestRating = "5",
+}: AggregateRatingSchemaProps) {
+  return (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: "Jan Chmielewski — Trener Personalny",
+        url: "https://jantrenerchmielewski.pl",
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue,
+          reviewCount,
+          bestRating,
+        },
+      }}
+    />
+  );
+}
+
+interface ReviewSchemaProps {
+  reviews: {
+    author: string;
+    rating: number;
+    text: string;
+    date: string;
+  }[];
+  itemName: string;
+}
+
+export function ReviewSchema({ reviews, itemName }: ReviewSchemaProps) {
+  return (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": "Product",
+        name: itemName,
+        review: reviews.map((review) => ({
+          "@type": "Review",
+          author: {
+            "@type": "Person",
+            name: review.author,
+          },
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue: review.rating,
+            bestRating: 5,
+          },
+          reviewBody: review.text,
+          datePublished: review.date,
+        })),
+      }}
+    />
+  );
+}
