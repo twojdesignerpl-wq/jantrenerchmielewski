@@ -95,8 +95,8 @@ export default function WebGLBackground() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[1]"
-      style={{ width: '100vw', height: '100vh' }}
+      className="pointer-events-none fixed inset-0 z-40"
+      style={{ width: '100vw', height: '100vh', mixBlendMode: 'screen' }}
     />
   );
 }

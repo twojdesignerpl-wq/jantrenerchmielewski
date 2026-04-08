@@ -28,9 +28,22 @@ const FRAGMENT_SHADER = `
   // Brand cyan: oklch(0.65 0.18 210) ≈ rgb(56, 178, 217) / 255
   vec3 baseColor = vec3(0.22, 0.70, 0.85);
 
+  // Scroll-driven energy wave — peaks at section transitions
+  float sectionPulse(float scroll) {
+    // 6 sections across the page, pulse at each boundary
+    float sections = scroll * 5.0;
+    float frac = fract(sections);
+    // Peak energy at section boundaries (0.0 and 1.0), calm in middle
+    return smoothstep(0.4, 0.0, abs(frac - 0.5) - 0.1);
+  }
+
   void main() {
     vec2 uv = gl_FragCoord.xy / u_resolution;
     float aspect = u_resolution.x / u_resolution.y;
+
+    // Scroll-reactive modifiers
+    float pulse = sectionPulse(u_scroll);
+    float scrollPhase = u_scroll * 6.28318; // full cycle over page
 
     float totalGlow = 0.0;
     vec3 totalColor = vec3(0.0);
@@ -46,17 +59,25 @@ const FRAGMENT_SHADER = `
       float hueShift = meta.z;
       float brightness = meta.w;
 
-      // Parallax scroll offset per layer
-      float scrollOffset = u_scroll * (0.03 + layer * 0.08);
+      // Parallax scroll offset per layer — stronger with scroll
+      float parallaxStrength = 0.03 + layer * 0.08;
+      float scrollOffset = u_scroll * parallaxStrength;
 
-      // Gentle drift animation
-      float driftX = sin(u_time * blob.w * 0.3 + phase) * 0.04;
-      float driftY = cos(u_time * blob.w * 0.25 + phase * 1.4) * 0.03;
-      float breathe = sin(u_time * 0.2 + phase * 2.0) * 0.008;
+      // Drift amplitude increases during section transitions
+      float driftBoost = 1.0 + pulse * 0.6;
+      float driftX = sin(u_time * blob.w * 0.3 + phase) * 0.04 * driftBoost;
+      float driftY = cos(u_time * blob.w * 0.25 + phase * 1.4) * 0.03 * driftBoost;
+
+      // Breathing intensifies during scroll transitions
+      float breatheAmp = 0.008 + pulse * 0.015;
+      float breathe = sin(u_time * 0.2 + phase * 2.0) * breatheAmp;
+
+      // Scroll-driven lateral sway — each blob sways differently
+      float sway = sin(scrollPhase + phase * 1.5) * 0.03 * (1.0 + layer * 0.5);
 
       // Blob center in UV space
       vec2 center = blob.xy;
-      center.x += driftX;
+      center.x += driftX + sway;
       center.y += driftY + breathe - scrollOffset;
 
       // Wrap vertically
@@ -67,20 +88,23 @@ const FRAGMENT_SHADER = `
       diff.x *= aspect;
       float dist = length(diff);
 
-      // Blob radius with breathing
-      float radius = blob.z * (1.0 + sin(u_time * 0.15 + phase) * 0.1);
+      // Blob radius — pulses larger at section transitions
+      float radiusBoost = 1.0 + pulse * 0.2;
+      float radius = blob.z * (1.0 + sin(u_time * 0.15 + phase) * 0.1) * radiusBoost;
 
       // Soft gaussian falloff
       float glow = exp(-dist * dist / (3.0 * radius * radius));
 
-      // Color variation per blob — subtle hue shifts within cyan/blue range
+      // Color shifts with scroll position — warmer at top, cooler at bottom
       vec3 blobColor = baseColor;
-      blobColor.r += hueShift * 0.08;
-      blobColor.g += hueShift * 0.05;
-      blobColor.b += (1.0 - hueShift) * 0.1;
+      float scrollHue = sin(scrollPhase * 0.5 + phase) * 0.5 + 0.5;
+      blobColor.r += hueShift * 0.08 + scrollHue * 0.04;
+      blobColor.g += hueShift * 0.05 - u_scroll * 0.03;
+      blobColor.b += (1.0 - hueShift) * 0.1 + u_scroll * 0.06;
       blobColor *= brightness;
 
-      float layerWeight = 0.6 + layer * 0.25;
+      // Brightness boost during transitions
+      float layerWeight = (0.6 + layer * 0.25) * (1.0 + pulse * 0.3);
       totalGlow += glow * layerWeight;
       totalColor += blobColor * glow * layerWeight;
     }
@@ -88,8 +112,9 @@ const FRAGMENT_SHADER = `
     // Normalize color
     vec3 finalColor = totalGlow > 0.001 ? totalColor / totalGlow : baseColor;
 
-    // Apply opacity — balanced: visible glow, dark theme preserved
-    float alpha = min(totalGlow * u_opacity, 0.42);
+    // Opacity pulses slightly at section transitions for "energy wave" feel
+    float opacityBoost = 1.0 + pulse * 0.25;
+    float alpha = min(totalGlow * u_opacity * opacityBoost, 0.45);
 
     gl_FragColor = vec4(finalColor, alpha);
   }
