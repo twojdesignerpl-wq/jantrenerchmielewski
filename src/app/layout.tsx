@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { CustomCursor } from "@/components/shared/CustomCursor";
 import { StickyCTA } from "@/components/shared/StickyCTA";
+import { CookieConsent } from "@/components/shared/CookieConsent";
 import { WebGLBackgroundLoader } from "@/components/background/WebGLBackgroundLoader";
 import { WebSiteSchema, ProfessionalServiceSchema } from "@/components/seo/JsonLd";
 import "./globals.css";
@@ -124,6 +125,7 @@ export default function RootLayout({
         />
 
         <StickyCTA />
+        <CookieConsent />
         <CustomCursor />
         <Analytics />
         <SpeedInsights />
