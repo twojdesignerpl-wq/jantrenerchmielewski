@@ -31,23 +31,28 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Jan Chmielewski — Trener Personalny | Dietetyk Online",
+    default: "Jan Chmielewski — Trener Personalny | Diety i Plany Treningowe Online",
     template: "%s | Jan Chmielewski — Trener Personalny",
   },
   description:
-    "Profesjonalny trener personalny i dietetyk online. Magister Fizjoterapii, Finalista Mistrzostw Polski w kulturystyce. Indywidualne diety, plany treningowe, prowadzenie online. 8 lat doświadczenia, 200+ zadowolonych klientów. Chełmża, Toruń i cała Polska.",
+    "Profesjonalny trener personalny — indywidualne diety online, rozpiski treningowe i prowadzenie online. Magister Fizjoterapii, Finalista Mistrzostw Polski w kulturystyce. 8 lat doświadczenia, 200+ klientów. Chełmża, Toruń i cała Polska.",
   keywords: [
     "trener personalny",
-    "dietetyk online",
-    "plan treningowy",
+    "trener personalny online",
+    "diety online",
     "dieta online",
+    "plan treningowy online",
+    "plan treningowy",
+    "rozpiski treningowe",
+    "rozpiski jedzeniowe",
     "prowadzenie online",
     "trener personalny Chełmża",
     "trener personalny Toruń",
-    "dietetyk Toruń",
+    "trening personalny",
     "kulturystyka",
     "fizjoterapia",
     "Jan Chmielewski",
+    "trener online",
   ],
   authors: [{ name: "Jan Chmielewski" }],
   creator: "Jan Chmielewski",
@@ -57,9 +62,9 @@ export const metadata: Metadata = {
     locale: "pl_PL",
     url: "https://jantrenerchmielewski.pl",
     siteName: "Jan Chmielewski — Trener Personalny",
-    title: "Jan Chmielewski — Trener Personalny | Dietetyk Online",
+    title: "Jan Chmielewski — Trener Personalny | Diety i Plany Treningowe Online",
     description:
-      "Magister Fizjoterapii, Finalista Mistrzostw Polski. Indywidualne diety, plany treningowe i prowadzenie online. 200+ zadowolonych klientów.",
+      "Magister Fizjoterapii, Finalista Mistrzostw Polski. Indywidualne diety online, plany treningowe, rozpiski i prowadzenie online. 200+ zadowolonych klientów.",
     images: [
       {
         url: "/og.jpg",
@@ -71,9 +76,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jan Chmielewski — Trener Personalny | Dietetyk Online",
+    title: "Jan Chmielewski — Trener Personalny | Diety i Plany Treningowe Online",
     description:
-      "Magister Fizjoterapii, Finalista Mistrzostw Polski. Indywidualne diety, plany treningowe i prowadzenie online.",
+      "Magister Fizjoterapii, Finalista Mistrzostw Polski. Indywidualne diety online, plany treningowe, rozpiski i prowadzenie online.",
   },
   robots: {
     index: true,

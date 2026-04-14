@@ -18,13 +18,13 @@ import { ArrowRight } from "@phosphor-icons/react/dist/ssr"
 export const metadata: Metadata = {
   title: "Dieta Online vs Prowadzenie Online — Co wybrać?",
   description:
-    "Porównanie diety online (199 zł) i prowadzenia online (399 zł/msc). Sprawdź, która usługa lepiej pasuje do Twoich celów. Jan Chmielewski — Trener Personalny i Dietetyk.",
+    "Porównanie diety online (199 zł) i prowadzenia online (399 zł/msc). Sprawdź, która usługa lepiej pasuje do Twoich celów. Jan Chmielewski — Trener Personalny.",
   keywords: [
     "dieta online vs prowadzenie online",
     "porównanie usług fitness",
     "dieta czy prowadzenie",
     "Jan Chmielewski usługi",
-    "dietetyk online porównanie",
+    "diety online porównanie",
   ],
   openGraph: {
     title: "Dieta Online vs Prowadzenie Online — Co wybrać? | Jan Chmielewski",

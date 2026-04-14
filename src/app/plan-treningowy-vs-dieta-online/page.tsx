@@ -18,7 +18,7 @@ import { ArrowRight } from "@phosphor-icons/react/dist/ssr"
 export const metadata: Metadata = {
   title: "Plan Treningowy vs Dieta Online — Co wybrać?",
   description:
-    "Porównanie planu treningowego (149 zł) i diety online (199 zł). Sprawdź różnice i wybierz usługę dopasowaną do swoich celów. Jan Chmielewski — Trener Personalny i Dietetyk.",
+    "Porównanie planu treningowego (149 zł) i diety online (199 zł). Sprawdź różnice i wybierz usługę dopasowaną do swoich celów. Jan Chmielewski — Trener Personalny.",
   keywords: [
     "plan treningowy vs dieta online",
     "trening czy dieta",

@@ -161,7 +161,7 @@ export default function BlogPage() {
             <ScrollReveal>
               <div className="max-w-none text-base leading-relaxed text-muted-foreground">
                 <p className="mb-4">
-                  Na tym blogu znajdziesz eksperckie artykuły z zakresu treningu siłowego, dietetyki sportowej
+                  Na tym blogu znajdziesz eksperckie artykuły z zakresu treningu siłowego, żywienia sportowego
                   i coachingu online — pisane przez Jana Chmielewskiego, magistra fizjoterapii i finalistę
                   Mistrzostw Polski w kulturystyce z 8-letnim doświadczeniem.
                 </p>
