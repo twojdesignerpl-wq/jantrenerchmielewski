@@ -90,12 +90,11 @@ function SocialProofTicker() {
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
-    if (prefersReducedMotion) return
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % socialProofMessages.length)
     }, 6000)
     return () => clearInterval(interval)
-  }, [prefersReducedMotion])
+  }, [])
 
   return (
     <div
@@ -112,10 +111,10 @@ function SocialProofTicker() {
         <motion.span
           key={index}
           className="text-[0.9375rem] text-muted-foreground"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ type: "spring", stiffness: 80, damping: 20, duration: 0.6 }}
+          initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
+          animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -10 }}
+          transition={{ type: "spring", stiffness: 80, damping: 20 }}
         >
           {socialProofMessages[index]}
         </motion.span>
