@@ -373,7 +373,7 @@ const relatedServices = [
     title: "Trening Personalny — Chełmża",
     description:
       "Wolisz trenować stacjonarnie pod okiem trenera? Oferuję sesje personalne w Chełmży i okolicach.",
-    badge: "od 149 zł / sesja",
+    badge: "od 199 zł / sesja",
   },
 ]
 

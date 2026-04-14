@@ -4,7 +4,7 @@ export const serviceOptions = [
   { value: "dieta", label: "Dieta 4-tygodniowa", price: "199 zł" },
   { value: "plan", label: "Plan Treningowy 8-tygodniowy", price: "149 zł" },
   { value: "prowadzenie", label: "Prowadzenie Online", price: "od 399 zł/mies." },
-  { value: "trening", label: "Trening Personalny", price: "od 149 zł" },
+  { value: "trening", label: "Trening Personalny", price: "od 199 zł" },
 ] as const;
 
 export const packageOptions = [
@@ -15,8 +15,8 @@ export const packageOptions = [
 ] as const;
 
 export const trainingPackageOptions = [
-  { value: "trening_1", label: "Pojedyncza sesja", price: "149 zł" },
-  { value: "trening_10", label: "Pakiet 10 sesji", price: "1\u00A0119 zł" },
+  { value: "trening_1", label: "Pojedyncza sesja", price: "199 zł" },
+  { value: "trening_10", label: "Pakiet 10 sesji", price: "1\u00A0599 zł" },
 ] as const;
 
 export const contactSchema = z.object({

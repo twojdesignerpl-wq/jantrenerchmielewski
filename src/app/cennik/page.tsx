@@ -23,7 +23,7 @@ import {
 export const metadata: Metadata = {
   title: "Cennik — Wszystkie usługi",
   description:
-    "Pełny cennik usług Jana Chmielewskiego. Dieta 4-tygodniowa 199 zł, Plan treningowy 149 zł, Prowadzenie online od 399 zł, Trening personalny od 149 zł/sesja.",
+    "Pełny cennik usług Jana Chmielewskiego. Dieta 4-tygodniowa 199 zł, Plan treningowy 149 zł, Prowadzenie online od 399 zł, Trening personalny od 199 zł/sesja.",
   keywords: [
     "cennik trener personalny",
     "cena diety online",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Cennik — Wszystkie usługi | Jan Chmielewski",
     description:
-      "Dieta 199 zł, Plan treningowy 149 zł, Prowadzenie online od 399 zł, Trening personalny od 149 zł.",
+      "Dieta 199 zł, Plan treningowy 149 zł, Prowadzenie online od 399 zł, Trening personalny od 199 zł.",
     images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Cennik Jan Chmielewski" }],
     type: "website",
   },
@@ -151,7 +151,7 @@ const onlineCoachingTiers = [
 const personalTrainingOptions = [
   {
     title: "Pojedyncza sesja",
-    price: "149 zł",
+    price: "199 zł",
     period: "/ sesja (60 min)",
     features: [
       "Trening 1 na 1",
@@ -166,9 +166,9 @@ const personalTrainingOptions = [
   },
   {
     title: "Pakiet 10 treningów",
-    price: "1\u00A0119 zł",
+    price: "1\u00A0599 zł",
     period: "/ 10 sesji",
-    badge: "Oszczędzasz 371 zł",
+    badge: "Oszczędzasz 391 zł",
     features: [
       "10 sesji 1 na 1 (60 min)",
       "Dostosowany plan każdej sesji",

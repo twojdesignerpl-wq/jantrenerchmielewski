@@ -180,7 +180,7 @@ export default function BlogPage() {
                   </Link>{" "}
                   i{" "}
                   <Link href="/trening-personalny-chelmza" className="text-foreground underline underline-offset-4 transition-colors hover:text-primary">
-                    trening personalny w Chełmży (149 zł/sesja)
+                    trening personalny w Chełmży (199 zł/sesja)
                   </Link>
                   . Masz pytania? Skontaktuj się przez{" "}
                   <Link href="/kontakt" className="text-foreground underline underline-offset-4 transition-colors hover:text-primary">

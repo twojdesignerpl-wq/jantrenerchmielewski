@@ -70,7 +70,7 @@ const plans = [
   },
   {
     title: "Trening Personalny",
-    price: "od 149 zł",
+    price: "od 199 zł",
     period: "/ sesja",
     features: [
       "Sesje 1 na 1 w Chełmży",
@@ -79,7 +79,7 @@ const plans = [
       "Korekta techniki w czasie rzeczywistym",
       "Trening z uwzględnieniem kontuzji",
       "Dostęp do profesjonalnego sprzętu",
-      "Pakiet 10 sesji — 1\u00A0119 zł",
+      "Pakiet 10 sesji — 1\u00A0599 zł",
       "Wsparcie między sesjami",
     ],
     href: "/kontakt?service=trening",

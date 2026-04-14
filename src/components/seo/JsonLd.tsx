@@ -150,7 +150,7 @@ export function LocalBusinessSchema() {
                 description:
                   "Indywidualne treningi w Chełmży z profesjonalnym trenerem.",
               },
-              price: "149",
+              price: "199",
               priceCurrency: "PLN",
             },
           ],
@@ -446,7 +446,7 @@ export function ProfessionalServiceSchema() {
                 description:
                   "Indywidualne treningi w Chełmży z elementami fizjoterapii.",
               },
-              price: "149",
+              price: "199",
               priceCurrency: "PLN",
               url: "https://jantrenerchmielewski.pl/trening-personalny-chelmza",
             },

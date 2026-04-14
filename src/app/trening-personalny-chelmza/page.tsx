@@ -32,7 +32,7 @@ import {
 import { cities } from "@/lib/data/cities"
 
 export const metadata: Metadata = {
-  title: "Trening Personalny Chełmża — od 149 zł/sesja",
+  title: "Trening Personalny Chełmża — od 199 zł/sesja",
   description:
     "Trening personalny 1 na 1 w Chełmży. Indywidualne podejście, elementy fizjoterapii, kontrola techniki. Jan Chmielewski — Magister Fizjoterapii, ul. 3 Maja 18A, Chełmża.",
   keywords: [
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     "Jan Chmielewski trening",
   ],
   openGraph: {
-    title: "Trening Personalny Chełmża — od 149 zł/sesja | Jan Chmielewski",
+    title: "Trening Personalny Chełmża — od 199 zł/sesja | Jan Chmielewski",
     description:
       "Trening 1 na 1 z Magistrem Fizjoterapii w Chełmży. Indywidualne podejście, elementy fizjoterapii, kontrola techniki.",
     images: [
@@ -116,7 +116,7 @@ const pricingOptions = [
     title: "Pakiet 10 treningów",
     price: "1\u00A0119 zł",
     period: "/ 10 sesji",
-    badge: "Oszczędzasz 371 zł",
+    badge: "Oszczędzasz 391 zł",
     features: [
       "10 sesji 1 na 1 (60 min)",
       "Dostosowany plan każdej sesji",

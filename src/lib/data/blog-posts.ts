@@ -558,7 +558,7 @@ export const blogPosts: BlogPost[] = [
       {
         question: "Ile kosztuje trening personalny w Chełmży?",
         answer:
-          "Pojedyncza sesja treningowa kosztuje 149 zł. Pakiet 10 sesji to 1119 zł (oszczędzasz 371 zł). Każda sesja trwa 60 minut i obejmuje rozgrzewkę, trening właściwy z korektą techniki oraz omówienie postępów. Szczegółowy cennik znajdziesz na stronie /cennik.",
+          "Pojedyncza sesja treningowa kosztuje 149 zł. Pakiet 10 sesji to 1599 zł (oszczędzasz 391 zł). Każda sesja trwa 60 minut i obejmuje rozgrzewkę, trening właściwy z korektą techniki oraz omówienie postępów. Szczegółowy cennik znajdziesz na stronie /cennik.",
       },
       {
         question: "Czy trening personalny jest tylko dla zaawansowanych?",
@@ -660,9 +660,9 @@ export const blogPosts: BlogPost[] = [
 
 <h2>Ile kosztuje trening personalny w Chełmży?</h2>
 
-<p>Pojedyncza sesja kosztuje <strong>149 zł</strong>. Pakiet 10 sesji — <strong>1119 zł</strong> (oszczędzasz 371 zł). Dokładny cennik znajdziesz na stronie <a href="/cennik">cennik</a>.</p>
+<p>Pojedyncza sesja kosztuje <strong>149 zł</strong>. Pakiet 10 sesji — <strong>1599 zł</strong> (oszczędzasz 391 zł). Dokładny cennik znajdziesz na stronie <a href="/cennik">cennik</a>.</p>
 
-<p>Dla porównania — sesja treningowa z trenerem personalnym w Toruniu czy Bydgoszczy kosztuje 150–250 zł. W Warszawie 200–400 zł. Moja cena 149 zł za sesję z magistrem fizjoterapii i finalistą Mistrzostw Polski to jedna z lepszych ofert w regionie — bez kompromisów w jakości.</p>
+<p>Dla porównania — sesja treningowa z trenerem personalnym w Toruniu czy Bydgoszczy kosztuje 150–250 zł. W Warszawie 200–400 zł. Moja cena 199 zł za sesję z magistrem fizjoterapii i finalistą Mistrzostw Polski to jedna z lepszych ofert w regionie — bez kompromisów w jakości.</p>
 
 <p>Jeśli chcesz sprawdzić, czy trening personalny jest dla Ciebie właściwym wyborem — <a href="/o-mnie">przeczytaj więcej o mnie</a> lub napisz przez <a href="/kontakt">formularz kontaktowy</a>. Odpowiem na wszystkie pytania przed pierwszą sesją, bez zobowiązań.</p>`,
   },
@@ -823,7 +823,7 @@ export const blogPosts: BlogPost[] = [
       {
         question: "Ile kosztuje trener personalny w Polsce w 2026?",
         answer:
-          "Stawki trenerów personalnych w Polsce wynoszą od 80 zł/sesję (mniejsze miasta, trenerzy z krótszym stażem) do 400 zł/sesję (Warszawa, trenerzy z dużą renomą i wąską specjalizacją). Średnia dla wykwalifikowanego trenera w mieście regionalnym to 120–180 zł/sesję. Moja stawka w Chełmży to 149 zł/sesję lub 1119 zł za pakiet 10 sesji.",
+          "Stawki trenerów personalnych w Polsce wynoszą od 80 zł/sesję (mniejsze miasta, trenerzy z krótszym stażem) do 400 zł/sesję (Warszawa, trenerzy z dużą renomą i wąską specjalizacją). Średnia dla wykwalifikowanego trenera w mieście regionalnym to 120–180 zł/sesję. Moja stawka w Chełmży to 199 zł/sesję lub 1599 zł za pakiet 10 sesji.",
       },
       {
         question: "Co wpływa na cenę trenera personalnego?",
@@ -833,7 +833,7 @@ export const blogPosts: BlogPost[] = [
       {
         question: "Czy pakiet sesji jest tańszy od pojedynczych?",
         answer:
-          "Tak, w moim przypadku pakiet 10 sesji kosztuje 1119 zł, co daje 111,90 zł za sesję — prawie 25% taniej niż cena pojedyncza 149 zł. Poza oszczędnością, pakiety mają dodatkową zaletę psychologiczną: kupując z góry, bardziej motywujesz się do regularności.",
+          "Tak, w moim przypadku pakiet 10 sesji kosztuje 1599 zł, co daje 159,90 zł za sesję — prawie 25% taniej niż cena pojedyncza 149 zł. Poza oszczędnością, pakiety mają dodatkową zaletę psychologiczną: kupując z góry, bardziej motywujesz się do regularności.",
       },
       {
         question: "Czy online coaching jest tańszy od treningu personalnego?",
@@ -864,7 +864,7 @@ export const blogPosts: BlogPost[] = [
   <li><strong>Mniejsze miasta i okolice:</strong> 80–160 zł/sesję</li>
 </ul>
 
-<p>Moja stawka w Chełmży wynosi <strong>149 zł/sesję</strong> — przy wykształceniu magistra fizjoterapii i tytule finalisty Mistrzostw Polski w kulturystyce to jedna z najlepszych relacji ceny do jakości w regionie kujawsko-pomorskim.</p>
+<p>Moja stawka w Chełmży wynosi <strong>199 zł/sesję</strong> — przy wykształceniu magistra fizjoterapii i tytule finalisty Mistrzostw Polski w kulturystyce to jedna z najlepszych relacji ceny do jakości w regionie kujawsko-pomorskim.</p>
 
 <h2>Co uzasadnia wyższe stawki?</h2>
 
@@ -886,7 +886,7 @@ export const blogPosts: BlogPost[] = [
 
 <ul>
   <li><strong>1 sesja: 149 zł</strong></li>
-  <li><strong>Pakiet 10 sesji: 1119 zł</strong> (111,90 zł/sesję — oszczędność 371 zł)</li>
+  <li><strong>Pakiet 10 sesji: 1599 zł</strong> (159,90 zł/sesję — oszczędność 391 zł)</li>
 </ul>
 
 <p>Pakiet ma też wymiar psychologiczny: osoba, która zapłaciła z góry za 10 sesji, jest statystycznie bardziej regularna i konsekwentna niż osoba płacąca jednorazowo. Regularność to klucz do efektów — i trener dobrze o tym wie.</p>

@@ -307,7 +307,7 @@ export function ServicesSection() {
             title="Trening Personalny"
             description="Sesje jeden na jeden w Chełmży. Elementy fizjoterapii i pracy z ciałem, indywidualne podejście i stała kontrola techniki wykonania."
             pricePrefix="od"
-            price="149 zł"
+            price="199 zł"
             features={[
               "Sesje 1 na 1 w Chełmży",
               "Indywidualne podejście",

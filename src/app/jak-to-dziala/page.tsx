@@ -281,7 +281,7 @@ const services: ServiceSection[] = [
         icon: <ChartLineUp weight="duotone" className="size-7" />,
         title: "Regularne sesje i progresja",
         description:
-          "Rekomendowana częstotliwość: 2–3 sesje tygodniowo. Po każdej sesji omawiamy postępy i planuję kolejne kroki. Możliwy jest zakup pakietu 10 sesji za 1119 zł (oszczędzasz 371 zł). Możesz też łączyć sesje z moimi usługami online.",
+          "Rekomendowana częstotliwość: 2–3 sesje tygodniowo. Po każdej sesji omawiamy postępy i planuję kolejne kroki. Możliwy jest zakup pakietu 10 sesji za 1599 zł (oszczędzasz 391 zł). Możesz też łączyć sesje z moimi usługami online.",
       },
     ],
     schemaSteps: [

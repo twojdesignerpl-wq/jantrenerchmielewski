@@ -157,7 +157,7 @@ const faqCategories: FaqCategory[] = [
       {
         question: "Ile kosztuje sesja treningu personalnego?",
         answer:
-          "Pojedyncza sesja (60 min) kosztuje 149 zł. Pakiet 10 sesji to 1119 zł — oszczędzasz 371 zł. Każda sesja obejmuje spersonalizowaną rozgrzewkę, trening z korektą techniki i omówienie postępów. Pełny cennik na stronie /cennik.",
+          "Pojedyncza sesja (60 min) kosztuje 149 zł. Pakiet 10 sesji to 1599 zł — oszczędzasz 391 zł. Każda sesja obejmuje spersonalizowaną rozgrzewkę, trening z korektą techniki i omówienie postępów. Pełny cennik na stronie /cennik.",
       },
       {
         question: "Co wyróżnia trenera z tytułem magistra fizjoterapii?",

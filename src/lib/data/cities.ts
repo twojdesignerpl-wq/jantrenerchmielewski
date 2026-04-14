@@ -532,7 +532,7 @@ export const services: ServiceData[] = [
     title: "Trener Personalny",
     titleGenitive: "Trenera Personalnego",
     description: "Profesjonalny trening personalny online i stacjonarny",
-    price: "od 149 zł",
+    price: "od 199 zł",
     priceLabel: "/ sesja",
     href: "/kontakt",
   },

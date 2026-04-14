@@ -320,7 +320,7 @@ export default function EfektyPage() {
                 { href: "/dieta-online", label: "Dieta Online", price: "199 zł", color: "oklch(0.65 0.18 210)" },
                 { href: "/plan-treningowy", label: "Plan Treningowy", price: "149 zł", color: "oklch(0.65 0.18 150)" },
                 { href: "/prowadzenie-online", label: "Prowadzenie Online", price: "od 399 zł", color: "oklch(0.65 0.18 30)" },
-                { href: "/trening-personalny-chelmza", label: "Trening Personalny", price: "149 zł/sesja", color: "oklch(0.65 0.18 300)" },
+                { href: "/trening-personalny-chelmza", label: "Trening Personalny", price: "199 zł/sesja", color: "oklch(0.65 0.18 300)" },
               ].map((service) => (
                 <Link
                   key={service.href}

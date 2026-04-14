@@ -138,7 +138,7 @@ const mainSections: SitemapSection[] = [
       { label: "Dieta Online — 199 zł", href: "/dieta-online" },
       { label: "Plan Treningowy — 149 zł", href: "/plan-treningowy" },
       { label: "Prowadzenie Online — od 399 zł/msc", href: "/prowadzenie-online" },
-      { label: "Trening Personalny Chełmża — 149 zł/sesja", href: "/trening-personalny-chelmza" },
+      { label: "Trening Personalny Chełmża — 199 zł/sesja", href: "/trening-personalny-chelmza" },
     ],
   },
   {

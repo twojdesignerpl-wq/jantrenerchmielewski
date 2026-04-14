@@ -33,7 +33,7 @@ export interface ServiceContentData {
 
 export const serviceContent: Record<string, ServiceContentData> = {
   "trener-personalny": {
-    price: "od 149 zł",
+    price: "od 199 zł",
     priceLabel: "/ sesja",
     servicePageHref: "/trening-personalny-chelmza",
 
