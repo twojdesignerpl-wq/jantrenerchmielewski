@@ -421,6 +421,8 @@ export function Navbar() {
                           fill
                           className="object-cover"
                           sizes="36px"
+                          loading="eager"
+                          priority
                         />
                       </div>
                       <span className="font-[family-name:var(--font-heading)] text-base font-bold tracking-tight text-foreground">
