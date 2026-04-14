@@ -132,7 +132,7 @@ function ServiceRow({
       {/* Features */}
       <ul className="flex flex-col gap-2.5" role="list">
         {features.map((feat) => (
-          <li key={feat} className="flex items-center gap-2.5 text-sm">
+          <li key={feat} className="flex items-center gap-2.5 text-[0.9375rem]">
             <CheckCircle
               size={16}
               weight="fill"
@@ -148,18 +148,18 @@ function ServiceRow({
       <div className="flex flex-wrap items-center gap-6 border-t border-border pt-6">
         <div className="flex items-baseline gap-1.5">
           {pricePrefix && (
-            <span className="text-sm text-muted-foreground">{pricePrefix}</span>
+            <span className="text-base text-muted-foreground">{pricePrefix}</span>
           )}
           <span className="font-mono text-2xl font-bold tabular-nums md:text-3xl">
             {price}
           </span>
           {priceLabel && (
-            <span className="text-sm text-muted-foreground">{priceLabel}</span>
+            <span className="text-base text-muted-foreground">{priceLabel}</span>
           )}
         </div>
         <Link
           href={href}
-          className="group inline-flex items-center gap-2 rounded-full border px-6 py-2.5 text-sm font-semibold transition-all hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.98]"
+          className="group inline-flex items-center gap-2 rounded-full border px-7 py-3 text-base font-semibold transition-all hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.98]"
           style={
             highlighted
               ? {

@@ -102,7 +102,7 @@ export function PriceCard({
       {/* Savings display */}
       {savings && (
         <p
-          className="text-sm font-semibold"
+          className="text-[0.9375rem] font-semibold"
           style={{ color: "oklch(0.65 0.22 145)" }}
           aria-label={savings}
         >
@@ -134,7 +134,7 @@ export function PriceCard({
           href={href}
           className={cn(
             "inline-flex w-full items-center justify-center rounded-full px-6 py-3",
-            "text-sm font-semibold transition-all",
+            "text-base font-semibold transition-all",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
             "active:scale-[0.98]",
             highlighted

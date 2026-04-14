@@ -113,7 +113,7 @@ function SocialProofTicker() {
       <AnimatePresence mode="wait">
         <motion.span
           key={index}
-          className="text-sm text-muted-foreground"
+          className="text-[0.9375rem] text-muted-foreground"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -12 }}
@@ -181,7 +181,7 @@ export function HeroSection() {
             className="mb-6 flex flex-wrap gap-2"
           >
             <span
-              className="inline-flex items-center rounded-full border px-3 py-1 text-xs font-mono font-semibold uppercase tracking-wider"
+              className="inline-flex items-center rounded-full border px-3.5 py-1.5 text-[0.8125rem] font-mono font-semibold uppercase tracking-wider"
               style={{
                 borderColor: "oklch(0.65 0.18 210 / 30%)",
                 color: "var(--cyan)",
@@ -191,7 +191,7 @@ export function HeroSection() {
               Magister Fizjoterapii
             </span>
             <span
-              className="inline-flex items-center rounded-full border px-3 py-1 text-xs font-mono font-semibold uppercase tracking-wider"
+              className="inline-flex items-center rounded-full border px-3.5 py-1.5 text-[0.8125rem] font-mono font-semibold uppercase tracking-wider"
               style={{
                 borderColor: "oklch(0.65 0.18 210 / 30%)",
                 color: "var(--cyan)",
@@ -206,7 +206,7 @@ export function HeroSection() {
           <motion.h1
             variants={itemVariants}
             className="font-sans font-extrabold tracking-[-0.03em] leading-[0.88] mb-6"
-            style={{ fontSize: "clamp(3rem, 8vw, 6.5rem)" }}
+            style={{ fontSize: "clamp(3.25rem, 8.5vw, 7rem)" }}
           >
             Rozpocznij swoją
             <br />
@@ -301,9 +301,9 @@ export function HeroSection() {
               <AnimatedCounter
                 value={200}
                 suffix="+"
-                className="text-2xl md:text-3xl"
+                className="text-3xl md:text-4xl"
               />
-              <span className="text-xs text-muted-foreground tracking-wide uppercase">
+              <span className="text-sm text-muted-foreground tracking-wide uppercase">
                 klientów
               </span>
             </div>
@@ -324,9 +324,9 @@ export function HeroSection() {
               />
               <AnimatedCounter
                 value={8}
-                className="text-2xl md:text-3xl"
+                className="text-3xl md:text-4xl"
               />
-              <span className="text-xs text-muted-foreground tracking-wide uppercase">
+              <span className="text-sm text-muted-foreground tracking-wide uppercase">
                 lat doświadczenia
               </span>
             </div>
@@ -346,12 +346,12 @@ export function HeroSection() {
                 aria-hidden="true"
               />
               <span
-                className="font-mono text-2xl font-bold tabular-nums md:text-3xl"
+                className="font-mono text-3xl font-bold tabular-nums md:text-4xl"
                 aria-label="Ocena 4.9 na 5"
               >
                 4.9
               </span>
-              <span className="text-xs text-muted-foreground tracking-wide uppercase">
+              <span className="text-sm text-muted-foreground tracking-wide uppercase">
                 średnia ocen
               </span>
             </div>
@@ -370,10 +370,10 @@ export function HeroSection() {
                 style={{ color: "var(--cyan)" }}
                 aria-hidden="true"
               />
-              <span className="font-mono text-2xl font-bold tabular-nums md:text-3xl">
+              <span className="font-mono text-3xl font-bold tabular-nums md:text-4xl">
                 Mgr
               </span>
-              <span className="text-xs text-muted-foreground tracking-wide uppercase">
+              <span className="text-sm text-muted-foreground tracking-wide uppercase">
                 fizjoterapii
               </span>
             </div>

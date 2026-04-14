@@ -34,7 +34,7 @@ export function CTAButton({
         className={cn(
           "inline-flex items-center justify-center rounded-full font-semibold transition-colors",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-          isLg ? "px-10 py-4 text-lg" : "px-8 py-3 text-sm",
+          isLg ? "px-11 py-4.5 text-lg" : "px-9 py-3.5 text-base",
           isPrimary
             ? [
                 "bg-primary text-primary-foreground",

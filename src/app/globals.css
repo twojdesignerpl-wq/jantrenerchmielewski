@@ -144,8 +144,8 @@ body {
   }
   body {
     @apply bg-background text-foreground;
-    font-size: 1.0625rem; /* 17px base — bigger, more readable */
-    line-height: 1.7;
+    font-size: clamp(1.0625rem, 0.95rem + 0.25vw, 1.1875rem); /* 17px → 19px fluid */
+    line-height: 1.75;
   }
   html {
     @apply font-sans;
@@ -154,7 +154,7 @@ body {
   /* Typography utilities */
   .text-display {
     font-family: var(--font-heading);
-    font-size: clamp(3rem, 8vw, 6rem);
+    font-size: clamp(3.25rem, 8.5vw, 6.5rem);
     font-weight: 800;
     letter-spacing: -0.04em;
     line-height: 0.9;
@@ -162,7 +162,7 @@ body {
 
   .text-display-sm {
     font-family: var(--font-heading);
-    font-size: clamp(2rem, 5vw, 4rem);
+    font-size: clamp(2.25rem, 5.5vw, 4.5rem);
     font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 0.95;
@@ -170,8 +170,8 @@ body {
 
   .text-body-lg {
     font-family: var(--font-sans);
-    font-size: clamp(1.125rem, 2vw, 1.375rem);
-    line-height: 1.75;
+    font-size: clamp(1.1875rem, 1rem + 0.5vw, 1.5rem);
+    line-height: 1.8;
     max-width: 65ch;
   }
 
@@ -180,22 +180,22 @@ body {
   article li,
   section p,
   section li {
-    font-size: max(1rem, 1em);
-    line-height: 1.7;
+    font-size: max(1.0625rem, 1em);
+    line-height: 1.75;
   }
 
   .text-mono-metric {
     font-family: var(--font-mono);
-    font-size: 1.125rem;
+    font-size: clamp(1.125rem, 1rem + 0.25vw, 1.3125rem);
     letter-spacing: -0.02em;
     font-variant-numeric: tabular-nums;
   }
 
   .text-label {
     font-family: var(--font-mono);
-    font-size: 0.875rem;
+    font-size: clamp(0.8125rem, 0.75rem + 0.15vw, 0.9375rem);
     text-transform: uppercase;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.18em;
     color: var(--muted-foreground);
   }
 }
@@ -241,7 +241,7 @@ body {
 /* ===== BLOG ARTICLE PROSE STYLES ===== */
 .article-content h2 {
   font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1.625rem, 3.5vw, 2.25rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.2;
@@ -252,7 +252,7 @@ body {
 
 .article-content h3 {
   font-family: var(--font-heading);
-  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
   font-weight: 700;
   color: oklch(0.90 0.01 240);
   margin-top: 1.75rem;
@@ -260,8 +260,9 @@ body {
 }
 
 .article-content p {
+  font-size: clamp(1.0625rem, 0.95rem + 0.25vw, 1.1875rem);
   color: oklch(0.78 0.015 235);
-  line-height: 1.8;
+  line-height: 1.85;
   margin-bottom: 1.25rem;
 }
 
@@ -279,8 +280,9 @@ body {
 .article-content ul li {
   position: relative;
   padding-left: 1.5rem;
+  font-size: clamp(1.0625rem, 0.95rem + 0.25vw, 1.1875rem);
   color: oklch(0.78 0.015 235);
-  line-height: 1.7;
+  line-height: 1.75;
   margin-bottom: 0.5rem;
 }
 
@@ -298,8 +300,9 @@ body {
 }
 
 .article-content ol li {
+  font-size: clamp(1.0625rem, 0.95rem + 0.25vw, 1.1875rem);
   color: oklch(0.78 0.015 235);
-  line-height: 1.7;
+  line-height: 1.75;
   margin-bottom: 0.5rem;
   padding-left: 0.25rem;
 }

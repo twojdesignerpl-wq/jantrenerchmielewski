@@ -93,7 +93,7 @@ export function PricingOverview() {
           />
           {/* Price anchoring */}
           <p
-            className="mx-auto mb-16 text-center text-sm tracking-wide"
+            className="mx-auto mb-16 text-center text-base tracking-wide"
             style={{ color: "var(--muted-foreground)", maxWidth: "40ch" }}
           >
             Typowy koszt trenera personalnego: 200–350 zł/sesja

@@ -89,7 +89,7 @@ export function FinalCTA() {
             </div>
 
             {/* Trust signal */}
-            <p className="text-mono-metric text-xs text-muted-foreground">
+            <p className="text-mono-metric text-sm text-muted-foreground">
               Bezpłatna konsultacja • Bez zobowiązań • Odpowiadam w 24h
             </p>
           </div>
