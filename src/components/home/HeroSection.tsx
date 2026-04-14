@@ -15,7 +15,6 @@ import {
   Star,
   Users,
   Clock,
-  CaretDown,
 } from "@phosphor-icons/react"
 import { CTAButton } from "@/components/shared/CTAButton"
 import { AnimatedCounter } from "@/components/shared/AnimatedCounter"
@@ -124,53 +123,6 @@ function SocialProofTicker() {
         </motion.span>
       </AnimatePresence>
     </div>
-  )
-}
-
-/* ========== SCROLL INDICATOR ========== */
-
-function ScrollIndicator() {
-  const prefersReducedMotion = useReducedMotion()
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const checkHeight = () => setVisible(window.innerHeight > 700)
-    checkHeight()
-    window.addEventListener("resize", checkHeight)
-    return () => window.removeEventListener("resize", checkHeight)
-  }, [])
-
-  if (!visible) return null
-
-  return (
-    <motion.div
-      className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 1.5, duration: 0.5 }}
-      aria-hidden="true"
-    >
-      <motion.div
-        animate={
-          prefersReducedMotion
-            ? {}
-            : {
-                y: [0, 8, 0],
-              }
-        }
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      >
-        <CaretDown
-          size={28}
-          weight="bold"
-          style={{ color: "var(--muted-foreground)", opacity: 0.6 }}
-        />
-      </motion.div>
-    </motion.div>
   )
 }
 
@@ -323,9 +275,6 @@ export function HeroSection() {
           </motion.div>
         </motion.div>
       </div>
-
-      {/* SCROLL INDICATOR */}
-      <ScrollIndicator />
 
       {/* ENHANCED TRUST BAR */}
       <motion.div

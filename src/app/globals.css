@@ -344,7 +344,9 @@ body {
 }
 
 .hero-shimmer-text {
-  background: linear-gradient(
+  display: inline-block;
+  color: transparent;
+  background-image: linear-gradient(
     90deg,
     oklch(0.75 0.20 210) 0%,
     oklch(0.85 0.14 190) 25%,
@@ -354,8 +356,8 @@ body {
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
   animation: shimmerSlide 4s linear infinite;
 }
 
