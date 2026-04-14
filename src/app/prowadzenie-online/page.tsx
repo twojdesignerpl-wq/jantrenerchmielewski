@@ -4,12 +4,14 @@ import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
 import { CTAButton } from "@/components/shared/CTAButton"
+import { TrustBadges } from "@/components/shared/TrustBadges"
 import { PriceCard } from "@/components/shared/PriceCard"
 import {
   BreadcrumbSchema,
   ServicePageSchema,
   FAQSchema,
   HowToSchema,
+  CourseSchema,
 } from "@/components/seo/JsonLd"
 import {
   Accordion,
@@ -390,6 +392,12 @@ export default function ProwadzenieOnlinePage() {
         price="399"
         url="/prowadzenie-online"
       />
+      <CourseSchema
+        name="Prowadzenie Online — Kompleksowy Coaching Fitness"
+        description="Kompleksowe prowadzenie online łączące spersonalizowaną dietę i plan treningowy z cotygodniowymi raportami postępów i kontaktem 24/7. Dostępne w pakietach miesięcznych od 399 zł/miesiąc."
+        price="399"
+        url="https://jantrenerchmielewski.pl/prowadzenie-online"
+      />
       <FAQSchema questions={faqItems} />
       <HowToSchema
         name="Jak rozpocząć prowadzenie online z Janem Chmielewskim"
@@ -461,6 +469,13 @@ export default function ProwadzenieOnlinePage() {
             </div>
           </div>
         </section>
+
+        {/* ===== TRUST BADGES ===== */}
+        <div className="py-8">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <TrustBadges />
+          </div>
+        </div>
 
         {/* ===== FEATURES ===== */}
         <section className="py-20 section-glow" style={{ background: "var(--card)" }}>

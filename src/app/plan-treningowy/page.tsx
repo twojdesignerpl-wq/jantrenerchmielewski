@@ -5,7 +5,8 @@ import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
 import { CTAButton } from "@/components/shared/CTAButton"
-import { BreadcrumbSchema, ServicePageSchema, FAQSchema, HowToSchema } from "@/components/seo/JsonLd"
+import { TrustBadges } from "@/components/shared/TrustBadges"
+import { BreadcrumbSchema, ServicePageSchema, FAQSchema, HowToSchema, CourseSchema } from "@/components/seo/JsonLd"
 import {
   Accordion,
   AccordionItem,
@@ -310,6 +311,13 @@ export default function PlanTreningowy() {
         price="149"
         url="/plan-treningowy"
       />
+      <CourseSchema
+        name="Plan Treningowy 8-tygodniowy"
+        description="Indywidualny program treningowy 8-tygodniowy z periodyzacją, notacją każdego ćwiczenia, progresją obciążeń i wskazówkami suplementacyjnymi. Dostosowany do poziomu zaawansowania i dostępnego sprzętu."
+        price="149"
+        url="https://jantrenerchmielewski.pl/plan-treningowy"
+        duration="P8W"
+      />
       <FAQSchema questions={faqItems} />
       <HowToSchema
         name="Jak zamówić indywidualny plan treningowy"
@@ -382,6 +390,13 @@ export default function PlanTreningowy() {
             </div>
           </div>
         </section>
+
+        {/* ===== TRUST BADGES ===== */}
+        <div className="py-8">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <TrustBadges />
+          </div>
+        </div>
 
         {/* ===== FEATURES ===== */}
         <section className="py-20" style={{ background: "var(--card)" }}>

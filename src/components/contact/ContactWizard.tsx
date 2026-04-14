@@ -149,7 +149,7 @@ export function ContactWizard() {
                     className={`group relative flex flex-col items-start gap-4 rounded-2xl border-2 p-7 text-left transition-all hover:scale-[1.02] active:scale-[0.98] ${
                       isSelected
                         ? "border-primary bg-primary/10 glow-cyan-strong"
-                        : "border-border/60 bg-[oklch(0.16_0.02_240)] hover:border-primary/50 hover:bg-[oklch(0.18_0.02_240)]"
+                        : "border-border/60 bg-[oklch(0.18_0.025_232)] hover:border-primary/50 hover:bg-[oklch(0.22_0.025_232)]"
                     }`}
                   >
                     <Icon

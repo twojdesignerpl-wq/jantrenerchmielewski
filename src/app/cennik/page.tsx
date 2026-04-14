@@ -12,7 +12,13 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion"
-import { Phone } from "@phosphor-icons/react/dist/ssr"
+import {
+  Phone,
+  ChatCircle,
+  Clock,
+  ShieldCheck,
+  Users,
+} from "@phosphor-icons/react/dist/ssr"
 
 export const metadata: Metadata = {
   title: "Cennik — Wszystkie usługi",
@@ -354,6 +360,30 @@ export default function CennikPage() {
                 </ScrollReveal>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* ===== TRUST SIGNALS ===== */}
+        <section className="py-12">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <ScrollReveal>
+              <div className="flex flex-wrap items-center justify-center gap-8">
+                {[
+                  { icon: ChatCircle, text: "Bezpłatna konsultacja" },
+                  { icon: Clock, text: "Odpowiedź w 24h" },
+                  { icon: ShieldCheck, text: "Bez umowy — rezygnuj kiedy chcesz" },
+                  { icon: Users, text: "200+ zadowolonych klientów" },
+                ].map(({ icon: Icon, text }) => (
+                  <div
+                    key={text}
+                    className="flex items-center gap-2 text-sm text-muted-foreground"
+                  >
+                    <Icon weight="duotone" className="size-5 text-primary" aria-hidden="true" />
+                    <span>{text}</span>
+                  </div>
+                ))}
+              </div>
+            </ScrollReveal>
           </div>
         </section>
 

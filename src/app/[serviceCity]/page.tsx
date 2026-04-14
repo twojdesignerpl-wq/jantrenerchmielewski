@@ -23,6 +23,8 @@ import {
   FAQSchema,
   HowToSchema,
 } from "@/components/seo/JsonLd";
+import { TrustBadges } from "@/components/shared/TrustBadges";
+import { RelatedServices } from "@/components/shared/RelatedServices";
 
 function parseServiceCity(slug: string) {
   for (const service of services) {
@@ -108,6 +110,15 @@ export default async function ServiceCityPage({
   const siblingServices = services.filter(
     (s) => s.slugPrefix !== service.slugPrefix
   );
+
+  // Blog article related to the current service
+  const serviceBlogMap: Record<string, string> = {
+    "trener-personalny": "/blog/trener-personalny-chelmza-dlaczego-warto",
+    "dietetyk-online": "/blog/dieta-online-kompletny-przewodnik",
+    "plan-treningowy-online": "/blog/plan-treningowy-online-przewodnik",
+    "dieta-online": "/blog/prowadzenie-online-co-to-jest",
+  };
+  const relatedBlogHref = serviceBlogMap[service.slugPrefix] ?? "/blog";
 
   return (
     <>
@@ -228,6 +239,9 @@ export default async function ServiceCityPage({
             })}
           </div>
 
+          {/* ===== TRUST BADGES ===== */}
+          <TrustBadges className="mb-16" />
+
           {/* ===== SERVICE-SPECIFIC FEATURES ===== */}
           {content && (
             <div className="mb-20">
@@ -321,7 +335,8 @@ export default async function ServiceCityPage({
           {/* ===== CITY-SPECIFIC SEO CONTENT ===== */}
           <div className="mb-20 rounded-2xl border border-border bg-card/50 p-8 lg:p-12">
             <h2 className="text-display-sm mb-6 text-xl md:text-2xl">
-              {service.title} {city.name} — Profesjonalne wsparcie fitness
+              Profesjonalny {service.title} dla mieszkańców{" "}
+              {city.nameDeclension}
             </h2>
             <div className="space-y-4 text-muted-foreground">
               <p>
@@ -337,8 +352,28 @@ export default async function ServiceCityPage({
                   ? `Dla mieszkańców ${city.nameDeclension} dostępne są zarówno treningi personalne w mojej sali treningowej w Chełmży (3 Maja 18A)${city.distanceFromChelmza ? ` — zaledwie ${city.distanceFromChelmza} z centrum ${city.nameDeclension}` : ""}, jak i pełne prowadzenie online z indywidualną dietą i planem treningowym.`
                   : `Klientów z ${city.nameDeclension} (${city.population} mieszkańców) prowadzę w pełni online — otrzymujesz indywidualną dietę, plan treningowy, dostęp 24/7 do konsultacji oraz cotygodniowe raporty postępów. Odległość nie jest przeszkodą w osiąganiu wyników.`}
               </p>
+              <p>
+                Mieszkając {city.nameLocative}, nie musisz szukać lokalnego
+                trenera ani dojeżdżać do większych ośrodków. Cały proces
+                współpracy odbywa się online — od konsultacji wstępnej, przez
+                przygotowanie indywidualnego planu, po cotygodniową analizę
+                postępów. Jestem dostępny dla moich klientów z{" "}
+                {city.nameDeclension} 7 dni w tygodniu przez aplikację i
+                wiadomości.
+              </p>
+              {city.fitnessContext && <p>{city.fitnessContext}</p>}
               {content && <p>{content.methodology}</p>}
               {content && <p>{content.resultsTimeline}</p>}
+              <p>
+                Wybierając {service.title.toLowerCase()} online zamiast
+                lokalnych usług, zyskujesz dostęp do wiedzy medycznej i
+                sportowej wypracowanej przez lata pracy z klientami z całej
+                Polski. Tytuł Magistra Fizjoterapii sprawia, że każdy plan
+                treningowy i dietetyczny jest bezpieczny, oparty na anatomii i
+                fizjologii — nie na popularnych schematach z internetu. Twoje
+                wyniki są dla mnie priorytetem niezależnie od tego, czy jesteś{" "}
+                {city.nameLocative}, czy w innym miejscu Polski.
+              </p>
             </div>
           </div>
 
@@ -397,20 +432,80 @@ export default async function ServiceCityPage({
                 </Link>
               ))}
             </div>
-            {content && (
-              <div className="mt-6">
+            <div className="mt-6 flex flex-wrap gap-4">
+              {content && (
                 <Link
                   href={content.servicePageHref}
                   className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
                 >
                   Dowiedz się więcej o {service.title.toLowerCase()} →
                 </Link>
-              </div>
-            )}
+              )}
+              <Link
+                href={relatedBlogHref}
+                className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+              >
+                Przeczytaj artykuł na blogu →
+              </Link>
+              <Link
+                href="/cennik"
+                className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+              >
+                Cennik →
+              </Link>
+              <Link
+                href="/kontakt"
+                className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+              >
+                Kontakt →
+              </Link>
+            </div>
+          </div>
+
+          {/* ===== DLACZEGO JAN CHMIELEWSKI ===== */}
+          <div className="mb-20 rounded-2xl border border-primary/20 bg-card/60 p-8 lg:p-12">
+            <h2 className="text-display-sm mb-8 text-2xl md:text-3xl">
+              Dlaczego Jan Chmielewski?
+            </h2>
+            <ul className="space-y-4">
+              {[
+                {
+                  icon: GraduationCap,
+                  text: "Magister Fizjoterapii — kwalifikacje medyczne gwarantujące bezpieczny i skuteczny trening",
+                },
+                {
+                  icon: Trophy,
+                  text: "Finalista Mistrzostw Polski w kulturystyce — praktyczne doświadczenie sportowe na najwyższym poziomie",
+                },
+                {
+                  icon: Users,
+                  text: "200+ zadowolonych klientów z całej Polski — sprawdzone metody i realne wyniki",
+                },
+                {
+                  icon: Star,
+                  text: "8 lat doświadczenia — setki indywidualnych programów treningowych i dietetycznych",
+                },
+                {
+                  icon: CheckCircle,
+                  text: "Pełne prowadzenie online lub plan dostosowany do Twoich celów — zawsze indywidualne podejście",
+                },
+              ].map(({ icon: Icon, text }) => (
+                <li key={text} className="flex items-start gap-4">
+                  <Icon
+                    size={24}
+                    weight="duotone"
+                    className="mt-0.5 shrink-0 text-primary"
+                  />
+                  <span className="text-sm leading-relaxed text-muted-foreground">
+                    {text}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* ===== CTA ===== */}
-          <div className="text-center">
+          <div className="mb-20 text-center">
             <h2 className="text-display-sm mb-4 text-2xl md:text-3xl">
               Gotowy na zmianę?
             </h2>
@@ -434,6 +529,12 @@ export default async function ServiceCityPage({
               </a>
             </div>
           </div>
+
+          {/* ===== RELATED SERVICES ===== */}
+          <RelatedServices
+            currentService={service.slugPrefix}
+            currentCity={city.slug}
+          />
         </div>
       </section>
     </>

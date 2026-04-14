@@ -4,7 +4,9 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { CustomCursor } from "@/components/shared/CustomCursor";
+import { StickyCTA } from "@/components/shared/StickyCTA";
 import { WebGLBackgroundLoader } from "@/components/background/WebGLBackgroundLoader";
+import { WebSiteSchema, ProfessionalServiceSchema } from "@/components/seo/JsonLd";
 import "./globals.css";
 
 const syne = Syne({
@@ -101,6 +103,8 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-[100dvh] bg-background text-foreground antialiased" suppressHydrationWarning>
+        <WebSiteSchema />
+        <ProfessionalServiceSchema />
         <TooltipProvider>
           {children}
         </TooltipProvider>
@@ -114,6 +118,7 @@ export default function RootLayout({
           aria-hidden="true"
         />
 
+        <StickyCTA />
         <CustomCursor />
         <Analytics />
         <SpeedInsights />

@@ -24,6 +24,7 @@ interface ServiceRowProps {
   title: string
   description: string
   price: string
+  pricePrefix?: string
   priceLabel?: string
   features: string[]
   href: string
@@ -39,6 +40,7 @@ function ServiceRow({
   title,
   description,
   price,
+  pricePrefix,
   priceLabel,
   features,
   href,
@@ -70,7 +72,7 @@ function ServiceRow({
           style={{
             background: highlighted
               ? "linear-gradient(135deg, oklch(0.65 0.18 210 / 15%) 0%, transparent 50%)"
-              : "linear-gradient(180deg, transparent 60%, oklch(0.10 0.02 240 / 30%) 100%)",
+              : "linear-gradient(180deg, transparent 60%, oklch(0.14 0.025 232 / 30%) 100%)",
           }}
           aria-hidden="true"
         />
@@ -83,7 +85,7 @@ function ServiceRow({
       {/* Icon + title row */}
       <div className="flex items-start gap-4">
         <div
-          className="flex size-12 shrink-0 items-center justify-center rounded-xl"
+          className="flex size-14 shrink-0 items-center justify-center rounded-xl"
           style={{
             background: highlighted
               ? "oklch(0.65 0.18 210 / 15%)"
@@ -96,12 +98,25 @@ function ServiceRow({
         </div>
         <div>
           {highlighted && (
-            <span
-              className="mb-1 inline-block text-xs font-mono font-semibold uppercase tracking-widest"
-              style={{ color: "var(--cyan)" }}
-            >
-              Najpopularniejsze
-            </span>
+            <div className="mb-1.5 flex items-center gap-2">
+              <span
+                className="inline-block text-xs font-mono font-semibold uppercase tracking-widest"
+                style={{ color: "var(--cyan)" }}
+              >
+                Najpopularniejsze
+              </span>
+              {/* Bestseller badge */}
+              <span
+                className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider"
+                style={{
+                  background: "var(--cyan)",
+                  color: "var(--primary-foreground)",
+                  animation: "badgePulse 3s ease-in-out infinite",
+                }}
+              >
+                Bestseller
+              </span>
+            </div>
           )}
           <h3
             className="text-display-sm text-2xl md:text-3xl"
@@ -131,8 +146,11 @@ function ServiceRow({
 
       {/* Price + CTA */}
       <div className="flex flex-wrap items-center gap-6 border-t border-border pt-6">
-        <div className="flex items-baseline gap-2">
-          <span className="font-mono text-3xl font-bold tabular-nums">
+        <div className="flex items-baseline gap-1.5">
+          {pricePrefix && (
+            <span className="text-sm text-muted-foreground">{pricePrefix}</span>
+          )}
+          <span className="font-mono text-2xl font-bold tabular-nums md:text-3xl">
             {price}
           </span>
           {priceLabel && (
@@ -169,11 +187,9 @@ function ServiceRow({
 
   return (
     <ScrollReveal delay={index * 0.1}>
-      <div
+      <motion.div
         className={`grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-16 ${
-          highlighted
-            ? "rounded-3xl border p-8"
-            : ""
+          highlighted ? "rounded-3xl border p-8" : ""
         }`}
         style={
           highlighted
@@ -184,6 +200,10 @@ function ServiceRow({
               }
             : undefined
         }
+        whileHover={{
+          y: -8,
+          transition: { type: "spring", stiffness: 200, damping: 22 },
+        }}
       >
         {imageLeft ? (
           <>
@@ -196,7 +216,7 @@ function ServiceRow({
             <div className="lg:order-1">{textBlock}</div>
           </>
         )}
-      </div>
+      </motion.div>
     </ScrollReveal>
   )
 }
@@ -224,7 +244,7 @@ export function ServicesSection() {
             imageLeft={true}
             imageSrc="/images/oferta-dieta.png"
             imageAlt="Plan diety — zdrowy posiłek i tablet z jadłospisem"
-            icon={<BowlFood size={24} weight="fill" />}
+            icon={<BowlFood size={28} weight="fill" />}
             title="Dieta 4-tygodniowa"
             description="Spersonalizowany plan żywieniowy oparty na Twoich celach, preferencjach i stylu życia. Wiedza magistra fizjoterapii w służbie Twojego zdrowia."
             price="199 zł"
@@ -243,7 +263,7 @@ export function ServicesSection() {
             imageLeft={false}
             imageSrc="/images/oferta-plan-treningowy.png"
             imageAlt="Plan treningowy — mężczyzna z telefonem na siłowni"
-            icon={<Barbell size={24} weight="fill" />}
+            icon={<Barbell size={28} weight="fill" />}
             title="Plan Treningowy 8-tygodniowy"
             description="Ośmiotygodniowy program dopasowany do Twojego poziomu zaawansowania i dostępnego sprzętu. Progresja zapewniająca ciągłe wyniki."
             price="149 zł"
@@ -261,10 +281,11 @@ export function ServicesSection() {
             imageLeft={true}
             imageSrc="/images/oferta-prowadzenie-online.png"
             imageAlt="Prowadzenie online — kobieta ćwiczy z trenerem przez laptop"
-            icon={<ChatsCircle size={24} weight="fill" />}
+            icon={<ChatsCircle size={28} weight="fill" />}
             title="Prowadzenie Online"
             description="Kompleksowe prowadzenie łączące dietę i trening w jednym abonamencie. Cotygodniowe raporty, korekty i nieograniczony dostęp do trenera."
-            price="od 399 zł"
+            pricePrefix="od"
+            price="399 zł"
             priceLabel="/ mies."
             features={[
               "Dieta + plan treningowy w pakiecie",
@@ -282,10 +303,11 @@ export function ServicesSection() {
             imageLeft={false}
             imageSrc="/images/oferta-trening-personalny.png"
             imageAlt="Trening personalny — trener koryguje technikę ćwiczenia"
-            icon={<PersonSimpleRun size={24} weight="fill" />}
+            icon={<PersonSimpleRun size={28} weight="fill" />}
             title="Trening Personalny"
             description="Sesje jeden na jeden w Chełmży. Elementy fizjoterapii i pracy z ciałem, indywidualne podejście i stała kontrola techniki wykonania."
-            price="od 149 zł"
+            pricePrefix="od"
+            price="149 zł"
             features={[
               "Sesje 1 na 1 w Chełmży",
               "Indywidualne podejście",

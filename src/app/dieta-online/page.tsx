@@ -6,7 +6,8 @@ import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
 import { CTAButton } from "@/components/shared/CTAButton"
-import { BreadcrumbSchema, ServicePageSchema, FAQSchema, HowToSchema } from "@/components/seo/JsonLd"
+import { TrustBadges } from "@/components/shared/TrustBadges"
+import { BreadcrumbSchema, ServicePageSchema, FAQSchema, HowToSchema, CourseSchema } from "@/components/seo/JsonLd"
 import {
   Accordion,
   AccordionItem,
@@ -216,6 +217,13 @@ export default function DietaOnlinePage() {
         price="199"
         url="/dieta-online"
       />
+      <CourseSchema
+        name="Dieta 4-tygodniowa Online"
+        description="Spersonalizowany plan żywieniowy 4-tygodniowy dopasowany do Twoich celów, metabolizmu i stylu życia. Obejmuje analizę metabolizmu, kalkulację kaloryczną, rozkład makroskładników i listę zakupów."
+        price="199"
+        url="https://jantrenerchmielewski.pl/dieta-online"
+        duration="P4W"
+      />
       <FAQSchema questions={faqItems} />
       <HowToSchema
         name="Jak zamówić indywidualną dietę online"
@@ -316,6 +324,13 @@ export default function DietaOnlinePage() {
             </div>
           </div>
         </section>
+
+        {/* ===== TRUST BADGES ===== */}
+        <div className="py-8">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <TrustBadges />
+          </div>
+        </div>
 
         {/* ===== FEATURES ===== */}
         <section className="py-20" style={{ background: "var(--card)" }}>

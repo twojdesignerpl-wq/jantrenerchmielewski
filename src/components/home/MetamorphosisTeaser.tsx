@@ -63,7 +63,7 @@ export function MetamorphosisTeaser() {
                 style={{
                   border: "2px solid oklch(0.55 0.22 25 / 40%)",
                   boxShadow:
-                    "0 0 40px oklch(0.55 0.22 25 / 15%), 0 20px 60px oklch(0.10 0.02 240 / 50%)",
+                    "0 0 40px oklch(0.55 0.22 25 / 15%), 0 20px 60px oklch(0.14 0.025 232 / 50%)",
                 }}
               >
                 <Image
@@ -120,7 +120,7 @@ export function MetamorphosisTeaser() {
                 style={{
                   border: "2px solid oklch(0.65 0.18 210 / 40%)",
                   boxShadow:
-                    "0 0 40px oklch(0.65 0.18 210 / 20%), 0 20px 60px oklch(0.10 0.02 240 / 50%)",
+                    "0 0 40px oklch(0.65 0.18 210 / 20%), 0 20px 60px oklch(0.14 0.025 232 / 50%)",
                 }}
               >
                 <Image

@@ -20,6 +20,7 @@ const plans = [
     highlighted: false,
     badge: undefined,
     ctaLabel: "Zamów dietę",
+    savings: undefined,
   },
   {
     title: "Plan Treningowy",
@@ -34,6 +35,7 @@ const plans = [
     highlighted: false,
     badge: undefined,
     ctaLabel: "Zamów plan",
+    savings: undefined,
   },
   {
     title: "Prowadzenie Online",
@@ -53,6 +55,7 @@ const plans = [
     highlighted: true,
     badge: "Najpopularniejsze",
     ctaLabel: "Zacznij współpracę",
+    savings: "Oszczędzasz do 1\u00A0089 zł przy 12 mies.",
   },
   {
     title: "Trening Personalny",
@@ -68,6 +71,7 @@ const plans = [
     highlighted: false,
     badge: undefined,
     ctaLabel: "Umów trening",
+    savings: undefined,
   },
 ]
 
@@ -85,8 +89,15 @@ export function PricingOverview() {
             title="Wybierz plan idealny dla Ciebie"
             description="Przejrzyste ceny, żadnych ukrytych kosztów. Każdy plan możesz rozszerzyć w dowolnym momencie."
             align="center"
-            className="mb-16"
+            className="mb-6"
           />
+          {/* Price anchoring */}
+          <p
+            className="mx-auto mb-16 text-center text-sm tracking-wide"
+            style={{ color: "var(--muted-foreground)", maxWidth: "40ch" }}
+          >
+            Typowy koszt trenera personalnego: 200–350 zł/sesja
+          </p>
         </ScrollReveal>
 
         <div className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 xl:grid-cols-4">
@@ -102,6 +113,7 @@ export function PricingOverview() {
                   highlighted={plan.highlighted}
                   badge={plan.badge}
                   ctaLabel={plan.ctaLabel}
+                  savings={plan.savings}
                 />
               </div>
             </ScrollReveal>

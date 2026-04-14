@@ -242,6 +242,27 @@ export function BreadcrumbSchema({
   );
 }
 
+export function ItemListSchema({
+  items,
+}: {
+  items: { name: string; url: string; position: number }[]
+}) {
+  return (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        itemListElement: items.map((item) => ({
+          "@type": "ListItem",
+          position: item.position,
+          name: item.name,
+          url: item.url,
+        })),
+      }}
+    />
+  )
+}
+
 interface HowToSchemaProps {
   name: string;
   description: string;
@@ -325,10 +346,176 @@ export function WebSiteSchema() {
         "@type": "WebSite",
         name: "Jan Chmielewski — Trener Personalny",
         url: "https://jantrenerchmielewski.pl",
+        description:
+          "Profesjonalny trener personalny i dietetyk online. Magister Fizjoterapii, Finalista Mistrzostw Polski w kulturystyce. Indywidualne diety, plany treningowe i prowadzenie online dla klientów z całej Polski.",
         potentialAction: {
           "@type": "SearchAction",
-          target: "https://jantrenerchmielewski.pl/?q={search_term_string}",
+          target: {
+            "@type": "EntryPoint",
+            urlTemplate:
+              "https://jantrenerchmielewski.pl/?q={search_term_string}",
+          },
           "query-input": "required name=search_term_string",
+        },
+      }}
+    />
+  );
+}
+
+export function ProfessionalServiceSchema() {
+  return (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "@id": "https://jantrenerchmielewski.pl/#professional-service",
+        name: "Jan Chmielewski — Trener Personalny i Dietetyk Online",
+        description:
+          "Profesjonalne usługi trenera personalnego i dietetyka online. Magister Fizjoterapii, Finalista Mistrzostw Polski w kulturystyce. 8+ lat doświadczenia, 200+ zadowolonych klientów.",
+        url: "https://jantrenerchmielewski.pl",
+        telephone: "+48534214398",
+        email: "kontakt@jantrenerchmielewski.pl",
+        image: "https://jantrenerchmielewski.pl/images/jan-hero.png",
+        provider: {
+          "@type": "Person",
+          name: "Jan Chmielewski",
+          url: "https://jantrenerchmielewski.pl",
+          jobTitle: "Trener Personalny",
+          hasCredential: [
+            {
+              "@type": "EducationalOccupationalCredential",
+              credentialCategory: "degree",
+              name: "Magister Fizjoterapii",
+            },
+          ],
+        },
+        areaServed: {
+          "@type": "Country",
+          name: "Polska",
+        },
+        serviceType: [
+          "Trening personalny",
+          "Dietetyka sportowa",
+          "Coaching fitness",
+        ],
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Usługi fitness i dietetyczne",
+          itemListElement: [
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Dieta 4-tygodniowa Online",
+                description:
+                  "Spersonalizowany plan żywieniowy 4-tygodniowy dopasowany do celów, metabolizmu i stylu życia.",
+              },
+              price: "199",
+              priceCurrency: "PLN",
+              url: "https://jantrenerchmielewski.pl/dieta-online",
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Plan Treningowy 8-tygodniowy",
+                description:
+                  "Indywidualny program treningowy z progresją, notacją ćwiczeń i wskazówkami suplementacyjnymi.",
+              },
+              price: "149",
+              priceCurrency: "PLN",
+              url: "https://jantrenerchmielewski.pl/plan-treningowy",
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Prowadzenie Online",
+                description:
+                  "Kompleksowe wsparcie — dieta + plan treningowy + cotygodniowe raporty + kontakt 24/7.",
+              },
+              price: "399",
+              priceCurrency: "PLN",
+              url: "https://jantrenerchmielewski.pl/prowadzenie-online",
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Trening Personalny w Chełmży",
+                description:
+                  "Indywidualne treningi w Chełmży z elementami fizjoterapii.",
+              },
+              price: "149",
+              priceCurrency: "PLN",
+              url: "https://jantrenerchmielewski.pl/trening-personalny-chelmza",
+            },
+          ],
+        },
+      }}
+    />
+  );
+}
+
+interface CourseSchemaProps {
+  name: string;
+  description: string;
+  price: string;
+  url: string;
+  duration?: string;
+}
+
+export function CourseSchema({
+  name,
+  description,
+  price,
+  url,
+  duration,
+}: CourseSchemaProps) {
+  return (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": "Course",
+        name,
+        description,
+        url,
+        ...(duration !== undefined && { timeRequired: duration }),
+        inLanguage: "pl",
+        courseMode: "online",
+        provider: {
+          "@type": "Person",
+          name: "Jan Chmielewski",
+          url: "https://jantrenerchmielewski.pl",
+          jobTitle: "Trener Personalny",
+          image: "https://jantrenerchmielewski.pl/images/jan-hero.png",
+        },
+        offers: {
+          "@type": "Offer",
+          price,
+          priceCurrency: "PLN",
+          url,
+          availability: "https://schema.org/InStock",
+          validFrom: "2024-01-01",
+        },
+      }}
+    />
+  );
+}
+
+interface SpeakableSchemaProps {
+  cssSelectors: string[];
+}
+
+export function SpeakableSchema({ cssSelectors }: SpeakableSchemaProps) {
+  return (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        speakable: {
+          "@type": "SpeakableSpecification",
+          cssSelector: cssSelectors,
         },
       }}
     />

@@ -47,11 +47,11 @@ export function CredentialsSection() {
                 className="relative z-10 overflow-hidden rounded-2xl border-glow"
                 style={{
                   boxShadow:
-                    "0 0 40px oklch(0.65 0.18 210 / 12%), 0 20px 60px oklch(0.10 0.02 240 / 60%)",
+                    "0 0 40px oklch(0.65 0.18 210 / 12%), 0 20px 60px oklch(0.14 0.025 232 / 60%)",
                 }}
                 whileHover={{
                   boxShadow:
-                    "0 0 60px oklch(0.65 0.18 210 / 22%), 0 24px 80px oklch(0.10 0.02 240 / 70%)",
+                    "0 0 60px oklch(0.65 0.18 210 / 22%), 0 24px 80px oklch(0.14 0.025 232 / 70%)",
                   transition: { duration: 0.3 },
                 }}
               >
@@ -113,7 +113,7 @@ export function CredentialsSection() {
                   {competitionPhotos.map((photo) => (
                     <motion.div
                       key={photo.src}
-                      className="relative aspect-[3/4] overflow-hidden rounded-lg border border-border bg-[oklch(0.12_0.02_240)]"
+                      className="relative aspect-[3/4] overflow-hidden rounded-lg border border-border bg-[oklch(0.16_0.025_232)]"
                       whileHover={{
                         scale: 1.05,
                         boxShadow:

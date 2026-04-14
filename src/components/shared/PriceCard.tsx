@@ -14,6 +14,7 @@ interface PriceCardProps {
   highlighted?: boolean
   badge?: string
   ctaLabel?: string
+  savings?: string
 }
 
 export function PriceCard({
@@ -25,39 +26,50 @@ export function PriceCard({
   highlighted = false,
   badge,
   ctaLabel = "Wybierz plan",
+  savings,
 }: PriceCardProps) {
   return (
     <motion.article
       className={cn(
         "relative flex h-full flex-col gap-6 rounded-2xl border p-7 md:p-8",
         highlighted
-          ? "border-glow glow-cyan-strong ring-2 ring-primary scale-[1.03]"
+          ? "border-glow glow-cyan-strong ring-2 ring-primary scale-[1.04]"
           : "border-border"
       )}
-      style={{ background: highlighted ? "oklch(0.14 0.02 240)" : "var(--card)" }}
+      style={{
+        background: highlighted ? "oklch(0.18 0.025 232)" : "var(--card)",
+        boxShadow: highlighted
+          ? "0 0 40px oklch(0.65 0.18 210 / 20%), 0 0 80px oklch(0.65 0.18 210 / 8%), 0 20px 60px oklch(0 0 0 / 30%)"
+          : undefined,
+      }}
       whileHover={{
         y: -4,
         transition: { type: "spring", stiffness: 300, damping: 25 },
       }}
-      whileTap={{ scale: 0.98, transition: { type: "spring", stiffness: 400, damping: 30 } }}
+      whileTap={{
+        scale: 0.98,
+        transition: { type: "spring", stiffness: 400, damping: 30 },
+      }}
     >
       {/* Hover glow overlay */}
       <motion.div
         className="pointer-events-none absolute inset-0 rounded-2xl opacity-0"
         style={{
-          boxShadow: "0 0 30px oklch(0.65 0.18 210 / 20%), 0 0 60px oklch(0.65 0.18 210 / 8%)",
+          boxShadow:
+            "0 0 30px oklch(0.65 0.18 210 / 20%), 0 0 60px oklch(0.65 0.18 210 / 8%)",
         }}
         whileHover={{ opacity: 1 }}
         transition={{ duration: 0.2 }}
       />
 
-      {/* Badge */}
+      {/* Badge — with pulse animation for highlighted */}
       {badge && (
         <div
           className="absolute -top-3 right-4 rounded-full px-3 py-1 text-xs font-mono font-semibold uppercase tracking-wide"
           style={{
             background: "var(--cyan)",
             color: "var(--primary-foreground)",
+            animation: highlighted ? "badgePulse 3s ease-in-out infinite" : undefined,
           }}
           aria-label={`Oznaczenie: ${badge}`}
         >
@@ -68,7 +80,7 @@ export function PriceCard({
       {/* Header */}
       <div className="flex flex-col gap-1">
         <h3
-          className="font-semibold text-lg"
+          className="text-lg font-semibold"
           style={{ fontFamily: "var(--font-heading)" }}
         >
           {title}
@@ -77,11 +89,26 @@ export function PriceCard({
 
       {/* Price */}
       <div className="flex flex-col gap-1">
-        <span className="whitespace-nowrap font-mono text-3xl font-bold tabular-nums md:text-4xl">{price}</span>
+        <span className="whitespace-nowrap font-mono text-3xl font-bold tabular-nums md:text-4xl">
+          {price}
+        </span>
         {period && (
-          <span className="text-base font-normal text-muted-foreground">{period}</span>
+          <span className="text-base font-normal text-muted-foreground">
+            {period}
+          </span>
         )}
       </div>
+
+      {/* Savings display */}
+      {savings && (
+        <p
+          className="text-sm font-semibold"
+          style={{ color: "oklch(0.65 0.22 145)" }}
+          aria-label={savings}
+        >
+          {savings}
+        </p>
+      )}
 
       {/* Divider */}
       <div className="h-px bg-border" role="separator" />
@@ -91,7 +118,7 @@ export function PriceCard({
         {features.map((feature) => (
           <li key={feature} className="flex items-start gap-2.5 text-base">
             <CheckCircle
-              className="mt-0.5 shrink-0 size-4"
+              className="mt-0.5 size-4 shrink-0"
               style={{ color: "var(--cyan)" }}
               weight="fill"
               aria-hidden="true"

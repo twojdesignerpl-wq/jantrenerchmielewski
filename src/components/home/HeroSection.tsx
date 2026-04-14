@@ -1,16 +1,27 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
-import { motion, useReducedMotion } from "framer-motion"
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  AnimatePresence,
+} from "framer-motion"
 import {
   GraduationCap,
   Trophy,
   Star,
   Users,
+  Clock,
+  CaretDown,
 } from "@phosphor-icons/react"
 import { CTAButton } from "@/components/shared/CTAButton"
-import { CredentialBadge } from "@/components/shared/CredentialBadge"
+import { AnimatedCounter } from "@/components/shared/AnimatedCounter"
+import { testimonials } from "@/lib/data/testimonials"
+
+/* ---------- animation variants ---------- */
 
 const containerVariants = {
   hidden: {},
@@ -62,21 +73,130 @@ const imageVariants = {
   },
 }
 
+/* ---------- social proof messages ---------- */
+
+const socialProofMessages = testimonials.slice(0, 4).map((t) => {
+  const serviceMap: Record<string, string> = {
+    "Prowadzenie Online": "rozpoczął prowadzenie online",
+    "Plan Treningowy": "zamówił plan treningowy",
+    "Dieta Online": "zamówiła dietę online",
+    "Trening Personalny": "rozpoczął treningi personalne",
+  }
+  const action = serviceMap[t.service] ?? "dołączył do klientów"
+  return `${t.name} z ${t.city.replace("ń", "nia").replace("ów", "owa")} — ${action}`
+})
+
+/* ========== SOCIAL PROOF TICKER ========== */
+
+function SocialProofTicker() {
+  const prefersReducedMotion = useReducedMotion()
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    if (prefersReducedMotion) return
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % socialProofMessages.length)
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [prefersReducedMotion])
+
+  return (
+    <div
+      className="mt-6 flex h-6 items-center overflow-hidden"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      <div
+        className="mr-2 size-2 shrink-0 rounded-full"
+        style={{ background: "oklch(0.65 0.22 145)" }}
+        aria-hidden="true"
+      />
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={index}
+          className="text-sm text-muted-foreground"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
+          transition={{ type: "spring", stiffness: 120, damping: 18 }}
+        >
+          {socialProofMessages[index]}
+        </motion.span>
+      </AnimatePresence>
+    </div>
+  )
+}
+
+/* ========== SCROLL INDICATOR ========== */
+
+function ScrollIndicator() {
+  const prefersReducedMotion = useReducedMotion()
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const checkHeight = () => setVisible(window.innerHeight > 700)
+    checkHeight()
+    window.addEventListener("resize", checkHeight)
+    return () => window.removeEventListener("resize", checkHeight)
+  }, [])
+
+  if (!visible) return null
+
+  return (
+    <motion.div
+      className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 1.5, duration: 0.5 }}
+      aria-hidden="true"
+    >
+      <motion.div
+        animate={
+          prefersReducedMotion
+            ? {}
+            : {
+                y: [0, 8, 0],
+              }
+        }
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        <CaretDown
+          size={28}
+          weight="bold"
+          style={{ color: "var(--muted-foreground)", opacity: 0.6 }}
+        />
+      </motion.div>
+    </motion.div>
+  )
+}
+
+/* ========== HERO SECTION ========== */
+
 export function HeroSection() {
   const prefersReducedMotion = useReducedMotion()
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
 
-  const floatAnimation = !mounted || prefersReducedMotion
-    ? {}
-    : {
-        y: [0, -10, 0],
-        transition: {
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut" as const,
-        },
-      }
+  /* Parallax: text moves slower, image moves faster */
+  const { scrollY } = useScroll()
+  const textParallaxY = useTransform(scrollY, [0, 300], [0, -20])
+  const imageParallaxY = useTransform(scrollY, [0, 300], [0, -40])
+
+  const floatAnimation =
+    !mounted || prefersReducedMotion
+      ? {}
+      : {
+          y: [0, -10, 0],
+          transition: {
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut" as const,
+          },
+        }
 
   return (
     <section
@@ -101,6 +221,7 @@ export function HeroSection() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
+          style={prefersReducedMotion ? {} : { y: textParallaxY }}
         >
           {/* Eyebrow badges */}
           <motion.div
@@ -129,16 +250,15 @@ export function HeroSection() {
             </span>
           </motion.div>
 
-          {/* Headline */}
+          {/* Headline with shimmer on TRANSFORMACJĘ */}
           <motion.h1
             variants={itemVariants}
             className="font-sans font-extrabold tracking-[-0.03em] leading-[0.88] mb-6"
             style={{ fontSize: "clamp(3rem, 8vw, 6.5rem)" }}
           >
-            Twoja zmiana
+            Rozpocznij swoją
             <br />
-            zaczyna się{" "}
-            <span className="text-gradient-cyan">TERAZ.</span>
+            <span className="hero-shimmer-text">TRANSFORMACJĘ</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -162,6 +282,11 @@ export function HeroSection() {
               Zobacz moją metamorfozę
             </CTAButton>
           </motion.div>
+
+          {/* Social proof ticker */}
+          <motion.div variants={itemVariants}>
+            <SocialProofTicker />
+          </motion.div>
         </motion.div>
 
         {/* RIGHT — image */}
@@ -170,8 +295,9 @@ export function HeroSection() {
           variants={imageVariants}
           initial="hidden"
           animate="visible"
+          style={prefersReducedMotion ? {} : { y: imageParallaxY }}
         >
-          {/* Cyan circular halo behind image — soft elliptical blur, not a rectangle */}
+          {/* Cyan circular halo behind image */}
           <div
             className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[140px]"
             aria-hidden="true"
@@ -180,7 +306,7 @@ export function HeroSection() {
             }}
           />
 
-          {/* Image wrapper with float animation — natural dimensions, no fixed box */}
+          {/* Image wrapper with float animation */}
           <motion.div
             className="relative z-10 mx-auto w-full max-w-[600px]"
             animate={floatAnimation}
@@ -198,72 +324,109 @@ export function HeroSection() {
         </motion.div>
       </div>
 
-      {/* TRUST BAR */}
+      {/* SCROLL INDICATOR */}
+      <ScrollIndicator />
+
+      {/* ENHANCED TRUST BAR */}
       <motion.div
         className="relative z-10 border-t border-border"
         variants={trustBarVariants}
         initial="hidden"
         animate="visible"
-        style={{ background: "oklch(0.12 0.02 240 / 80%)" }}
+        style={{ background: "oklch(0.16 0.025 232 / 80%)" }}
       >
-        <div className="mx-auto max-w-7xl px-6 py-5">
+        <div className="mx-auto max-w-7xl px-6 py-8">
           <div
-            className="flex flex-wrap items-center justify-center gap-2 sm:gap-0"
+            className="grid grid-cols-2 gap-6 sm:flex sm:items-center sm:justify-center sm:gap-0"
             role="list"
             aria-label="Kwalifikacje i doświadczenie"
           >
-            {/* Badge 1 */}
-            <div className="flex items-center" role="listitem">
-              <CredentialBadge
-                icon={<GraduationCap size={20} weight="fill" />}
-                label="Magister"
-                value="Fizjoterapii"
+            {/* Stat 1 — Clients */}
+            <div className="flex flex-col items-center gap-1.5" role="listitem">
+              <Users
+                size={24}
+                weight="fill"
+                style={{ color: "var(--cyan)" }}
+                aria-hidden="true"
               />
+              <AnimatedCounter
+                value={200}
+                suffix="+"
+                className="text-2xl md:text-3xl"
+              />
+              <span className="text-xs text-muted-foreground tracking-wide uppercase">
+                klientów
+              </span>
             </div>
 
             <div
-              className="mx-4 hidden h-8 w-px sm:block"
-              style={{ background: "var(--border)" }}
+              className="mx-6 hidden h-12 w-px sm:block"
+              style={{ background: "oklch(0.65 0.18 210 / 15%)" }}
               aria-hidden="true"
             />
 
-            {/* Badge 2 */}
-            <div className="flex items-center" role="listitem">
-              <CredentialBadge
-                icon={<Trophy size={20} weight="fill" />}
-                label="Finalista"
-                value="Mistrzostw Polski"
+            {/* Stat 2 — Years */}
+            <div className="flex flex-col items-center gap-1.5" role="listitem">
+              <Clock
+                size={24}
+                weight="fill"
+                style={{ color: "var(--cyan)" }}
+                aria-hidden="true"
               />
+              <AnimatedCounter
+                value={8}
+                className="text-2xl md:text-3xl"
+              />
+              <span className="text-xs text-muted-foreground tracking-wide uppercase">
+                lat doświadczenia
+              </span>
             </div>
 
             <div
-              className="mx-4 hidden h-8 w-px sm:block"
-              style={{ background: "var(--border)" }}
+              className="mx-6 hidden h-12 w-px sm:block"
+              style={{ background: "oklch(0.65 0.18 210 / 15%)" }}
               aria-hidden="true"
             />
 
-            {/* Badge 3 */}
-            <div className="flex items-center" role="listitem">
-              <CredentialBadge
-                icon={<Star size={20} weight="fill" />}
-                label="8 lat"
-                value="doświadczenia"
+            {/* Stat 3 — Rating */}
+            <div className="flex flex-col items-center gap-1.5" role="listitem">
+              <Star
+                size={24}
+                weight="fill"
+                style={{ color: "var(--cyan)" }}
+                aria-hidden="true"
               />
+              <span
+                className="font-mono text-2xl font-bold tabular-nums md:text-3xl"
+                aria-label="Ocena 4.9 na 5"
+              >
+                4.9
+              </span>
+              <span className="text-xs text-muted-foreground tracking-wide uppercase">
+                średnia ocen
+              </span>
             </div>
 
             <div
-              className="mx-4 hidden h-8 w-px sm:block"
-              style={{ background: "var(--border)" }}
+              className="mx-6 hidden h-12 w-px sm:block"
+              style={{ background: "oklch(0.65 0.18 210 / 15%)" }}
               aria-hidden="true"
             />
 
-            {/* Badge 4 */}
-            <div className="flex items-center" role="listitem">
-              <CredentialBadge
-                icon={<Users size={20} weight="fill" />}
-                label="200+"
-                value="zadowolonych klientów"
+            {/* Stat 4 — Credentials */}
+            <div className="flex flex-col items-center gap-1.5" role="listitem">
+              <GraduationCap
+                size={24}
+                weight="fill"
+                style={{ color: "var(--cyan)" }}
+                aria-hidden="true"
               />
+              <span className="font-mono text-2xl font-bold tabular-nums md:text-3xl">
+                Mgr
+              </span>
+              <span className="text-xs text-muted-foreground tracking-wide uppercase">
+                fizjoterapii
+              </span>
             </div>
           </div>
         </div>

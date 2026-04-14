@@ -41,7 +41,7 @@ function SectionHeading({ id, children }: { id: string; children: React.ReactNod
 
 function Paragraph({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mb-4 max-w-[65ch] font-[family-name:var(--font-sans)] text-sm leading-relaxed text-[oklch(0.75_0.02_240)] md:text-base">
+    <p className="mb-4 max-w-[65ch] font-[family-name:var(--font-sans)] text-sm leading-relaxed text-[oklch(0.75_0.02_232)] md:text-base">
       {children}
     </p>
   )
@@ -49,7 +49,7 @@ function Paragraph({ children }: { children: React.ReactNode }) {
 
 function ListItem({ children }: { children: React.ReactNode }) {
   return (
-    <li className="relative pl-5 font-[family-name:var(--font-sans)] text-sm leading-relaxed text-[oklch(0.75_0.02_240)] before:absolute before:left-0 before:top-2.5 before:size-1.5 before:rounded-full before:bg-[var(--primary)] md:text-base">
+    <li className="relative pl-5 font-[family-name:var(--font-sans)] text-sm leading-relaxed text-[oklch(0.75_0.02_232)] before:absolute before:left-0 before:top-2.5 before:size-1.5 before:rounded-full before:bg-[var(--primary)] md:text-base">
       {children}
     </li>
   )
@@ -84,13 +84,13 @@ export default function PolitykaPrywatnosciPage() {
         <Container className="max-w-4xl">
           {/* Header */}
           <ScrollReveal>
-            <p className="text-label mb-3 text-[oklch(0.55_0.02_240)]">
+            <p className="text-label mb-3 text-[oklch(0.55_0.02_232)]">
               Dokument prawny
             </p>
             <h1 className="mb-4 font-[family-name:var(--font-heading)] text-4xl font-extrabold tracking-tighter text-foreground md:text-5xl lg:text-6xl">
               Polityka Prywatnosci
             </h1>
-            <p className="mb-8 font-[family-name:var(--font-mono)] text-xs tracking-tight text-[oklch(0.45_0.02_240)]">
+            <p className="mb-8 font-[family-name:var(--font-mono)] text-xs tracking-tight text-[oklch(0.48_0.02_232)]">
               Ostatnia aktualizacja: {LAST_UPDATED}
             </p>
           </ScrollReveal>
@@ -99,9 +99,9 @@ export default function PolitykaPrywatnosciPage() {
           <ScrollReveal delay={0.1}>
             <nav
               aria-label="Spis tresci polityki prywatnosci"
-              className="mb-12 rounded-xl border border-[oklch(0.25_0.02_240)] bg-[oklch(0.12_0.02_240)] p-6"
+              className="mb-12 rounded-xl border border-[oklch(0.28_0.025_232)] bg-[oklch(0.16_0.025_232)] p-6"
             >
-              <p className="mb-3 font-[family-name:var(--font-heading)] text-sm font-bold uppercase tracking-[0.15em] text-[oklch(0.55_0.02_240)]">
+              <p className="mb-3 font-[family-name:var(--font-heading)] text-sm font-bold uppercase tracking-[0.15em] text-[oklch(0.55_0.02_232)]">
                 Spis tresci
               </p>
               <ol className="flex flex-col gap-1.5">
@@ -109,9 +109,9 @@ export default function PolitykaPrywatnosciPage() {
                   <li key={section.id}>
                     <a
                       href={`#${section.id}`}
-                      className="inline-flex items-baseline gap-2 font-[family-name:var(--font-sans)] text-sm text-[oklch(0.65_0.02_240)] transition-colors hover:text-foreground"
+                      className="inline-flex items-baseline gap-2 font-[family-name:var(--font-sans)] text-sm text-[oklch(0.65_0.02_232)] transition-colors hover:text-foreground"
                     >
-                      <span className="font-[family-name:var(--font-mono)] text-xs text-[oklch(0.45_0.02_240)]">
+                      <span className="font-[family-name:var(--font-mono)] text-xs text-[oklch(0.48_0.02_232)]">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       {section.label}

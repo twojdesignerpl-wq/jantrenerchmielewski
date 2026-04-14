@@ -131,7 +131,7 @@ export default function MetamorfozyPage() {
               <ScrollReveal delay={0.2} direction="left">
                 <div
                   className="border-glow overflow-hidden rounded-2xl aspect-[4/5]"
-                  style={{ background: "oklch(0.12 0.02 240)" }}
+                  style={{ background: "oklch(0.16 0.025 232)" }}
                 >
                   <Image
                     src="/images/metamorfoza-1.png"
@@ -154,7 +154,7 @@ export default function MetamorfozyPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <div
                     className="border-glow overflow-hidden rounded-xl aspect-[4/5]"
-                    style={{ background: "oklch(0.12 0.02 240)" }}
+                    style={{ background: "oklch(0.16 0.025 232)" }}
                   >
                     <Image
                       src="/images/metamorfoza-2.png"
@@ -166,7 +166,7 @@ export default function MetamorfozyPage() {
                   </div>
                   <div
                     className="border-glow overflow-hidden rounded-xl aspect-[4/5]"
-                    style={{ background: "oklch(0.12 0.02 240)" }}
+                    style={{ background: "oklch(0.16 0.025 232)" }}
                   >
                     <Image
                       src="/images/metamorfoza-3.png"
@@ -178,7 +178,7 @@ export default function MetamorfozyPage() {
                   </div>
                   <div
                     className="border-glow overflow-hidden rounded-xl col-span-2 aspect-[2/1]"
-                    style={{ background: "oklch(0.12 0.02 240)" }}
+                    style={{ background: "oklch(0.16 0.025 232)" }}
                   >
                     <Image
                       src="/images/metamorfoza-5.png"
@@ -275,7 +275,7 @@ export default function MetamorfozyPage() {
             <ScrollReveal delay={0.1}>
               <div
                 className="border-glow glow-cyan overflow-hidden rounded-2xl mb-8"
-                style={{ background: "oklch(0.12 0.02 240)" }}
+                style={{ background: "oklch(0.16 0.025 232)" }}
               >
                 <Image
                   src="/images/metamorfoza-6.png"
@@ -298,7 +298,7 @@ export default function MetamorfozyPage() {
                 <ScrollReveal key={photo.src} delay={i * 0.08}>
                   <div
                     className="border-glow overflow-hidden rounded-xl aspect-[3/4]"
-                    style={{ background: "oklch(0.12 0.02 240)" }}
+                    style={{ background: "oklch(0.16 0.025 232)" }}
                   >
                     <Image
                       src={photo.src}

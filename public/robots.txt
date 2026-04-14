@@ -22,3 +22,21 @@ Disallow: /
 
 User-agent: CCBot
 Allow: /
+
+User-agent: Googlebot-News
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Amazonbot
+Allow: /

@@ -316,7 +316,7 @@ export default function OMniePage() {
                 <ScrollReveal key={photo.src} delay={i * 0.08}>
                   <div
                     className="border-glow overflow-hidden rounded-xl aspect-[3/4]"
-                    style={{ background: "oklch(0.12 0.02 240)" }}
+                    style={{ background: "oklch(0.16 0.025 232)" }}
                   >
                     <Image
                       src={photo.src}

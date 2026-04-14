@@ -5,6 +5,7 @@ import { HeroSection } from "@/components/home/HeroSection"
 import { ServicesSection } from "@/components/home/ServicesSection"
 import { MetamorphosisTeaser } from "@/components/home/MetamorphosisTeaser"
 import { CredentialsSection } from "@/components/home/CredentialsSection"
+import { TestimonialCarousel } from "@/components/shared/TestimonialCarousel"
 import { PricingOverview } from "@/components/home/PricingOverview"
 import { FinalCTA } from "@/components/home/FinalCTA"
 
@@ -17,6 +18,11 @@ export default function HomePage() {
         <ServicesSection />
         <MetamorphosisTeaser />
         <CredentialsSection />
+        <div className="py-24 sm:py-32">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <TestimonialCarousel />
+          </div>
+        </div>
         <PricingOverview />
         <FinalCTA />
       </main>

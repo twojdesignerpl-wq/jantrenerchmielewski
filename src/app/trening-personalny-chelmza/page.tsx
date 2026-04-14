@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
 import { CTAButton } from "@/components/shared/CTAButton"
+import { TrustBadges } from "@/components/shared/TrustBadges"
 import { PriceCard } from "@/components/shared/PriceCard"
 import {
   BreadcrumbSchema,
@@ -324,6 +325,13 @@ export default function TreningPersonalnyChelmzaPage() {
             </div>
           </div>
         </section>
+
+        {/* ===== TRUST BADGES ===== */}
+        <div className="py-8">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <TrustBadges />
+          </div>
+        </div>
 
         {/* ===== FEATURES ===== */}
         <section className="py-20 section-glow" style={{ background: "var(--card)" }}>

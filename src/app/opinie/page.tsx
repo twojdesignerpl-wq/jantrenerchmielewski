@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
 import { Container } from "@/components/layout/Container"
+import { TestimonialCarousel } from "@/components/shared/TestimonialCarousel"
 import {
   BreadcrumbSchema,
   AggregateRatingSchema,
@@ -89,6 +90,15 @@ export default function OpiniePage() {
                   historie.
                 </p>
               </div>
+            </ScrollReveal>
+          </Container>
+        </section>
+
+        {/* Featured Carousel */}
+        <section className="pb-16">
+          <Container>
+            <ScrollReveal>
+              <TestimonialCarousel />
             </ScrollReveal>
           </Container>
         </section>

@@ -17,6 +17,11 @@ module.exports = {
       "olsztyn", "rzeszow", "opole", "gorzow-wielkopolski",
       "zielona-gora", "plock", "wloclawek", "grudziadz",
       "inowroclaw", "brodnica",
+      // nowe miasta — batch 2
+      "elblag", "tarnow", "kalisz", "legnica", "nowy-sacz",
+      "tychy", "ruda-slaska", "sosnowiec", "gliwice", "zabrze",
+      "bytom", "stalowa-wola", "ostrow-wielkopolski",
+      "piotrkow-trybunalski", "siedlce",
     ];
 
     const services = [
@@ -78,6 +83,50 @@ module.exports = {
           lastmod: new Date().toISOString(),
         });
       }
+    }
+
+    // Static content pages
+    const staticPages = [
+      { loc: "/blog", priority: 0.8, changefreq: "weekly" },
+      { loc: "/faq", priority: 0.7, changefreq: "monthly" },
+      { loc: "/jak-to-dziala", priority: 0.7, changefreq: "monthly" },
+      { loc: "/efekty", priority: 0.8, changefreq: "weekly" },
+      { loc: "/mapa-strony", priority: 0.3, changefreq: "monthly" },
+      {
+        loc: "/dieta-online-vs-prowadzenie-online",
+        priority: 0.7,
+        changefreq: "monthly",
+      },
+      {
+        loc: "/plan-treningowy-vs-dieta-online",
+        priority: 0.7,
+        changefreq: "monthly",
+      },
+    ];
+    for (const page of staticPages) {
+      paths.push({ ...page, lastmod: new Date().toISOString() });
+    }
+
+    // Blog article paths
+    const blogArticles = [
+      "/blog/dieta-online-kompletny-przewodnik",
+      "/blog/plan-treningowy-online-przewodnik",
+      "/blog/prowadzenie-online-co-to-jest",
+      "/blog/trener-personalny-chelmza-dlaczego-warto",
+      "/blog/ile-kosztuje-dieta-online-ceny",
+      "/blog/ile-kosztuje-trener-personalny",
+      "/blog/dieta-na-mase-jak-zbudowac-mase",
+      "/blog/dieta-na-redukcje-jak-schudnac",
+      "/blog/cwiczenia-na-brzuch-przewodnik",
+      "/blog/prowadzenie-online-vs-plan-treningowy",
+    ];
+    for (const loc of blogArticles) {
+      paths.push({
+        loc,
+        changefreq: "monthly",
+        priority: 0.7,
+        lastmod: new Date().toISOString(),
+      });
     }
 
     return paths;
