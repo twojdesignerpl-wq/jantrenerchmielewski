@@ -11,7 +11,6 @@ import {
 
 import { Container } from "@/components/layout/Container"
 import { Separator } from "@/components/ui/separator"
-import { NewsletterForm } from "@/components/layout/NewsletterForm"
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                                */
@@ -244,11 +243,6 @@ export function Footer() {
               </li>
             ))}
           </ul>
-        </div>
-
-        {/* Newsletter */}
-        <div className="border-t border-[oklch(0.18_0.02_232)] pt-8 pb-10">
-          <NewsletterForm />
         </div>
 
         {/* Separator */}

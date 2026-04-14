@@ -10,6 +10,7 @@ export interface BlogPost {
   datePublished: string;
   dateModified: string;
   content: string;
+  imageSrc?: string;
   faq?: { question: string; answer: string }[];
 }
 
@@ -35,6 +36,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: "12 min",
     datePublished: "2026-04-14",
     dateModified: "2026-04-14",
+    imageSrc: "/images/oferta-dieta.png",
     faq: [
       {
         question: "Czym jest dieta online i kto ją tworzy?",
@@ -217,6 +219,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: "13 min",
     datePublished: "2026-04-14",
     dateModified: "2026-04-14",
+    imageSrc: "/images/oferta-plan-treningowy.png",
     faq: [
       {
         question: "Czym jest plan treningowy online i kto go potrzebuje?",
@@ -368,6 +371,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: "14 min",
     datePublished: "2026-04-14",
     dateModified: "2026-04-14",
+    imageSrc: "/images/oferta-prowadzenie-online.png",
     faq: [
       {
         question: "Czym jest prowadzenie online przez trenera?",
@@ -549,6 +553,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: "11 min",
     datePublished: "2026-04-14",
     dateModified: "2026-04-14",
+    imageSrc: "/images/oferta-trening-personalny.png",
     faq: [
       {
         question: "Ile kosztuje trening personalny w Chełmży?",
@@ -682,6 +687,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: "10 min",
     datePublished: "2026-04-14",
     dateModified: "2026-04-14",
+    imageSrc: "/images/oferta-dieta.png",
     faq: [
       {
         question: "Ile powinna kosztować dobra dieta online?",
@@ -812,6 +818,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: "9 min",
     datePublished: "2026-04-14",
     dateModified: "2026-04-14",
+    imageSrc: "/images/oferta-trening-personalny.png",
     faq: [
       {
         question: "Ile kosztuje trener personalny w Polsce w 2026?",
@@ -940,6 +947,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: "12 min",
     datePublished: "2026-04-14",
     dateModified: "2026-04-14",
+    imageSrc: "/images/klata-bokiem.png",
     faq: [
       {
         question: "Ile kalorii powyżej TDEE potrzeba żeby budować masę?",
@@ -1104,6 +1112,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: "13 min",
     datePublished: "2026-04-14",
     dateModified: "2026-04-14",
+    imageSrc: "/images/metamorfoza-5.png",
     faq: [
       {
         question: "Ile kalorii poniżej TDEE potrzeba żeby chudnąć?",
@@ -1232,6 +1241,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: "11 min",
     datePublished: "2026-04-14",
     dateModified: "2026-04-14",
+    imageSrc: "/images/zawody-1.png",
     faq: [
       {
         question: "Ile razy w tygodniu ćwiczyć brzuch?",
@@ -1393,6 +1403,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: "10 min",
     datePublished: "2026-04-14",
     dateModified: "2026-04-14",
+    imageSrc: "/images/oferta-prowadzenie-online.png",
     faq: [
       {
         question: "Czym różni się prowadzenie online od planu treningowego?",
