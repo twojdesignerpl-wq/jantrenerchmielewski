@@ -101,7 +101,7 @@ function SocialProofTicker() {
 
   return (
     <div
-      className="mt-6 flex h-6 items-center overflow-hidden"
+      className="mt-6 flex min-h-[2.5rem] items-center"
       aria-live="polite"
       aria-atomic="true"
     >
@@ -206,11 +206,13 @@ export function HeroSection() {
           <motion.h1
             variants={itemVariants}
             className="font-sans font-extrabold tracking-[-0.03em] leading-[0.88] mb-6"
-            style={{ fontSize: "clamp(3.25rem, 8.5vw, 7rem)" }}
+            style={{ fontSize: "clamp(2.25rem, 7.5vw, 7rem)" }}
           >
             Rozpocznij swoją
             <br />
-            <span className="text-gradient-cyan">TRANSFORMACJĘ</span>
+            <span className="text-gradient-cyan block" style={{ fontSize: "clamp(2rem, 10vw, 1em)" }}>
+              TRANSFORMACJĘ
+            </span>
           </motion.h1>
 
           {/* Subtitle */}
