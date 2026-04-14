@@ -18,7 +18,6 @@ import {
 } from "@phosphor-icons/react"
 import { CTAButton } from "@/components/shared/CTAButton"
 import { AnimatedCounter } from "@/components/shared/AnimatedCounter"
-import { testimonials } from "@/lib/data/testimonials"
 
 /* ---------- animation variants ---------- */
 
@@ -74,16 +73,15 @@ const imageVariants = {
 
 /* ---------- social proof messages ---------- */
 
-const socialProofMessages = testimonials.slice(0, 4).map((t) => {
-  const serviceMap: Record<string, string> = {
-    "Prowadzenie Online": "rozpoczął prowadzenie online",
-    "Plan Treningowy": "zamówił plan treningowy",
-    "Dieta Online": "zamówiła dietę online",
-    "Trening Personalny": "rozpoczął treningi personalne",
-  }
-  const action = serviceMap[t.service] ?? "dołączył do klientów"
-  return `${t.name} z ${t.city.replace("ń", "nia").replace("ów", "owa")} — ${action}`
-})
+const socialProofMessages = [
+  "Marta K. z Torunia — rozpoczęła prowadzenie online",
+  "Kamil W. z Warszawy — zamówił plan treningowy",
+  "Anna S. z Krakowa — zamówiła dietę online",
+  "Piotr M. z Chełmży — rozpoczął treningi personalne",
+  "Katarzyna L. z Gdańska — rozpoczęła prowadzenie online",
+  "Tomasz B. z Wrocławia — zamówił plan treningowy",
+  "Agnieszka R. z Poznania — zamówiła dietę online",
+]
 
 /* ========== SOCIAL PROOF TICKER ========== */
 
@@ -95,7 +93,7 @@ function SocialProofTicker() {
     if (prefersReducedMotion) return
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % socialProofMessages.length)
-    }, 4000)
+    }, 6000)
     return () => clearInterval(interval)
   }, [prefersReducedMotion])
 
@@ -114,10 +112,10 @@ function SocialProofTicker() {
         <motion.span
           key={index}
           className="text-[0.9375rem] text-muted-foreground"
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ type: "spring", stiffness: 120, damping: 18 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ type: "spring", stiffness: 80, damping: 20, duration: 0.6 }}
         >
           {socialProofMessages[index]}
         </motion.span>
