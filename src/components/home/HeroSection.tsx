@@ -210,7 +210,7 @@ export function HeroSection() {
           >
             Rozpocznij swoją
             <br />
-            <span className="hero-shimmer-text">TRANSFORMACJĘ</span>
+            <span className="text-gradient-cyan">TRANSFORMACJĘ</span>
           </motion.h1>
 
           {/* Subtitle */}
