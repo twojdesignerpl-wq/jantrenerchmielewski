@@ -7,6 +7,7 @@ import {
   AddressBook,
 } from "@phosphor-icons/react/dist/ssr";
 import { createClient } from "@/lib/supabase/server";
+import { isAdminEmail } from "@/lib/admin/config";
 
 export default async function AdminDashboard() {
   const supabase = await createClient();
@@ -14,7 +15,7 @@ export default async function AdminDashboard() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
+  if (!user || !isAdminEmail(user.email)) {
     redirect("/admin/login");
   }
 

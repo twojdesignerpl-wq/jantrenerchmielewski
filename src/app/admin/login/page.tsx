@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
+import { isAdminEmail } from "@/lib/admin/config";
 import { SpinnerGap, ShieldCheck } from "@phosphor-icons/react";
 
 export default function AdminLoginPage() {
@@ -28,6 +29,17 @@ export default function AdminLoginPage() {
 
         if (authError) {
           setError("Nieprawidłowy email lub hasło.");
+          return;
+        }
+
+        // Verify email is in admin allowlist
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+
+        if (!user || !isAdminEmail(user.email)) {
+          await supabase.auth.signOut();
+          setError("Brak dostępu do panelu admina.");
           return;
         }
 
