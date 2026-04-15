@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
       publishedTime: post.datePublished,
       modifiedTime: post.dateModified,
       authors: ["Jan Chmielewski"],
-      images: [{ url: post.imageSrc ?? "/og.jpg", width: 1200, height: 630, alt: post.title }],
+      images: [{ url: post.imageSrc ?? "/opengraph-image", width: 1200, height: 630, alt: post.title }],
     },
     twitter: { card: "summary_large_image" },
     alternates: {

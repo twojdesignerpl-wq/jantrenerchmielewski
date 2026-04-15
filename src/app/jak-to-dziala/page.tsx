@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     description:
       "Krok po kroku: jak zamawiać diety online, plany treningowe i prowadzenie online u Jana Chmielowskiego.",
     type: "website",
-    images: [{ url: "/og.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
 }
 

@@ -6,7 +6,6 @@ import {
   ArrowLeft,
   DownloadSimple,
   Funnel,
-  SpinnerGap,
 } from "@phosphor-icons/react";
 import {
   Table,

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Syne, Outfit, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -29,6 +29,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#00b4d8",
+  colorScheme: "dark",
+};
 
 export const metadata: Metadata = {
   title: {
@@ -68,7 +76,7 @@ export const metadata: Metadata = {
       "Magister Fizjoterapii, Finalista Mistrzostw Polski. Indywidualne diety online, plany treningowe, rozpiski i prowadzenie online. 200+ zadowolonych klientów.",
     images: [
       {
-        url: "/og.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Jan Chmielewski — Trener Personalny",

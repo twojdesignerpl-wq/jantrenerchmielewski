@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     description:
       "Odpowiedzi na najczęściej zadawane pytania o trening personalny, dietę online i prowadzenie online.",
     type: "website",
-    images: [{ url: "/og.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
 }
 

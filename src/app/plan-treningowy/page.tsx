@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     title: "Plan Treningowy 8-tygodniowy — 149 zł | Jan Chmielewski",
     description:
       "Indywidualny plan treningowy z progresją, techniką i wskazówkami suplementacyjnymi. Finalista Mistrzostw Polski w kulturystyce.",
-    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Plan treningowy Jan Chmielewski" }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Plan treningowy Jan Chmielewski" }],
     type: "website",
   },
   twitter: { card: "summary_large_image" },

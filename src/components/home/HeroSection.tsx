@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useSyncExternalStore } from "react"
 import Image from "next/image"
 import {
   motion,
@@ -11,7 +11,6 @@ import {
 } from "framer-motion"
 import {
   GraduationCap,
-  Trophy,
   Star,
   Users,
   Clock,
@@ -127,8 +126,11 @@ function SocialProofTicker() {
 
 export function HeroSection() {
   const prefersReducedMotion = useReducedMotion()
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => setMounted(true), [])
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  )
 
   /* Parallax: text moves slower, image moves faster */
   const { scrollY } = useScroll()

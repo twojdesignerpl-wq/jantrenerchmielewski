@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     description:
       "Realne efekty 200+ klientów — dieta online, plan treningowy, prowadzenie online. Ocena 4.9/5.",
     type: "website",
-    images: [{ url: "/og.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
 }
 

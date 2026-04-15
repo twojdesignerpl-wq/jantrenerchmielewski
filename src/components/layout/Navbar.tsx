@@ -9,7 +9,6 @@ import {
   List,
   X,
   UserCircle,
-  ShoppingBag,
   TrendUp,
   ChartLineUp,
   ChatCircle,

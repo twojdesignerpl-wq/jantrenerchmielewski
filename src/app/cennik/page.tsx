@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     title: "Cennik — Wszystkie usługi | Jan Chmielewski",
     description:
       "Dieta 199 zł, Plan treningowy 149 zł, Prowadzenie online od 399 zł, Trening personalny od 199 zł.",
-    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Cennik Jan Chmielewski" }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Cennik Jan Chmielewski" }],
     type: "website",
   },
   twitter: { card: "summary_large_image" },

@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Link from "next/link"
 import { LenisProvider } from "@/components/providers/LenisProvider"
 import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
     title: "Prowadzenie Online — Kompleksowe wsparcie | Jan Chmielewski",
     description:
       "Dieta + trening + cotygodniowe raporty + kontakt 24/7. Kompleksowe prowadzenie od 399 zł/miesiąc.",
-    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Prowadzenie online Jan Chmielewski" }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Prowadzenie online Jan Chmielewski" }],
     type: "website",
   },
   twitter: { card: "summary_large_image" },
@@ -875,12 +876,12 @@ export default function ProwadzenieOnlinePage() {
             <ScrollReveal delay={0.15}>
               <p className="mt-8 text-center text-sm text-muted-foreground">
                 Nie widzisz swojego miasta?{" "}
-                <a
+                <Link
                   href="/kontakt?service=prowadzenie"
                   className="underline hover:text-foreground transition-colors"
                 >
                   Napisz do mnie
-                </a>{" "}
+                </Link>{" "}
                 — prowadzę klientów z całego kraju.
               </p>
             </ScrollReveal>

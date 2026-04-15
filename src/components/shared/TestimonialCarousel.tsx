@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState, useCallback } from "react"
 import {
   motion,
-  useInView,
+
   useReducedMotion,
   useMotionValue,
   useAnimation,
@@ -104,7 +104,6 @@ function TestimonialCard({
 export function TestimonialCarousel({ className }: { className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(containerRef, { once: true, margin: "-80px" })
   const prefersReducedMotion = useReducedMotion()
   const controls = useAnimation()
   const x = useMotionValue(0)

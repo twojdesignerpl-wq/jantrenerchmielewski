@@ -49,7 +49,7 @@ export const metadata: Metadata = {
       "Trening 1 na 1 z Magistrem Fizjoterapii w Chełmży. Indywidualne podejście, elementy fizjoterapii, kontrola techniki.",
     images: [
       {
-        url: "/og.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Trening personalny Chełmża — Jan Chmielewski",
@@ -453,7 +453,7 @@ export default function TreningPersonalnyChelmzaPage() {
                   <p className="text-base leading-relaxed text-muted-foreground">
                     Standardowy trener personalny skupia się na tym, żebyś wykonał zaplanowane
                     powtórzenia. Trener z wykształceniem fizjoterapeutycznym widzi więcej — zauważa
-                    moment, gdy kolano „zapada" do wewnątrz podczas przysiadu, gdy łopatka
+                    moment, gdy kolano &bdquo;zapada&rdquo; do wewnątrz podczas przysiadu, gdy łopatka
                     odstaje podczas wyciskania, gdy stopa pronuje przy wykroku. Każda z tych
                     kompensacji, bagatelizowana przez miesiące, może skończyć się kontuzją
                     wymagającą rehabilitacji. W moim podejściu prewencja jest wpleciona w każdą
@@ -471,7 +471,7 @@ export default function TreningPersonalnyChelmzaPage() {
                   </h3>
                   <p className="text-base leading-relaxed text-muted-foreground">
                     Jednym z największych mitów w branży fitness jest przekonanie, że po kontuzji
-                    „nie wolno ćwiczyć". W rzeczywistości odpowiednio dobrany ruch jest kluczem
+                    &bdquo;nie wolno ćwiczyć&rdquo;. W rzeczywistości odpowiednio dobrany ruch jest kluczem
                     do szybszego powrotu do zdrowia. Pracuję z osobami po operacjach kolan i
                     barków, z przepuklinami krążków międzykręgowych, po złamaniach i przewlekłych
                     zespołach bólowych. Każdy program jest dostosowany indywidualnie do aktualnego

@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     title: "Dieta 4-tygodniowa Online — 199 zł | Jan Chmielewski",
     description:
       "Spersonalizowany plan żywieniowy dopasowany do Twoich celów. Analiza metabolizmu, kalkulacja kaloryczna, lista zakupów.",
-    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Dieta online Jan Chmielewski" }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Dieta online Jan Chmielewski" }],
     type: "website",
   },
   twitter: { card: "summary_large_image" },
@@ -447,7 +447,7 @@ export default function DietaOnlinePage() {
                     Kalkulacja oparta na dowodach naukowych
                   </h3>
                   <p className="text-base leading-relaxed text-muted-foreground">
-                    Zapomnij o dietach liczonych „na oko" albo opartych wyłącznie na intuicji. Każdy
+                    Zapomnij o dietach liczonych &bdquo;na oko&rdquo; albo opartych wyłącznie na intuicji. Każdy
                     plan żywieniowy zaczynam od precyzyjnego obliczenia Twojego całkowitego
                     dobowego zapotrzebowania energetycznego — z uwzględnieniem podstawowej przemiany
                     materii (PPM według wzorów Mifflin-St Jeor lub Cunninghama dla osób aktywnych),

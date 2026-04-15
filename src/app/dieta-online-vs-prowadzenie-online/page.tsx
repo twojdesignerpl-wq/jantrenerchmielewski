@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: "Dieta Online vs Prowadzenie Online — Co wybrać? | Jan Chmielewski",
     description:
       "Porównanie diety online (199 zł) i prowadzenia online (399 zł/msc). Która usługa lepiej pasuje do Twoich celów?",
-    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Porównanie usług Jan Chmielewski" }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Porównanie usług Jan Chmielewski" }],
     type: "website",
   },
   twitter: { card: "summary_large_image" },
